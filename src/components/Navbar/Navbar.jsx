@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import logo from '../../assets/logo.png'
-import Container from '../layout/Container'
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -22,11 +21,8 @@ const Navbar = () => {
   }, []);
 
   return (
-    <>
-    
-      <nav className="w-full relative z-50 bg-gradient-to-r from-gray-800 to-gray-700 text-white">
-      <Container>
-        <div className=" mx-auto flex items-center justify-between py-2 px-4">
+    <nav className="w-full relative z-50 bg-gradient-to-r from-gray-800 to-gray-700 text-white">
+      <div className="max-w-7xl mx-auto flex items-center justify-between py-2 px-4">
 
         {/* Logo */}
         <div className="flex items-center">
@@ -35,7 +31,7 @@ const Navbar = () => {
             alt="Logo"
             className="h-10 w-auto mr-4"
           />
-          <span className="text-lg font-bold hidden md:block">Twinkle nad Trend</span>
+          <span className="text-lg font-bold hidden md:block">Twinkle and Trend</span>
         </div>
 
         {/* Desktop Menu */}
@@ -102,7 +98,6 @@ const Navbar = () => {
           </svg>
         </button>
       </div>
-      </Container>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
@@ -150,7 +145,7 @@ const Navbar = () => {
               <input
                 type="text"
                 placeholder="Search here..."
-                className="px-3 py-2 text-black bg-amber-50 rounded-l-md outline-none w-50"
+                className="px-3 py-2 text-black bg-amber-50 rounded-l-md outline-none w-full focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
               <button className="bg-teal-500 px-4 py-2 rounded-r-md hover:bg-teal-600">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -162,8 +157,6 @@ const Navbar = () => {
         </div>
       )}
     </nav>
-    
-    </>
   );
 };
 
