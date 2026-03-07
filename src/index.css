@@ -8,3 +8,20 @@
 	--color-secondary: #fafafa;
 	--color-tertiary: #f5f5f5;
 }
+
+/* Add this at the end of your index.css */
+/* Add this at the end of your index.css */
+
+/* Swiper Custom Styles */
+.mySwiper {
+  padding-bottom: 40px;
+}
+
+.mySwiper .swiper-pagination-bullet-active {
+  background-color: #E6A0B5;
+}
+
+.mySwiper .swiper-button-next,
+.mySwiper .swiper-button-prev {
+  color: #E6A0B5;
+}

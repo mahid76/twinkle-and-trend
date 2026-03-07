@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import logo from "../../assets/logo.png";
 import Container from "../layout/Container";
+import { Link } from "react-router";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -26,19 +27,21 @@ const Navbar = () => {
       <Container>
         <div className="flex items-center justify-between py-2">
           {/* Logo */}
+          <Link to="/">
           <div className="flex items-center">
             <img src={logo} alt="Logo" className="h-10 w-auto mr-4" />
             <span className="text-lg font-primary font-bold hidden md:block">
               Twinkle and Trend
             </span>
           </div>
+          </Link>
 
           {/* Desktop Menu */}
           <ul className="hidden font-secondary md:flex space-x-6 text-sm items-center">
-            <li className="hover:text-gray-300 px-6 py-3 cursor-pointer">Home</li>
-            <li className="hover:text-gray-300 px-6 py-3 cursor-pointer">
-              Offers
-            </li>
+            <Link to="/" className="hover:text-gray-300 px-6 py-3 cursor-pointer">Home</Link>
+            <Link to="/products" className="hover:text-gray-300 px-6 py-3 cursor-pointer">
+              Product
+            </Link>
 
             {/* Categories Dropdown - Desktop */}
             <li className="relative group" ref={dropdownRef}>

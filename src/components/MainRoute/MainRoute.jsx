@@ -1,13 +1,13 @@
 import { Outlet } from "react-router";
-import Navbar from '../Navbar/Navbar'
 import Footer from "../Footer/Footer";
+import Navbar from "../Navbar/Navbar";
 const MainRoute = () => {
 	return (
-		<div>
-			
+		<>
+			<Navbar />
 			<Outlet />
 			<Footer />
-		</div>
+		</>
 	);
 };
 
