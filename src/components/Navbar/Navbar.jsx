@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import logo from '../../assets/logo.png'
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -10,9 +11,9 @@ const Navbar = () => {
         {/* Logo */}
         <div className="flex items-center">
           <img
-            src="/logo.png"
+            src={logo}
             alt="Logo"
-            className="h-8 w-auto mr-4"
+            className="h-10 w-auto mr-4"
           />
         </div>
 
