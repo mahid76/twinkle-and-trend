@@ -1,3 +1,4 @@
+// src/components/Navbar/Navbar.jsx
 import { useEffect, useRef, useState } from "react";
 import logo from "../../assets/logo.png";
 import Container from "../layout/Container";
@@ -6,6 +7,7 @@ import { Link } from "react-router";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   // Click Outside Handler
@@ -28,12 +30,12 @@ const Navbar = () => {
         <div className="flex items-center justify-between py-2">
           {/* Logo */}
           <Link to="/">
-          <div className="flex items-center">
-            <img src={logo} alt="Logo" className="h-10 w-auto mr-4" />
-            <span className="text-lg font-primary font-bold hidden md:block">
-              Twinkle and Trend
-            </span>
-          </div>
+            <div className="flex items-center">
+              <img src={logo} alt="Logo" className="h-10 w-auto mr-4" />
+              <span className="text-lg font-primary font-bold hidden md:block">
+                Twinkle and Trend
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Menu */}
@@ -100,7 +102,10 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() => {
+              setMobileMenuOpen(!mobileMenuOpen);
+              setMobileDropdownOpen(false);
+            }}
             className="md:hidden text-white focus:outline-none"
           >
             <svg
@@ -144,12 +149,12 @@ const Navbar = () => {
               {/* Mobile Categories Dropdown */}
               <li>
                 <button
-                  onClick={() => setOpen(!open)}
+                  onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
                   className="w-full text-left px-4 py-3 hover:text-gray-300 cursor-pointer flex justify-between items-center"
                 >
                   <span className="font-medium">Categories</span>
                   <svg
-                    className={`w-4 h-4 transform transition-transform ${open ? "rotate-180" : ""}`}
+                    className={`w-4 h-4 transform transition-transform ${mobileDropdownOpen ? "rotate-180" : ""}`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -163,7 +168,7 @@ const Navbar = () => {
                   </svg>
                 </button>
 
-                {open && (
+                {mobileDropdownOpen && (
                   <ul className="ml-4 mt-2 space-y-2 bg-white rounded-md shadow-lg p-2">
                     <li className="px-4 py-3 hover:bg-gray-100 rounded-md cursor-pointer text-sm font-medium text-black">
                       Electronics
