@@ -83,7 +83,7 @@ const Navbar = () => {
               </ul>
             </li>
 
-            <li className="hover:text-gray-300 cursor-pointer">Contact Us</li>
+            <Link to="/ContactUs" className="hover:text-gray-300 cursor-pointer">Contact Us</Link>
           </ul>
 
           {/* Search Bar - Desktop */}
