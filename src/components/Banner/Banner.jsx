@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import Banner01 from '../../assets/banner01.jpeg'
 
 const slides = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+    image: Banner01 ,
     title: "Build Modern Websites",
     desc: "Create fast and responsive websites with modern technologies.",
   },
@@ -49,7 +50,7 @@ const BannerSlider = () => {
           />
 
           {/* Overlay Content */}
-          <div className="absolute inset-0 bg-black/50 text-center flex items-center">
+          <div className="absolute inset-0 bg-black/20 text-center flex items-center">
             <div className="max-w-6xl mx-auto px-8  text-white">
               <h1 className="text-4xl md:text-6xl font-bold mb-4">
                 {slide.title}
