@@ -1,9 +1,10 @@
-
+// src/components/BestSellingProducts/BestSellingProducts.jsx
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import tr1 from "../../assets/t&tr1.JPEG";
 import tr2 from "../../assets/t&tr2.jpg";
@@ -11,49 +12,56 @@ import tr3 from "../../assets/t&tr3.jpg";
 import tr4 from "../../assets/t&tr4.jpg";
 import tr5 from "../../assets/t&tr5.jpg";
 
+// ✅ Move settings outside component to avoid re-creation
+const settings = {
+	customPaging: () => (
+		<div className="w-3 h-3 rounded-full bg-[#7D8184]"></div>
+	),
+	dots: true,
+	dotsClass: "custom_slider",
+	infinite: true,
+	speed: 500,
+	slidesToShow: 4,
+	slidesToScroll: 1,
+	arrows: false,
+	autoplay: true,
+	autoplaySpeed: 2000,
+	pauseOnHover: true,
+	responsive: [
+		{
+			breakpoint: 1280,
+			settings: {
+				slidesToShow: 4,
+				slidesToScroll: 1,
+			},
+		},
+		{
+			breakpoint: 1024,
+			settings: {
+				slidesToShow: 3,
+				slidesToScroll: 1,
+			},
+		},
+		{
+			breakpoint: 768,
+			settings: {
+				slidesToShow: 2,
+				slidesToScroll: 1,
+			},
+		},
+		{
+			breakpoint: 640,
+			settings: {
+				slidesToShow: 1,
+				slidesToScroll: 1,
+			},
+		},
+	],
+};
+
 const BestSellingProducts = () => {
 	const [products, setProducts] = useState([]);
 	const [loading, setLoading] = useState(true);
-
-	const settings = {
-		customPaging: () => (
-			<div className="w-3 h-3 rounded-full bg-[#7D8184]"></div>
-		),
-		dots: true,
-		dotsClass: "custom_slider",
-		infinite: true,
-		speed: 500,
-		slidesToShow: 4,
-		slidesToScroll: 1,
-		arrows: false,
-		autoplay: true,
-		autoplaySpeed: 2000,
-		pauseOnHover: true,
-
-		responsive: [
-			{
-				breakpoint: 1024,
-				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 3,
-				},
-			},
-			{
-				breakpoint: 768,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2,
-				},
-			},
-			{
-				breakpoint: 640,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1,
-				},
-			},
-		],
-	};
 
 	useEffect(() => {
 		const mockProducts = [

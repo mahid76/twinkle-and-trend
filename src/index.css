@@ -13,6 +13,7 @@
 	display: flex !important;
 	justify-content: center;
 	margin-top: 20px;
+	padding-bottom: 80px;
 }
 
 .custom_slider li {
@@ -24,8 +25,45 @@
 	height: 12px;
 	background: #7d8184;
 	border-radius: 50%;
+	transition: all 0.3s ease;
 }
 
 .custom_slider li.slick-active div {
 	background: #db4444;
+	width: 16px;
+	height: 16px;
+}
+
+/* Responsive Product Cards */
+@media (max-width: 1024px) {
+	.custom_slider .slick-slide {
+		padding: 0 10px;
+	}
+}
+
+@media (max-width: 768px) {
+	.custom_slider .slick-slide {
+		padding: 0 5px;
+	}
+}
+
+@media (max-width: 640px) {
+	.custom_slider .slick-slide {
+		padding: 0 5px;
+	}
+}
+
+/* Product Card Responsive */
+@media (max-width: 640px) {
+	.custom_slider .slick-slide div {
+		padding: 1rem;
+	}
+	
+	.custom_slider .slick-slide div h3 {
+		font-size: 1rem;
+	}
+	
+	.custom_slider .slick-slide div p {
+		font-size: 0.875rem;
+	}
 }
