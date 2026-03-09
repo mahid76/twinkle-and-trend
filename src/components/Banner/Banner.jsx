@@ -67,6 +67,7 @@ const BannerSlider = () => {
         </div>
       ))}
     </section>
+    
   );
 };
 
