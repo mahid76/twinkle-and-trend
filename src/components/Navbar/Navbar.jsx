@@ -3,18 +3,13 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import Container from "../layout/Container";
-import { products } from "../../data/products";
 
 const Navbar = () => {
 	const [open, setOpen] = useState(false);
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
-	const [searchQuery, setSearchQuery] = useState("");
-	const [searchResults, setSearchResults] = useState([]);
-	const [showSuggestions, setShowSuggestions] = useState(false);
 
 	const dropdownRef = useRef(null);
-	const searchRef = useRef(null);
 	const { pathname, search } = useLocation();
 
 	// Close mobile menu when route changes
@@ -29,9 +24,6 @@ const Navbar = () => {
 			if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
 				setOpen(false);
 			}
-			if (searchRef.current && !searchRef.current.contains(event.target)) {
-				setShowSuggestions(false);
-			}
 		};
 
 		document.addEventListener("mousedown", handleClickOutside);
@@ -40,37 +32,6 @@ const Navbar = () => {
 			document.removeEventListener("mousedown", handleClickOutside);
 		};
 	}, []);
-
-	// Search with Debounce
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			if (searchQuery.trim().length > 0) {
-				const filtered = products.filter((product) =>
-					product.name.toLowerCase().includes(searchQuery.toLowerCase())
-				);
-				setSearchResults(filtered.slice(0, 5));
-				setShowSuggestions(true);
-			} else {
-				setSearchResults([]);
-				setShowSuggestions(false);
-			}
-		}, 300);
-
-		return () => clearTimeout(timer);
-	}, [searchQuery]);
-
-	// Handle Search Submit
-	const handleSearch = (e) => {
-		e.preventDefault();
-		if (searchQuery.trim()) {
-			window.location.href = `/products?search=${encodeURIComponent(searchQuery.trim())}`;
-		}
-	};
-
-	// Handle Product Click from Suggestions
-	const handleProductClick = (productId) => {
-		window.location.href = `/products/${productId}`;
-	};
 
 	// Category Links
 	const categories = [
@@ -153,52 +114,15 @@ const Navbar = () => {
 					</ul>
 
 					{/* Desktop Search */}
-					<div className="hidden md:flex items-center w-64" ref={searchRef}>
-						<form onSubmit={handleSearch} className="relative flex w-full">
-							<input
-								type="text"
-								placeholder="Search here..."
-								value={searchQuery}
-								onChange={(e) => setSearchQuery(e.target.value)}
-								onFocus={() => searchQuery.trim() && setShowSuggestions(true)}
-								className="px-3 py-1 text-black bg-amber-50 rounded-l-md outline-none w-full"
-							/>
-							{showSuggestions && searchResults.length > 0 && (
-								<div className="absolute top-full left-0 right-0 bg-white text-black rounded-md shadow-lg mt-1 z-50 max-h-60 overflow-y-auto">
-									{searchResults.map((product) => (
-										<button
-											key={product.id}
-											type="button"
-											onClick={() => handleProductClick(product.id)}
-											className="w-full px-4 py-3 text-left hover:bg-gray-100 flex items-center gap-3"
-										>
-											<img
-												src={product.image}
-												alt={product.name}
-												className="w-10 h-10 object-cover rounded"
-											/>
-											<div>
-												<p className="text-sm font-medium text-gray-800">
-													{product.name}
-												</p>
-												<p className="text-xs text-teal-500">৳{product.price}</p>
-											</div>
-										</button>
-									))}
-								</div>
-							)}
-							{showSuggestions && searchResults.length === 0 && searchQuery.trim() && (
-								<div className="absolute top-full left-0 right-0 bg-white text-black rounded-md shadow-lg mt-1 p-4">
-									<p className="text-sm text-gray-500">No products found</p>
-								</div>
-							)}
-							<button
-								type="submit"
-								className="bg-teal-500 px-4 py-1 rounded-r-md hover:bg-teal-600"
-							>
-								Search
-							</button>
-						</form>
+					<div className="hidden md:flex items-center w-64">
+						<input
+							type="text"
+							placeholder="Search here..."
+							className="px-3 py-1 text-black bg-amber-50 rounded-l-md outline-none w-full"
+						/>
+						<button className="bg-teal-500 px-4 py-1 rounded-r-md hover:bg-teal-600">
+							Search
+						</button>
 					</div>
 
 					{/* Mobile Menu Button */}
@@ -248,29 +172,13 @@ const Navbar = () => {
 								Product
 							</Link>
 
-							{/* Mobile Categories with Icon */}
+							{/* Mobile Dropdown */}
 							<li>
 								<button
 									onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
-									className="w-full text-left px-4 py-3 flex justify-between items-center hover:text-gray-300"
+									className="w-full text-left px-4 py-3 flex justify-between items-center"
 								>
-									<div className="flex items-center gap-2">
-										
-										<span>Categories</span>
-									</div>
-									<svg
-										className={`w-4 h-4 transition-transform ${mobileDropdownOpen ? "rotate-180" : ""}`}
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M19 9l-7 7-7-7"
-										/>
-									</svg>
+									Categories
 								</button>
 
 								{mobileDropdownOpen && (
@@ -295,60 +203,16 @@ const Navbar = () => {
 
 						{/* Mobile Search */}
 						<div className="px-4 pb-4">
-							<form onSubmit={handleSearch} className="flex items-center" ref={searchRef}>
+							<div className="flex items-center">
 								<input
 									type="text"
 									placeholder="Search here..."
-									value={searchQuery}
-									onChange={(e) => setSearchQuery(e.target.value)}
-									onFocus={() => searchQuery.trim() && setShowSuggestions(true)}
 									className="px-3 py-2 text-black bg-amber-50 rounded-l-md outline-none w-full"
 								/>
-								{showSuggestions && searchResults.length > 0 && (
-									<div className="absolute top-full left-0 right-0 bg-white text-black rounded-md shadow-lg mt-1 z-50 max-h-60 overflow-y-auto">
-										{searchResults.map((product) => (
-											<button
-												key={product.id}
-												type="button"
-												onClick={() => handleProductClick(product.id)}
-												className="w-full px-4 py-3 text-left hover:bg-gray-100 flex items-center gap-3"
-											>
-												<img
-													src={product.image}
-													alt={product.name}
-													className="w-10 h-10 object-cover rounded"
-												/>
-												<div>
-													<p className="text-sm font-medium text-gray-800">
-														{product.name}
-													</p>
-													<p className="text-xs text-teal-500">৳{product.price}</p>
-												</div>
-											</button>
-										))}
-									</div>
-								)}
-								{showSuggestions && searchResults.length === 0 && searchQuery.trim() && (
-									<div className="absolute top-full left-0 right-0 bg-white text-black rounded-md shadow-lg mt-1 p-4">
-										<p className="text-sm text-gray-500">No products found</p>
-									</div>
-								)}
-								<button type="submit" className="bg-teal-500 px-4 py-2 rounded-r-md hover:bg-teal-600">
-									<svg
-										className="w-5 h-5"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-										/>
-									</svg>
+								<button className="bg-teal-500 px-4 py-2 rounded-r-md hover:bg-teal-600">
+									Search
 								</button>
-							</form>
+							</div>
 						</div>
 					</Container>
 				</div>
