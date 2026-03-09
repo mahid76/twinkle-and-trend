@@ -1,12 +1,8 @@
 // src/pages/ProductDetail/ProductDetail.jsx
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router";
+import { useParams, Link } from "react-router-dom";
 import Container from "../../components/layout/Container";
-import tr1 from "../../assets/t&tr1.JPEG";
-import tr2 from "../../assets/t&tr2.jpg";
-import tr3 from "../../assets/t&tr3.jpg";
-import tr4 from "../../assets/t&tr4.jpg";
-import tr5 from "../../assets/t&tr5.jpg";
+import { getProductById } from "../../data/products";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -15,120 +11,43 @@ const ProductDetail = () => {
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [activeImage, setActiveImage] = useState(0);
-  const [_activeTab, _setActiveTab] = useState("description");
 
-  // Mock product data
-  const mockProducts = [
-    {
-      id: 1,
-      name: "Bag",
-      price: 2999,
-      image: tr1,
-      rating: 4.5,
-      description: "Premium quality leather bag with multiple compartments. Perfect for daily use.",
-      category: "Fashion",
-      stock: 5,
-      images: [tr1, tr1, tr1, tr1],
-      features: [
-        "Genuine leather material",
-        "Multiple compartments",
-        "Adjustable shoulder strap",
-        "Dimensions: 30x20x10 cm",
-      ],
-    },
-    {
-      id: 2,
-      name: "Cat Doll",
-      price: 599,
-      image: tr2,
-      rating: 4.2,
-      description: "Soft and cuddly cat doll. Great gift for kids and cat lovers.",
-      category: "Toys",
-      stock: 100,
-      images: [tr2, tr2, tr2, tr2],
-      features: [
-        "Soft plush material",
-        "Machine washable",
-        "Dimensions: 25x15x15 cm",
-        "Suitable for ages 3+",
-      ],
-    },
-    {
-      id: 3,
-      name: "Stanley",
-      price: 399,
-      image: tr3,
-      rating: 4.8,
-      description: "Classic Stanley cup. Keeps drinks cold for 24 hours.",
-      category: "Home & Kitchen",
-      stock: 75,
-      images: [tr3, tr3, tr3, tr3],
-      features: [
-        "Double-wall insulation",
-        "Leak-proof lid",
-        "Capacity: 500ml",
-        "BPA-free material",
-      ],
-    },
-    {
-      id: 4,
-      name: "Two doll",
-      price: 1999,
-      image: tr4,
-      rating: 4.6,
-      description: "Beautiful two doll set. Perfect for collection.",
-      category: "Toys",
-      stock: 30,
-      images: [tr4, tr4, tr4, tr4],
-      features: [
-        "Set of 2 dolls",
-        "High-quality fabric",
-        "Hand-wash recommended",
-        "Dimensions: 30x20x10 cm each",
-      ],
-    },
-    {
-      id: 5,
-      name: "Tashbih",
-      price: 4999,
-      image: tr5,
-      rating: 4.7,
-      description: "Premium quality tashbih. Made with natural materials.",
-      category: "Religious",
-      stock: 25,
-      images: [tr5, tr5, tr5, tr5],
-      features: [
-        "Natural wood beads",
-        "Elegant design",
-        "Includes carrying pouch",
-        "100 beads",
-      ],
-    },
-  ];
-
+  // Fetch Product Data
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const product = mockProducts.find((p) => p.id === parseInt(id));
-        if (product) {
-          setProduct(product);
-        } else {
-          setError("Product not found");
-        }
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const foundProduct = getProductById(id);
+      if (foundProduct) {
+        setProduct(foundProduct);
+      } else {
+        setError("Product not found");
       }
-    };
-
-    fetchProduct();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }, [id]);
 
-  const handleAddToCart = () => {
-    alert(`Added ${quantity} x ${product.name} to cart!`);
+  // Handle Quantity Change
+  const handleQuantityChange = (change) => {
+    setQuantity((prev) => {
+      const newQuantity = prev + change;
+      return newQuantity >= 1 && newQuantity <= product?.stock ? newQuantity : prev;
+    });
   };
 
+  // Handle Add to Cart
+  const handleAddToCart = () => {
+    if (product?.stock > 0) {
+      // TODO: Add to cart logic here
+      alert(`Added ${quantity} x ${product.name} to cart!`);
+    }
+  };
+
+  // Loading State
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -140,6 +59,7 @@ const ProductDetail = () => {
     );
   }
 
+  // Error State
   if (error || !product) {
     return (
       <Container>
@@ -233,14 +153,14 @@ const ProductDetail = () => {
                 <span className="text-gray-600 font-medium">Quantity:</span>
                 <div className="flex items-center border border-gray-300 rounded-md">
                   <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    onClick={() => handleQuantityChange(-1)}
                     className="px-4 py-2 hover:bg-gray-100 transition-colors"
                   >
                     -
                   </button>
                   <span className="px-6 py-2 font-medium">{quantity}</span>
                   <button
-                    onClick={() => setQuantity(quantity + 1)}
+                    onClick={() => handleQuantityChange(1)}
                     className="px-4 py-2 hover:bg-gray-100 transition-colors"
                   >
                     +
