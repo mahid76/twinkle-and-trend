@@ -1,106 +1,38 @@
 // src/pages/Products/Products.jsx
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
-import "slick-carousel/slick/slick-theme.css";
-import "slick-carousel/slick/slick.css";
-import tr1 from "../../assets/t&tr1.JPEG";
-import tr2 from "../../assets/t&tr2.jpg";
-import tr3 from "../../assets/t&tr3.jpg";
-import tr4 from "../../assets/t&tr4.jpg";
-import tr5 from "../../assets/t&tr5.jpg";
+import { Link, useSearchParams } from "react-router-dom";
 import Container from "../../components/layout/Container";
+import { products } from "../../data/products";
 
 const Products = () => {
-	const [products, setProducts] = useState([]);
-	const [loading, setLoading] = useState(true);
+	const [searchParams, setSearchParams] = useSearchParams();
 	const [searchTerm, setSearchTerm] = useState("");
 	const [selectedCategory, setSelectedCategory] = useState("");
 	const [sortBy, setSortBy] = useState("default");
+	const [currentPage, setCurrentPage] = useState(1);
+	const itemsPerPage = 12;
 
-	// Mock product data
-	const mockProducts = [
-		{
-			id: 1,
-			name: "Bag",
-			price: 2999,
-			image: tr1,
-			rating: 4.5,
-			category: "Fashion",
-			stock: 50,
-		},
-		{
-			id: 2,
-			name: "Cat Doll",
-			price: 599,
-			image: tr2,
-			rating: 4.2,
-			category: "Toys",
-			stock: 100,
-		},
-		{
-			id: 3,
-			name: "Stanley",
-			price: 399,
-			image: tr3,
-			rating: 4.8,
-			category: "Home & Kitchen",
-			stock: 75,
-		},
-		{
-			id: 4,
-			name: "Two doll",
-			price: 1999,
-			image: tr4,
-			rating: 4.6,
-			category: "Toys",
-			stock: 30,
-		},
-		{
-			id: 5,
-			name: "Tashbih",
-			price: 4999,
-			image: tr5,
-			rating: 4.7,
-			category: "Religious",
-			stock: 25,
-		},
-		{
-			id: 6,
-			name: "Leather Wallet",
-			price: 1299,
-			image: tr1,
-			rating: 4.3,
-			category: "Fashion",
-			stock: 60,
-		},
-		{
-			id: 7,
-			name: "Sunglasses",
-			price: 899,
-			image: tr2,
-			rating: 4.4,
-			category: "Fashion",
-			stock: 45,
-		},
-		{
-			id: 8,
-			name: "Kitchen Knife Set",
-			price: 2499,
-			image: tr3,
-			rating: 4.9,
-			category: "Home & Kitchen",
-			stock: 20,
-		},
-	];
+	// Get Unique Categories
+	const categories = ["All", ...new Set(products.map((p) => p.category))];
 
+	// Initialize from URL params
 	useEffect(() => {
-		setTimeout(() => {
-			setProducts(mockProducts);
-			setLoading(false);
-		}, 1000);
-	}, []);
+		const categoryParam = searchParams.get("category");
+		if (categoryParam) {
+			// Convert URL slug to category name
+			const categoryMap = {
+				fashion: "Fashion",
+				toys: "Toys",
+				"home-kitchen": "Home & Kitchen",
+				religious: "Religious",
+				electronics: "Electronics",
+				sports: "Sports",
+			};
+			setSelectedCategory(categoryMap[categoryParam] || "");
+		}
+	}, [searchParams]);
 
-	// Filter products
+	// Filter Products
 	const filteredProducts = products.filter((product) => {
 		const matchesSearch = product.name
 			.toLowerCase()
@@ -110,7 +42,7 @@ const Products = () => {
 		return matchesSearch && matchesCategory;
 	});
 
-	// Sort products
+	// Sort Products
 	const sortedProducts = [...filteredProducts].sort((a, b) => {
 		if (sortBy === "price-low") return a.price - b.price;
 		if (sortBy === "price-high") return b.price - a.price;
@@ -118,19 +50,53 @@ const Products = () => {
 		return 0;
 	});
 
-	// Categories
-	const categories = ["All", "Fashion", "Toys", "Home & Kitchen", "Religious"];
+	// Pagination Logic
+	const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
+	const startIndex = (currentPage - 1) * itemsPerPage;
+	const endIndex = startIndex + itemsPerPage;
+	const currentProducts = sortedProducts.slice(startIndex, endIndex);
 
-	if (loading) {
-		return (
-			<div className="flex items-center justify-center min-h-screen">
-				<div className="text-center">
-					<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500 mx-auto mb-4"></div>
-					<p className="text-gray-600">Loading products...</p>
-				</div>
-			</div>
-		);
-	}
+	// Reset to page 1 when filters change
+	const handleFilterChange = () => {
+		setCurrentPage(1);
+	};
+
+	// Handle Page Change
+	const handlePageChange = (page) => {
+		if (page >= 1 && page <= totalPages) {
+			setCurrentPage(page);
+			window.scrollTo({ top: 0, behavior: "smooth" });
+		}
+	};
+
+	// Get Page Numbers to Display
+	const getPageNumbers = () => {
+		const pages = [];
+		const maxVisiblePages = 5;
+
+		if (totalPages <= maxVisiblePages) {
+			for (let i = 1; i <= totalPages; i++) {
+				pages.push(i);
+			}
+		} else {
+			if (currentPage <= 3) {
+				for (let i = 1; i <= 4; i++) pages.push(i);
+				pages.push("...");
+				pages.push(totalPages);
+			} else if (currentPage >= totalPages - 2) {
+				pages.push(1);
+				pages.push("...");
+				for (let i = totalPages - 3; i <= totalPages; i++) pages.push(i);
+			} else {
+				pages.push(1);
+				pages.push("...");
+				for (let i = currentPage - 1; i <= currentPage + 1; i++) pages.push(i);
+				pages.push("...");
+				pages.push(totalPages);
+			}
+		}
+		return pages;
+	};
 
 	return (
 		<Container>
@@ -141,7 +107,7 @@ const Products = () => {
 						Shop All Products
 					</h1>
 					<p className="text-gray-600">
-						{filteredProducts.length} products found
+						{sortedProducts.length} products found
 					</p>
 				</div>
 
@@ -154,7 +120,10 @@ const Products = () => {
 								type="text"
 								placeholder="Search products..."
 								value={searchTerm}
-								onChange={(e) => setSearchTerm(e.target.value)}
+								onChange={(e) => {
+									setSearchTerm(e.target.value);
+									handleFilterChange();
+								}}
 								className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E6A0B5]"
 							/>
 							<svg
@@ -175,7 +144,10 @@ const Products = () => {
 						{/* Category Filter */}
 						<select
 							value={selectedCategory}
-							onChange={(e) => setSelectedCategory(e.target.value)}
+							onChange={(e) => {
+								setSelectedCategory(e.target.value);
+								handleFilterChange();
+							}}
 							className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E6A0B5]"
 						>
 							<option value="">All Categories</option>
@@ -191,7 +163,10 @@ const Products = () => {
 						{/* Sort By */}
 						<select
 							value={sortBy}
-							onChange={(e) => setSortBy(e.target.value)}
+							onChange={(e) => {
+								setSortBy(e.target.value);
+								handleFilterChange();
+							}}
 							className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E6A0B5]"
 						>
 							<option value="default">Sort By: Default</option>
@@ -207,9 +182,10 @@ const Products = () => {
 					{categories.map((category) => (
 						<button
 							key={category}
-							onClick={() =>
-								setSelectedCategory(category === "All" ? "" : category)
-							}
+							onClick={() => {
+								setSelectedCategory(category === "All" ? "" : category);
+								handleFilterChange();
+							}}
 							className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
 								(category === "All" && selectedCategory === "") ||
 								selectedCategory === category
@@ -223,62 +199,117 @@ const Products = () => {
 				</div>
 
 				{/* Products Grid */}
-				{sortedProducts.length > 0 ? (
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-						{sortedProducts.map((product) => (
-							<Link
-								key={product.id}
-								to={`/products/${product.id}`}
-								className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-							>
-								{/* Product Image */}
-								<div className="relative overflow-hidden">
-									<img
-										src={product.image}
-										alt={product.name}
-										className="w-full h-64 object-cover"
-									/>
-									{product.stock === 0 && (
-										<div className="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-											Out of Stock
-										</div>
-									)}
-									{product.stock < 10 && product.stock > 0 && (
-										<div className="absolute top-2 left-2 bg-[#E6A0B5] text-white px-3 py-1 rounded-full text-sm font-medium">
-											Only {product.stock} left!
-										</div>
-									)}
-								</div>
-
-								{/* Product Info */}
-								<div className="p-4">
-									<div className="flex items-center justify-between mb-2">
-										<span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
-											{product.category}
-										</span>
-										<div className="flex items-center">
-											<span className="text-yellow-500 text-sm">★</span>
-											<span className="text-gray-600 text-sm ml-1">
-												{product.rating}
-											</span>
-										</div>
+				{currentProducts.length > 0 ? (
+					<>
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+							{currentProducts.map((product) => (
+								<Link
+									key={product.id}
+									to={`/products/${product.id}`}
+									className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+								>
+									{/* Product Image */}
+									<div className="relative overflow-hidden">
+										<img
+											src={product.image}
+											alt={product.name}
+											className="w-full h-64 object-cover"
+										/>
+										{product.stock === 0 && (
+											<div className="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+												Out of Stock
+											</div>
+										)}
+										{product.stock < 10 && product.stock > 0 && (
+											<div className="absolute top-2 left-2 bg-[#E6A0B5] text-white px-3 py-1 rounded-full text-sm font-medium">
+												Only {product.stock} left!
+											</div>
+										)}
 									</div>
 
-									<h3 className="text-lg font-bold text-gray-800 mb-2 truncate">
-										{product.name}
-									</h3>
+									{/* Product Info */}
+									<div className="p-4">
+										<div className="flex items-center justify-between mb-2">
+											<span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+												{product.category}
+											</span>
+											<div className="flex items-center">
+												<span className="text-yellow-500 text-sm">★</span>
+												<span className="text-gray-600 text-sm ml-1">
+													{product.rating}
+												</span>
+											</div>
+										</div>
 
-									<p className="text-teal-500 font-bold text-xl mb-3">
-										৳{product.price}
-									</p>
+										<h3 className="text-lg font-bold text-gray-800 mb-2 truncate">
+											{product.name}
+										</h3>
 
-									<button className="w-full bg-teal-500 text-white px-4 py-2 rounded-md hover:bg-teal-600 transition-colors">
-										View Details
+										<p className="text-teal-500 font-bold text-xl mb-3">
+											৳{product.price}
+										</p>
+
+										<button className="w-full bg-teal-500 text-white px-4 py-2 rounded-md hover:bg-teal-600 transition-colors">
+											View Details
+										</button>
+									</div>
+								</Link>
+							))}
+						</div>
+
+						{/* Pagination */}
+						{totalPages > 1 && (
+							<div className="flex justify-center mt-12">
+								<nav className="flex items-center space-x-2">
+									{/* Previous Button */}
+									<button
+										onClick={() => handlePageChange(currentPage - 1)}
+										disabled={currentPage === 1}
+										className={`px-4 py-2 rounded-md transition-colors ${
+											currentPage === 1
+												? "bg-gray-200 text-gray-400 cursor-not-allowed"
+												: "bg-white border border-gray-300 hover:bg-gray-50"
+										}`}
+									>
+										Previous
 									</button>
-								</div>
-							</Link>
-						))}
-					</div>
+
+									{/* Page Numbers */}
+									{getPageNumbers().map((page, index) => (
+										<button
+											key={index}
+											onClick={() =>
+												typeof page === "number" && handlePageChange(page)
+											}
+											className={`px-4 py-2 rounded-md transition-colors ${
+												page === currentPage
+													? "bg-[#E6A0B5] text-white"
+													: page === "..."
+														? "cursor-default"
+														: "bg-white border border-gray-300 hover:bg-gray-50"
+											}`}
+											disabled={page === "..."}
+										>
+											{page}
+										</button>
+									))}
+
+									{/* Next Button */}
+									<button
+										onClick={() => handlePageChange(currentPage + 1)}
+										disabled={currentPage === totalPages}
+										className={`px-4 py-2 rounded-md transition-colors ${
+											currentPage === totalPages
+												? "bg-gray-200 text-gray-400 cursor-not-allowed"
+												: "bg-white border border-gray-300 hover:bg-gray-50"
+										}`}
+									>
+										Next
+									</button>
+								</nav>
+							</div>
+						)}
+					</>
 				) : (
 					<div className="text-center py-12">
 						<svg
@@ -306,34 +337,12 @@ const Products = () => {
 								setSearchTerm("");
 								setSelectedCategory("");
 								setSortBy("default");
+								handleFilterChange();
 							}}
 							className="bg-[#E6A0B5] text-white px-6 py-2 rounded-md hover:bg-[#F6D6DF] transition-colors"
 						>
 							Clear Filters
 						</button>
-					</div>
-				)}
-
-				{/* Pagination */}
-				{sortedProducts.length > 0 && (
-					<div className="flex justify-center mt-12">
-						<nav className="flex space-x-2">
-							<button className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
-								Previous
-							</button>
-							<button className="px-4 py-2 bg-[#E6A0B5] text-white rounded-md">
-								1
-							</button>
-							<button className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
-								2
-							</button>
-							<button className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
-								3
-							</button>
-							<button className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
-								Next
-							</button>
-						</nav>
 					</div>
 				)}
 			</div>

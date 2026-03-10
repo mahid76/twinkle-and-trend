@@ -1,6 +1,6 @@
 // src/components/Navbar/Navbar.jsx
 import { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import Container from "../layout/Container";
 
@@ -10,13 +10,15 @@ const Navbar = () => {
 	const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
 
 	const dropdownRef = useRef(null);
-	const { pathname } = useLocation();
+	const { pathname, search } = useLocation();
+	const navigate = useNavigate();
 
-	// Close mobile menu when route changes
+	// ✅ FIXED: Close mobile menu when route changes
 	useEffect(() => {
 		setMobileMenuOpen(false);
 		setMobileDropdownOpen(false);
-	}, [pathname]); 
+		setOpen(false);
+	}, [pathname]);
 
 	// Close desktop dropdown when clicking outside
 	useEffect(() => {
@@ -33,12 +35,29 @@ const Navbar = () => {
 		};
 	}, []);
 
+	// Category Links
+	const categories = [
+		{ name: "Fashion", slug: "fashion" },
+		{ name: "Toys", slug: "toys" },
+		{ name: "Home & Kitchen", slug: "home-kitchen" },
+		{ name: "Religious", slug: "religious" },
+		{ name: "Electronics", slug: "electronics" },
+		{ name: "Sports", slug: "sports" },
+	];
+
+	// ✅ FIXED: Handle Link Click to Close Mobile Menu
+	const handleLinkClick = () => {
+		setMobileMenuOpen(false);
+		setMobileDropdownOpen(false);
+		setOpen(false);
+	};
+
 	return (
 		<nav className="w-full relative z-50 bg-gradient-to-r from-gray-800 to-gray-700 text-white">
 			<Container>
 				<div className="flex items-center justify-between py-2">
 					{/* Logo */}
-					<Link to="/">
+					<Link to="/" onClick={handleLinkClick}>
 						<div className="flex items-center">
 							<img src={logo} alt="Logo" className="h-10 w-auto mr-4" />
 							<span className="text-lg font-primary font-bold hidden md:block">
@@ -86,27 +105,15 @@ const Navbar = () => {
 										: "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
 								}`}
 							>
-								<Link to="/">
-									<li className="px-4 py-3 hover:bg-gray-100 text-sm">
-										Electronics
-									</li>
-								</Link>
-
-								<Link to="/">
-									<li className="px-4 py-3 hover:bg-gray-100 text-sm">
-										Fashion
-									</li>
-								</Link>
-
-								<Link to="/">
-									<li className="px-4 py-3 hover:bg-gray-100 text-sm">Books</li>
-								</Link>
-
-								<Link to="/">
-									<li className="px-4 py-3 hover:bg-gray-100 text-sm">
-										Home & Kitchen
-									</li>
-								</Link>
+								{categories.map((category) => (
+									<Link
+										key={category.slug}
+										to={`/products?category=${category.slug}`}
+										className="px-4 py-3 hover:bg-gray-100 text-sm block"
+									>
+										{category.name}
+									</Link>
+								))}
 							</ul>
 						</li>
 
@@ -166,51 +173,67 @@ const Navbar = () => {
 				<div className="md:hidden bg-gray-800 border-t border-gray-700">
 					<Container>
 						<ul className="flex flex-col space-y-2 p-4">
-							<Link to="/" className="px-4 py-3 hover:text-gray-300">
+							<Link
+								to="/"
+								onClick={handleLinkClick}
+								className="px-4 py-3 hover:text-gray-300"
+							>
 								Home
 							</Link>
 
-							<Link to="/products" className="px-4 py-3 hover:text-gray-300">
+							<Link
+								to="/products"
+								onClick={handleLinkClick}
+								className="px-4 py-3 hover:text-gray-300"
+							>
 								Product
 							</Link>
 
-							{/* Mobile Dropdown */}
+							{/* Mobile Categories with Icon */}
 							<li>
 								<button
 									onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
-									className="w-full text-left px-4 py-3 flex justify-between items-center"
+									className="w-full text-left px-4 py-3 flex justify-between items-center hover:text-gray-300"
 								>
-									Categories
+									<div className="flex items-center gap-2">
+										<span>Categories</span>
+									</div>
+									<svg
+										className={`w-4 h-4 transition-transform ${mobileDropdownOpen ? "rotate-180" : ""}`}
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M19 9l-7 7-7-7"
+										/>
+									</svg>
 								</button>
 
 								{mobileDropdownOpen && (
 									<ul className="ml-4 mt-2 space-y-2 bg-white rounded-md p-2">
-										<Link to="/">
-											<li className="px-4 py-3 hover:bg-gray-100 text-black">
-												Electronics
-											</li>
-										</Link>
-
-										<Link to="/">
-											<li className="px-4 py-3 hover:bg-gray-100 text-black">
-												Fashion
-											</li>
-										</Link>
-										<Link to="/">
-											<li className="px-4 py-3 hover:bg-gray-100 text-black">
-												Books
-											</li>
-										</Link>
-										<Link to="/">
-											<li className="px-4 py-3 hover:bg-gray-100 text-black">
-												Home & Kitchen
-											</li>
-										</Link>
+										{categories.map((category) => (
+											<Link
+												key={category.slug}
+												to={`/products?category=${category.slug}`}
+												onClick={handleLinkClick}
+												className="px-4 py-3 hover:bg-gray-100 text-black block"
+											>
+												{category.name}
+											</Link>
+										))}
 									</ul>
 								)}
 							</li>
 
-							<Link to="/ContactUs" className="px-4 py-3 hover:text-gray-300">
+							<Link
+								to="/ContactUs"
+								onClick={handleLinkClick}
+								className="px-4 py-3 hover:text-gray-300"
+							>
 								Contact Us
 							</Link>
 						</ul>
