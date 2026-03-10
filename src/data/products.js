@@ -1,4 +1,3 @@
-
 // src/data/products.js
 import tr1 from "../assets/t&tr1.JPEG";
 import tr2 from "../assets/t&tr2.jpg";
@@ -12,13 +11,14 @@ export const products = [
 		id: 1,
 		name: "Premium Leather Bag",
 		price: 2999,
+		offerPrice: 2499, // ✅ Offer Price
 		image: tr1,
 		rating: 4.5,
 		description:
 			"Premium quality leather bag with multiple compartments. Perfect for daily use.",
-		category: "Fashion",
+		category: "fashion", // ✅ lowercase
 		stock: 50,
-		isBestSeller: true, // ✅ Best Seller
+		isBestSeller: true,
 		images: [tr1, tr1, tr1, tr1],
 		features: [
 			"Genuine leather material",
@@ -31,13 +31,14 @@ export const products = [
 		id: 2,
 		name: "Designer Handbag",
 		price: 3499,
+		// offerPrice: 2999, // ✅ Offer Price
 		image: tr1,
 		rating: 4.6,
 		description:
 			"Elegant designer handbag for women. Perfect for office and casual wear.",
-		category: "Fashion",
+		category: "fashion", // ✅ lowercase
 		stock: 35,
-		isBestSeller: false, // ❌ Not Best Seller
+		isBestSeller: false,
 		images: [tr1, tr1, tr1, tr1],
 		features: [
 			"Premium synthetic leather",
@@ -50,11 +51,12 @@ export const products = [
 		id: 3,
 		name: "Leather Wallet",
 		price: 1299,
+		offerPrice: 999, // ✅ Offer Price
 		image: tr1,
 		rating: 4.3,
 		description:
 			"Genuine leather wallet with multiple card slots and cash compartment.",
-		category: "Fashion",
+		category: "fashion", // ✅ lowercase
 		stock: 60,
 		isBestSeller: false,
 		images: [tr1, tr1, tr1, tr1],
@@ -69,12 +71,13 @@ export const products = [
 		id: 4,
 		name: "Sunglasses",
 		price: 899,
+		offerPrice: 699, // ✅ Offer Price
 		image: tr2,
 		rating: 4.4,
 		description: "Stylish sunglasses with UV protection for men and women.",
-		category: "Fashion",
+		category: "fashion", // ✅ lowercase
 		stock: 45,
-		isBestSeller: true, // ✅ Best Seller
+		isBestSeller: true,
 		images: [tr2, tr2, tr2, tr2],
 		features: [
 			"UV400 protection",
@@ -87,11 +90,12 @@ export const products = [
 		id: 5,
 		name: "Wrist Watch",
 		price: 4999,
+		// offerPrice: 4499, // ✅ Offer Price
 		image: tr1,
 		rating: 4.7,
 		description:
 			"Classic analog wristwatch with leather strap. Perfect for formal occasions.",
-		category: "Fashion",
+		category: "fashion", // ✅ lowercase
 		stock: 25,
 		isBestSeller: false,
 		images: [tr1, tr1, tr1, tr1],
@@ -106,11 +110,12 @@ export const products = [
 		id: 6,
 		name: "Fashion Belt",
 		price: 799,
+		offerPrice: 599, // ✅ Offer Price
 		image: tr1,
 		rating: 4.2,
 		description:
 			"Stylish leather belt with metal buckle. Available in multiple colors.",
-		category: "Fashion",
+		category: "fashion", // ✅ lowercase
 		stock: 80,
 		isBestSeller: false,
 		images: [tr1, tr1, tr1, tr1],
@@ -125,10 +130,11 @@ export const products = [
 		id: 7,
 		name: "Scarf",
 		price: 599,
+		offerPrice: 449, // ✅ Offer Price
 		image: tr2,
 		rating: 4.1,
 		description: "Soft and warm scarf for winter season. Perfect gift item.",
-		category: "Fashion",
+		category: "fashion", // ✅ lowercase
 		stock: 100,
 		isBestSeller: false,
 		images: [tr2, tr2, tr2, tr2],
@@ -143,10 +149,11 @@ export const products = [
 		id: 8,
 		name: "Gloves",
 		price: 499,
+		// offerPrice: 349, // ✅ Offer Price
 		image: tr2,
 		rating: 4.0,
 		description: "Warm winter gloves with touchscreen compatible fingertips.",
-		category: "Fashion",
+		category: "fashion", // ✅ lowercase
 		stock: 70,
 		isBestSeller: false,
 		images: [tr2, tr2, tr2, tr2],
@@ -163,11 +170,12 @@ export const products = [
 		id: 9,
 		name: "Cat Doll",
 		price: 599,
+		// offerPrice: 449, // ✅ Offer Price
 		image: tr2,
 		rating: 4.2,
 		description:
 			"Soft and cuddly cat doll. Great gift for kids and cat lovers.",
-		category: "Toys",
+		category: "toys", // ✅ lowercase
 		stock: 100,
 		isBestSeller: false,
 		images: [tr2, tr2, tr2, tr2],
@@ -182,10 +190,11 @@ export const products = [
 		id: 10,
 		name: "Two Doll Set",
 		price: 1999,
+		// offerPrice: 1699, // ✅ Offer Price
 		image: tr4,
 		rating: 4.6,
 		description: "Beautiful two doll set. Perfect for collection and gifting.",
-		category: "Toys",
+		category: "toys", // ✅ lowercase
 		stock: 30,
 		isBestSeller: false,
 		images: [tr4, tr4, tr4, tr4],
@@ -200,12 +209,13 @@ export const products = [
 		id: 11,
 		name: "Teddy Bear",
 		price: 899,
+		// offerPrice: 699, // ✅ Offer Price
 		image: tr2,
 		rating: 4.8,
 		description: "Cute teddy bear for kids. Perfect birthday gift.",
-		category: "Toys",
+		category: "toys", // ✅ lowercase
 		stock: 55,
-		isBestSeller: true, // ✅ Best Seller
+		isBestSeller: true,
 		images: [tr2, tr2, tr2, tr2],
 		features: [
 			"Soft plush material",
@@ -218,10 +228,11 @@ export const products = [
 		id: 12,
 		name: "Puzzle Game",
 		price: 499,
+		// offerPrice: 399, // ✅ Offer Price
 		image: tr3,
 		rating: 4.5,
 		description: "Educational puzzle game for kids. Improves cognitive skills.",
-		category: "Toys",
+		category: "toys", // ✅ lowercase
 		stock: 40,
 		isBestSeller: false,
 		images: [tr3, tr3, tr3, tr3],
@@ -236,10 +247,11 @@ export const products = [
 		id: 13,
 		name: "Building Blocks",
 		price: 1299,
+		// offerPrice: 1099, // ✅ Offer Price
 		image: tr4,
 		rating: 4.7,
 		description: "Creative building blocks set. 200+ pieces for endless fun.",
-		category: "Toys",
+		category: "toys", // ✅ lowercase
 		stock: 35,
 		isBestSeller: false,
 		images: [tr4, tr4, tr4, tr4],
@@ -254,10 +266,11 @@ export const products = [
 		id: 14,
 		name: "Remote Control Car",
 		price: 2499,
+		// offerPrice: 2199, // ✅ Offer Price
 		image: tr3,
 		rating: 4.6,
 		description: "Fast remote control car with rechargeable battery.",
-		category: "Toys",
+		category: "toys", // ✅ lowercase
 		stock: 20,
 		isBestSeller: false,
 		images: [tr3, tr3, tr3, tr3],
@@ -274,10 +287,11 @@ export const products = [
 		id: 15,
 		name: "Stanley Cup",
 		price: 399,
+		// offerPrice: 299, // ✅ Offer Price
 		image: tr3,
 		rating: 4.8,
 		description: "Classic Stanley cup. Keeps drinks cold for 24 hours.",
-		category: "Home & Kitchen",
+		category: "home-kitchen", // ✅ lowercase
 		stock: 75,
 		isBestSeller: false,
 		images: [tr3, tr3, tr3, tr3],
@@ -292,12 +306,13 @@ export const products = [
 		id: 16,
 		name: "Kitchen Knife Set",
 		price: 2499,
+		// offerPrice: 2199, // ✅ Offer Price
 		image: tr3,
 		rating: 4.9,
 		description: "Professional kitchen knife set for all cooking needs.",
-		category: "Home & Kitchen",
+		category: "home-kitchen", // ✅ lowercase
 		stock: 20,
-		isBestSeller: true, // ✅ Best Seller
+		isBestSeller: true,
 		images: [tr3, tr3, tr3, tr3],
 		features: [
 			"Stainless steel blades",
@@ -310,10 +325,11 @@ export const products = [
 		id: 17,
 		name: "Coffee Maker",
 		price: 3999,
+		// offerPrice: 3499, // ✅ Offer Price
 		image: tr3,
 		rating: 4.5,
 		description: "Automatic coffee maker with programmable timer.",
-		category: "Home & Kitchen",
+		category: "home-kitchen", // ✅ lowercase
 		stock: 15,
 		isBestSeller: false,
 		images: [tr3, tr3, tr3, tr3],
@@ -328,10 +344,11 @@ export const products = [
 		id: 18,
 		name: "Blender",
 		price: 2999,
+		// offerPrice: 2699, // ✅ Offer Price
 		image: tr3,
 		rating: 4.4,
 		description: "Powerful blender for smoothies, shakes, and more.",
-		category: "Home & Kitchen",
+		category: "home-kitchen", // ✅ lowercase
 		stock: 25,
 		isBestSeller: false,
 		images: [tr3, tr3, tr3, tr3],
@@ -346,10 +363,11 @@ export const products = [
 		id: 19,
 		name: "Air Fryer",
 		price: 5999,
+		// offerPrice: 5499, // ✅ Offer Price
 		image: tr3,
 		rating: 4.7,
 		description: "Healthy air fryer with digital controls and preset programs.",
-		category: "Home & Kitchen",
+		category: "home-kitchen", // ✅ lowercase
 		stock: 18,
 		isBestSeller: false,
 		images: [tr3, tr3, tr3, tr3],
@@ -364,11 +382,12 @@ export const products = [
 		id: 20,
 		name: "Storage Containers",
 		price: 999,
+		// offerPrice: 799, // ✅ Offer Price
 		image: tr3,
 		rating: 4.3,
 		description:
 			"Set of 10 airtight storage containers for kitchen organization.",
-		category: "Home & Kitchen",
+		category: "home-kitchen", // ✅ lowercase
 		stock: 45,
 		isBestSeller: false,
 		images: [tr3, tr3, tr3, tr3],
@@ -385,10 +404,11 @@ export const products = [
 		id: 21,
 		name: "Tashbih",
 		price: 4999,
+		// offerPrice: 4499, // ✅ Offer Price
 		image: tr5,
 		rating: 4.7,
 		description: "Premium quality tashbih. Made with natural materials.",
-		category: "Religious",
+		category: "religious", // ✅ lowercase
 		stock: 25,
 		isBestSeller: false,
 		images: [tr5, tr5, tr5, tr5],
@@ -403,11 +423,12 @@ export const products = [
 		id: 22,
 		name: "Prayer Mat",
 		price: 1299,
+		// offerPrice: 999,
 		image: tr5,
 		rating: 4.6,
 		description:
 			"Comfortable prayer mat with carrying bag. Portable and lightweight.",
-		category: "Religious",
+		category: "religious",
 		stock: 60,
 		isBestSeller: false,
 		images: [tr5, tr5, tr5, tr5],
@@ -422,10 +443,11 @@ export const products = [
 		id: 23,
 		name: "Quran Stand",
 		price: 1999,
+		// offerPrice: 1799,
 		image: tr5,
 		rating: 4.5,
 		description: "Wooden Quran stand with adjustable height. Elegant design.",
-		category: "Religious",
+		category: "religious",
 		stock: 30,
 		isBestSeller: false,
 		images: [tr5, tr5, tr5, tr5],
@@ -440,11 +462,12 @@ export const products = [
 		id: 24,
 		name: "Islamic Wall Art",
 		price: 899,
+		// offerPrice: 699,
 		image: tr5,
 		rating: 4.4,
 		description:
 			"Beautiful Islamic calligraphy wall art. Perfect for home decoration.",
-		category: "Religious",
+		category: "religious",
 		stock: 40,
 		isBestSeller: false,
 		images: [tr5, tr5, tr5, tr5],
@@ -461,13 +484,14 @@ export const products = [
 		id: 25,
 		name: "Wireless Earbuds",
 		price: 2999,
+		// offerPrice: 2499,
 		image: tr1,
 		rating: 4.6,
 		description:
 			"Premium wireless earbuds with noise cancellation and long battery life.",
-		category: "Electronics",
+		category: "electronics",
 		stock: 50,
-		isBestSeller: true, // ✅ Best Seller
+		isBestSeller: true,
 		images: [tr1, tr1, tr1, tr1],
 		features: [
 			"Active noise cancellation",
@@ -480,10 +504,11 @@ export const products = [
 		id: 26,
 		name: "Power Bank",
 		price: 1499,
+		// offerPrice: 1199,
 		image: tr1,
 		rating: 4.5,
 		description: "High-capacity power bank with fast charging support.",
-		category: "Electronics",
+		category: "electronics",
 		stock: 80,
 		isBestSeller: false,
 		images: [tr1, tr1, tr1, tr1],
@@ -498,11 +523,12 @@ export const products = [
 		id: 27,
 		name: "Smart Watch",
 		price: 4999,
+		// offerPrice: 4499,
 		image: tr1,
 		rating: 4.7,
 		description:
 			"Feature-rich smartwatch with health monitoring and notifications.",
-		category: "Electronics",
+		category: "electronics",
 		stock: 35,
 		isBestSeller: false,
 		images: [tr1, tr1, tr1, tr1],
@@ -517,10 +543,11 @@ export const products = [
 		id: 28,
 		name: "Bluetooth Speaker",
 		price: 1999,
+		// offerPrice: 1699,
 		image: tr1,
 		rating: 4.4,
 		description: "Portable Bluetooth speaker with 360-degree sound.",
-		category: "Electronics",
+		category: "electronics",
 		stock: 45,
 		isBestSeller: false,
 		images: [tr1, tr1, tr1, tr1],
@@ -537,10 +564,11 @@ export const products = [
 		id: 29,
 		name: "Yoga Mat",
 		price: 1299,
+		// offerPrice: 999,
 		image: tr2,
 		rating: 4.6,
 		description: "Premium non-slip yoga mat for all types of exercises.",
-		category: "Sports",
+		category: "sports",
 		stock: 55,
 		isBestSeller: false,
 		images: [tr2, tr2, tr2, tr2],
@@ -555,11 +583,12 @@ export const products = [
 		id: 30,
 		name: "Dumbbell Set",
 		price: 3499,
+		offerPrice: 2999,
 		image: tr3,
 		rating: 4.8,
 		description:
 			"Adjustable dumbbell set for home workouts. 5-25kg per dumbbell.",
-		category: "Sports",
+		category: "sports",
 		stock: 25,
 		isBestSeller: false,
 		images: [tr3, tr3, tr3, tr3],
@@ -631,4 +660,17 @@ export const getFeaturedProducts = () => {
 		.filter((product) => product.rating >= 4.5 && product.stock > 0)
 		.sort((a, b) => b.rating - a.rating)
 		.slice(0, 8);
+};
+
+// ✅ NEW: Get Products with Offers
+export const getProductsWithOffers = () => {
+	return products.filter(
+		(product) => product.offerPrice && product.offerPrice < product.price
+	);
+};
+
+// ✅ NEW: Calculate Discount Percentage
+export const getDiscountPercentage = (originalPrice, offerPrice) => {
+	if (!offerPrice || offerPrice >= originalPrice) return 0;
+	return Math.round(((originalPrice - offerPrice) / originalPrice) * 100);
 };

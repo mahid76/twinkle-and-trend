@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Container from "../../components/layout/Container";
-import { getProductById } from "../../data/products";
+import { getProductById, getDiscountPercentage } from "../../data/products";
 
 const ProductDetail = () => {
 	const { id } = useParams();
@@ -13,10 +13,10 @@ const ProductDetail = () => {
 	const [activeImage, setActiveImage] = useState(0);
 
 	// ✅ WhatsApp Number (আপনার WhatsApp নম্বর দিন)
-	const whatsappNumber = "8801601117737"; // ✅ আপনার WhatsApp নম্বর এখানে দিন
+	const whatsappNumber = "8801601117737";
 
 	// ✅ Facebook Page Username (আপনার Facebook Page Username দিন)
-	const facebookPageUsername = "sewingfly"; // ✅ শুধু Username দিন (URL নয়)
+	const facebookPageUsername = "sewingfly";
 
 	// Fetch Product Data
 	useEffect(() => {
@@ -47,6 +47,21 @@ const ProductDetail = () => {
 		});
 	};
 
+	// Calculate Price (Offer Price if available)
+	const displayPrice = product?.offerPrice && product?.offerPrice < product?.price
+		? product.offerPrice
+		: product?.price;
+
+	const originalPrice = product?.offerPrice && product?.offerPrice < product?.price
+		? product.price
+		: null;
+
+	const discount = originalPrice
+		? getDiscountPercentage(originalPrice, displayPrice)
+		: 0;
+
+	const totalAmount = displayPrice * quantity;
+
 	// Handle Buy Now - WhatsApp
 	const handleBuyNowWhatsApp = () => {
 		if (product?.stock > 0) {
@@ -54,11 +69,14 @@ const ProductDetail = () => {
 🛒 *New Order Request*
 
 📦 *Product:* ${product.name}
-💰 *Price:* ৳${product.price}
+${originalPrice ? `💰 *Original Price:* ৳${originalPrice}` : ''}
+${originalPrice ? `💰 *Offer Price:* ৳${displayPrice}` : `💰 *Price:* ৳${displayPrice}`}
 📊 *Quantity:* ${quantity}
-💵 *Total:* ৳${product.price * quantity}
+💵 *Total:* ৳${totalAmount}
+${originalPrice ? `💰 *You Save:* ৳${originalPrice - displayPrice}` : ''}
 
 📍 *Category:* ${product.category}
+⭐ *Rating:* ${product.rating}/5
 
 Please confirm my order!
 			`.trim();
@@ -76,9 +94,11 @@ Please confirm my order!
 🛒 *New Order Request*
 
 📦 *Product:* ${product.name}
-💰 *Price:* ৳${product.price}
+${originalPrice ? `💰 *Original Price:* ৳${originalPrice}` : ''}
+${originalPrice ? `💰 *Offer Price:* ৳${displayPrice}` : `💰 *Price:* ৳${displayPrice}`}
 📊 *Quantity:* ${quantity}
-💵 *Total:* ৳${product.price * quantity}
+💵 *Total:* ৳${totalAmount}
+${originalPrice ? `💰 *You Save:* ৳${originalPrice - displayPrice}` : ''}
 
 📍 *Category:* ${product.category}
 ⭐ *Rating:* ${product.rating}/5
@@ -104,7 +124,7 @@ Please confirm my order!
 		return (
 			<div className="flex items-center justify-center min-h-screen">
 				<div className="text-center">
-					<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500 mx-auto mb-4"></div>
+					<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#E771A3] mx-auto mb-4"></div>
 					<p className="text-gray-600">Loading product details...</p>
 				</div>
 			</div>
@@ -121,7 +141,7 @@ Please confirm my order!
 					</p>
 					<Link
 						to="/products"
-						className="text-teal-500 hover:underline text-lg"
+						className="text-[#E771A3] hover:underline text-lg"
 					>
 						← Back to Shop
 					</Link>
@@ -135,11 +155,11 @@ Please confirm my order!
 			<div className="py-8"></div>
 			{/* Breadcrumb */}
 			<nav className="text-sm text-gray-500 mb-6">
-				<Link to="/" className="hover:text-[#E6A0B5]">
+				<Link to="/" className="hover:text-[#E771A3]">
 					Home
 				</Link>
 				<span className="mx-2">/</span>
-				<Link to="/products" className="hover:text-[#E6A0B5]">
+				<Link to="/products" className="hover:text-[#E771A3]">
 					Products
 				</Link>
 				<span className="mx-2">/</span>
@@ -167,7 +187,7 @@ Please confirm my order!
 								onClick={() => setActiveImage(index)}
 								className={`border-2 rounded-lg overflow-hidden transition-all ${
 									activeImage === index
-										? "border-[#E6A0B5] ring-2 ring-[#E6A0B5] ring-opacity-50"
+										? "border-[#E771A3] ring-2 ring-[#E771A3] ring-opacity-50"
 										: "border-gray-200 hover:border-gray-300"
 								}`}
 							>
@@ -209,8 +229,26 @@ Please confirm my order!
 						</div>
 					</div>
 
-					<div className="text-4xl font-bold text-teal-500">
-						৳{product.price}
+					{/* Price Section */}
+					<div className="space-y-2">
+						{originalPrice && (
+							<div className="flex items-center gap-3">
+								<span className="text-4xl font-bold text-[#E771A3]">
+									৳{displayPrice}
+								</span>
+								<span className="text-xl text-gray-400 line-through">
+									৳{originalPrice}
+								</span>
+								<span className="text-sm text-green-600 font-bold bg-green-100 px-2 py-1 rounded">
+									{discount}% OFF
+								</span>
+							</div>
+						)}
+						{!originalPrice && (
+							<div className="text-4xl font-bold text-[#E771A3]">
+								৳{displayPrice}
+							</div>
+						)}
 					</div>
 
 					<p className="text-gray-600 leading-relaxed text-lg">
@@ -271,67 +309,67 @@ Please confirm my order!
 									fill="currentColor"
 									viewBox="0 0 24 24"
 								>
-									<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-								</svg>
-								Visit Facebook Page
-							</button>
-							<button
-								onClick={handleSendMessageFacebook}
-								disabled={product.stock === 0}
-								className="bg-blue-500 text-white px-8 py-3 rounded-md hover:bg-blue-600 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-lg font-medium flex items-center justify-center gap-2"
-							>
-								<svg
-									className="w-6 h-6"
-									fill="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-								</svg>
-								Send Message
-							</button>
-						</div>
-					</div>
-
-					{/* Product Details */}
-					<div className="border-t border-gray-200 pt-6 space-y-3">
-						<div className="flex items-center space-x-2">
-							<span className="text-gray-600 w-24">Category:</span>
-							<span className="text-gray-800 font-medium">
-								{product.category}
-							</span>
-						</div>
-						<div className="flex items-center space-x-2">
-							<span className="text-gray-600 w-24">SKU:</span>
-							<span className="text-gray-800 font-medium">
-								T&T-{product.id}
-							</span>
-						</div>
-						<div className="flex items-center space-x-2">
-							<span className="text-gray-600 w-24">Stock:</span>
-							<span className="text-gray-800 font-medium">
-								{product.stock} units
-							</span>
-						</div>
-						<div className="flex items-center space-x-2">
-							<span className="text-gray-600 w-24">Brand:</span>
-							<span className="text-gray-800 font-medium">Twinkle & Trend</span>
-						</div>
-					</div>
-
-					{/* Features */}
-					<div className="border-t border-gray-200 pt-6">
-						<h3 className="font-bold text-gray-800 mb-3">Product Features:</h3>
-						<ul className="space-y-2">
-							{product.features.map((feature, index) => (
-								<li key={index} className="flex items-start space-x-2">
-									<span className="text-[#E6A0B5] mt-1">✓</span>
-									<span className="text-gray-600">{feature}</span>
-								</li>
-							))}
-						</ul>
-					</div>
+															<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+						</svg>
+						Visit Facebook Page
+					</button>
+					<button
+						onClick={handleSendMessageFacebook}
+						disabled={product.stock === 0}
+						className="bg-blue-500 text-white px-8 py-3 rounded-md hover:bg-blue-600 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-lg font-medium flex items-center justify-center gap-2"
+					>
+						<svg
+							className="w-6 h-6"
+							fill="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+						</svg>
+						Send Message
+					</button>
 				</div>
 			</div>
+
+			{/* Product Details */}
+			<div className="border-t border-gray-200 pt-6 space-y-3">
+				<div className="flex items-center space-x-2">
+					<span className="text-gray-600 w-24">Category:</span>
+					<span className="text-gray-800 font-medium">
+						{product.category}
+					</span>
+				</div>
+				<div className="flex items-center space-x-2">
+					<span className="text-gray-600 w-24">SKU:</span>
+					<span className="text-gray-800 font-medium">
+						T&T-{product.id}
+					</span>
+				</div>
+				<div className="flex items-center space-x-2">
+					<span className="text-gray-600 w-24">Stock:</span>
+					<span className="text-gray-800 font-medium">
+						{product.stock} units
+					</span>
+				</div>
+				<div className="flex items-center space-x-2">
+					<span className="text-gray-600 w-24">Brand:</span>
+					<span className="text-gray-800 font-medium">Twinkle & Trend</span>
+				</div>
+			</div>
+
+			{/* Features */}
+			<div className="border-t border-gray-200 pt-6">
+				<h3 className="font-bold text-gray-800 mb-3">Product Features:</h3>
+				<ul className="space-y-2">
+					{product.features.map((feature, index) => (
+						<li key={index} className="flex items-start space-x-2">
+							<span className="text-[#E771A3] mt-1">✓</span>
+							<span className="text-gray-600">{feature}</span>
+						</li>
+					))}
+				</ul>
+			</div>
+		</div>
+		</div>
 		</Container>
 	);
 };
