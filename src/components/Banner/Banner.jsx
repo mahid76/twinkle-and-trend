@@ -24,7 +24,6 @@ const slides = [
 const BannerSlider = () => {
   const [current, setCurrent] = useState(0);
 
-  // Auto slide
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
@@ -34,7 +33,7 @@ const BannerSlider = () => {
   }, []);
 
   return (
-    <section className="relative h-[20vh] w-full overflow-hidden">
+    <section className="relative w-full overflow-hidden h-[40vh] md:h-[60vh] lg:h-[80vh]">
       {slides.map((slide, index) => (
         <div
           key={slide.id}
@@ -47,23 +46,6 @@ const BannerSlider = () => {
             alt=""
             className="w-full h-full object-cover"
           />
-
-          {/* Overlay Content */}
-          {/* <div className="absolute inset-0 bg-black/50 text-center flex items-center">
-            <div className="max-w-6xl mx-auto px-8  text-white">
-              <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                {slide.title}
-              </h1>
-
-              <p className="text-gray-200 mb-6 max-w-lg">
-                {slide.desc}
-              </p>
-
-              <button className="bg-cyan-500 hover:bg-cyan-600 px-6 py-3 rounded-2xl">
-                Buy now
-              </button>
-            </div>
-          </div> */}
         </div>
       ))}
     </section>
