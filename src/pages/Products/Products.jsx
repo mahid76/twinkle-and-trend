@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Container from "../../components/layout/Container";
-import { products } from "../../data/products";
+import { products, getDiscountPercentage } from "../../data/products";
 
 const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -129,7 +129,7 @@ const Products = () => {
                   setSearchTerm(e.target.value);
                   handleFilterChange();
                 }}
-                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E6A0B5]"
+                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E771A3]"
               />
               <svg
                 className="absolute right-3 top-3 w-5 h-5 text-gray-400"
@@ -153,7 +153,7 @@ const Products = () => {
                 setSelectedCategory(e.target.value);
                 handleFilterChange();
               }}
-              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E6A0B5]"
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E771A3]"
             >
               <option value="">All Categories</option>
               {categories
@@ -172,7 +172,7 @@ const Products = () => {
                 setSortBy(e.target.value);
                 handleFilterChange();
               }}
-              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E6A0B5]"
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E771A3]"
             >
               <option value="default">Sort By: Default</option>
               <option value="price-low">Price: Low to High</option>
@@ -194,7 +194,7 @@ const Products = () => {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 (category === "All" && selectedCategory === "") ||
                 selectedCategory === category
-                  ? "bg-[#E6A0B5] text-white"
+                  ? "bg-[#E771A3] text-white"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
@@ -207,59 +207,89 @@ const Products = () => {
         {currentProducts.length > 0 ? (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {currentProducts.map((product) => (
-                <Link
-                  key={product.id}
-                  to={`/products/${product.id}`}
-                  className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-                >
-                  {/* Product Image */}
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-64 object-cover"
-                    />
-                    {product.stock === 0 && (
-                      <div className="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                        Out of Stock
-                      </div>
-                    )}
-                    {product.stock < 10 && product.stock > 0 && (
-                      <div className="absolute top-2 left-2 bg-[#E6A0B5] text-white px-3 py-1 rounded-full text-sm font-medium">
-                        Only {product.stock} left!
-                      </div>
-                    )}
-                  </div>
+              {currentProducts.map((product) => {
+                // Check if product has offer
+                const hasOffer = product.offerPrice && product.offerPrice < product.price;
+                const discount = hasOffer ? getDiscountPercentage(product.price, product.offerPrice) : 0;
 
-                  {/* Product Info */}
-                  <div className="p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
-                        {product.category}
-                      </span>
-                      <div className="flex items-center">
-                        <span className="text-yellow-500 text-sm">★</span>
-                        <span className="text-gray-600 text-sm ml-1">
-                          {product.rating}
-                        </span>
-                      </div>
+                return (
+                  <Link
+                    key={product.id}
+                    to={`/products/${product.id}`}
+                    className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                  >
+                    {/* Product Image */}
+                    <div className="relative overflow-hidden">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-64 object-cover"
+                      />
+                      {product.stock === 0 && (
+                        <div className="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                          Out of Stock
+                        </div>
+                      )}
+                      {product.stock < 10 && product.stock > 0 && (
+                        <div className="absolute top-2 left-2 bg-[#E771A3] text-white px-3 py-1 rounded-full text-sm font-medium">
+                          Only {product.stock} left!
+                        </div>
+                      )}
+                      {hasOffer && (
+                        <div className="absolute top-2 right-2 bg-[#E771A3] text-white px-3 py-1 rounded-full text-sm font-bold">
+                          {discount}% OFF
+                        </div>
+                      )}
+                      {product.isBestSeller && (
+                        <div className="absolute top-2 left-2 bg-[#F6D6DF] text-[#E771A3] px-3 py-1 rounded-full text-sm font-bold">
+                          ⭐ Best Seller
+                        </div>
+                      )}
                     </div>
 
-                    <h3 className="text-lg font-bold text-gray-800 mb-2 truncate">
-                      {product.name}
-                    </h3>
+                    {/* Product Info */}
+                    <div className="p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                          {product.category}
+                        </span>
+                        <div className="flex items-center">
+                          <span className="text-yellow-500 text-sm">★</span>
+                          <span className="text-gray-600 text-sm ml-1">
+                            {product.rating}
+                          </span>
+                        </div>
+                      </div>
 
-                    <p className="text-teal-500 font-bold text-xl mb-3">
-                      ৳{product.price}
-                    </p>
+                      <h3 className="text-lg font-bold text-gray-800 mb-2 truncate">
+                        {product.name}
+                      </h3>
 
-                    <button className="w-full bg-teal-500 text-white px-4 py-2 rounded-md hover:bg-teal-600 transition-colors">
-                      View Details
-                    </button>
-                  </div>
-                </Link>
-              ))}
+                      {/* Price Section */}
+                      <div className="mb-3">
+                        {hasOffer ? (
+                          <div className="flex items-center gap-2">
+                            <span className="text-[#E771A3] font-bold text-xl">
+                              ৳{product.offerPrice}
+                            </span>
+                            <span className="text-gray-400 text-sm line-through">
+                              ৳{product.price}
+                            </span>
+                          </div>
+                        ) : (
+                          <p className="text-[#E771A3] font-bold text-xl">
+                            ৳{product.price}
+                          </p>
+                        )}
+                      </div>
+
+                      <button className="w-full bg-[#E771A3] text-white px-4 py-2 rounded-md hover:bg-[#d15f93] transition-colors">
+                        View Details
+                      </button>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
 
             {/* Pagination */}
@@ -286,7 +316,7 @@ const Products = () => {
                       onClick={() => typeof page === "number" && handlePageChange(page)}
                       className={`px-4 py-2 rounded-md transition-colors ${
                         page === currentPage
-                          ? "bg-[#E6A0B5] text-white"
+                          ? "bg-[#E771A3] text-white"
                           : page === "..."
                           ? "cursor-default"
                           : "bg-white border border-gray-300 hover:bg-gray-50"
@@ -342,7 +372,7 @@ const Products = () => {
                 setSortBy("default");
                 handleFilterChange();
               }}
-              className="bg-[#E6A0B5] text-white px-6 py-2 rounded-md hover:bg-[#F6D6DF] transition-colors"
+              className="bg-[#E771A3] text-white px-6 py-2 rounded-md hover:bg-[#F6D6DF] transition-colors"
             >
               Clear Filters
             </button>
