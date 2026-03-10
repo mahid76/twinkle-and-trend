@@ -34,7 +34,7 @@ const BannerSlider = () => {
   }, []);
 
   return (
-    <section className="relative h-[80vh] w-full overflow-hidden">
+    <section className="relative h-[20vh] w-full overflow-hidden">
       {slides.map((slide, index) => (
         <div
           key={slide.id}
@@ -49,7 +49,7 @@ const BannerSlider = () => {
           />
 
           {/* Overlay Content */}
-          <div className="absolute inset-0 bg-black/50 text-center flex items-center">
+          {/* <div className="absolute inset-0 bg-black/50 text-center flex items-center">
             <div className="max-w-6xl mx-auto px-8  text-white">
               <h1 className="text-4xl md:text-6xl font-bold mb-4">
                 {slide.title}
@@ -63,7 +63,7 @@ const BannerSlider = () => {
                 Buy now
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       ))}
     </section>
