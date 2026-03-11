@@ -1,8 +1,8 @@
 // src/pages/OffersPage/OffersPage.jsx
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "../../components/layout/Container";
-import { products, getDiscountPercentage } from "../../data/products";
+import { getDiscountPercentage, products } from "../../data/products";
 
 const OffersPage = () => {
 	const [filteredProducts, setFilteredProducts] = useState([]);
@@ -13,7 +13,7 @@ const OffersPage = () => {
 	useEffect(() => {
 		// Filter products with offerPrice
 		const offers = products.filter(
-			(p) => p.offerPrice && p.offerPrice < p.price
+			(p) => p.offerPrice && p.offerPrice < p.price,
 		);
 		setFilteredProducts(offers);
 		setLoading(false);
@@ -24,7 +24,7 @@ const OffersPage = () => {
 	const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 	const currentProducts = filteredProducts.slice(
 		indexOfFirstItem,
-		indexOfLastItem
+		indexOfLastItem,
 	);
 
 	// Calculate total pages
@@ -48,7 +48,7 @@ const OffersPage = () => {
 						Get amazing deals on selected products
 					</p>
 					<p className="text-gray-500 mt-2">
-						Showing {indexOfFirstItem + 1} - {Math.min(indexOfLastItem, filteredProducts.length)} of {filteredProducts.length} products
+						{filteredProducts.length} products found
 					</p>
 				</div>
 
@@ -62,7 +62,10 @@ const OffersPage = () => {
 				{/* Products Grid */}
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
 					{currentProducts.map((product) => {
-						const discount = getDiscountPercentage(product.price, product.offerPrice);
+						const discount = getDiscountPercentage(
+							product.price,
+							product.offerPrice,
+						);
 
 						return (
 							<div
@@ -193,7 +196,9 @@ const OffersPage = () => {
 				{/* No Products Found */}
 				{!loading && filteredProducts.length === 0 && (
 					<div className="text-center py-12">
-						<p className="text-gray-500 text-lg">No offers available at the moment</p>
+						<p className="text-gray-500 text-lg">
+							No offers available at the moment
+						</p>
 					</div>
 				)}
 			</div>
