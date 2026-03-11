@@ -58,7 +58,7 @@ const BannerSlider = () => {
 						/>
 						
 						{/* Watermark Overlay */}
-						<div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs px-3 py-2 rounded">
+						<div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-black/70 text-white text-[8px] md:text-xs px-2 md:px-3 md:py-2 py-1 rounded">
 							© Twinkle and Trend
 						</div>
 					</div>

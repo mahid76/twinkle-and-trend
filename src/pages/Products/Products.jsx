@@ -127,7 +127,7 @@ const Products = () => {
 						Shop All Products
 					</h1>
 					<p className="text-gray-600 md:text-base text-sm">
-						{sortedProducts.length} products found
+						{sortedProducts.length} products available
 					</p>
 				</div>
 
@@ -275,7 +275,7 @@ const Products = () => {
 												</div>
 											)}
 											{hasOffer && (
-												<div className="absolute top-2 right-2 bg-[#E771A3] text-white px-2 md:px-3 py-1 md:py-1 text-[10px] md:text-sm rounded-full  font-bold">
+												<div className="absolute md:top-4 md:right-4 top-2 right-2 bg-[#E771A3] text-white px-2 md:px-3 py-1 md:py-1 text-[10px] md:text-sm rounded-full  font-bold">
 													{discount}% OFF
 												</div>
 											)}
@@ -336,7 +336,7 @@ const Products = () => {
 							<div className="flex justify-center mt-12">
 								<nav className="flex items-center space-x-1 md:space-x-2">
 									{/* Previous Button */}
-									<button
+									{/* <button
 										onClick={() => handlePageChange(currentPage - 1)}
 										disabled={currentPage === 1}
 										className={`text-sm px- py-1 md:px-4 md:py-2  rounded-md transition-colors ${
@@ -346,7 +346,7 @@ const Products = () => {
 										}`}
 									>
 										Previous
-									</button>
+									</button> */}
 
 									{/* Page Numbers */}
 									{getPageNumbers().map((page, index) => (
@@ -369,7 +369,7 @@ const Products = () => {
 									))}
 
 									{/* Next Button */}
-									<button
+									{/* <button
 										onClick={() => handlePageChange(currentPage + 1)}
 										disabled={currentPage === totalPages}
 										className={`text-sm px- py-1 md:px-4 md:py-2 rounded-md transition-colors ${
@@ -379,7 +379,7 @@ const Products = () => {
 										}`}
 									>
 										Next
-									</button>
+									</button> */}
 								</nav>
 							</div>
 						)}
