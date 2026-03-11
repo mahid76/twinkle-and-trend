@@ -76,6 +76,9 @@ const OffersPage = () => {
 								<div className="relative">
 									<Link to={`/products/${product.id}`}>
 										<img
+											draggable="false"
+											onContextMenu={(e) => e.preventDefault()}
+											onDragStart={(e) => e.preventDefault()}
 											src={product.image}
 											alt={product.name}
 											className="w-full h-64 object-cover"

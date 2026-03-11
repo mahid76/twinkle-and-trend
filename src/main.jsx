@@ -8,6 +8,8 @@ import Home from "./pages/Home/Home";
 import OffersPage from "./pages/OffersPage/OffersPage";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Products from "./pages/Products/Products";
+import DisableRightClick from "./components/layout/DisableRightClick";
+
 
 
 const router = createBrowserRouter([
@@ -26,6 +28,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
+		<DisableRightClick />
 		<RouterProvider router={router} />
 	</StrictMode>,
 );

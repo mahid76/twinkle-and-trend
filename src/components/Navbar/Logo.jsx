@@ -6,7 +6,14 @@ const Logo = ({ onClick }) => {
 	return (
 		<Link to="/" onClick={onClick}>
 			<div className="flex items-center">
-				<img src={logo} alt="Logo" className="h-10 mr-4" />
+				<img
+					draggable="false"
+					onContextMenu={(e) => e.preventDefault()}
+					onDragStart={(e) => e.preventDefault()}
+					src={logo}
+					alt="Logo"
+					className="h-10 mr-4"
+				/>
 				<span className="text-lg font-primary font-bold">
 					Twinkle and Trend
 				</span>
