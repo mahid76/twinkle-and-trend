@@ -265,29 +265,29 @@ const Products = () => {
 												<div className="absolute inset-0"></div>
 											</div>
 											{product.stock === 0 && (
-												<div className="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+												<div className="absolute top-2 right-2 bg-red-500 text-white px-2 md:px-3 py-1 md:py-1 text-[10px] md:text-sm rounded-full font-medium">
 													Out of Stock
 												</div>
 											)}
 											{product.stock < 10 && product.stock > 0 && (
-												<div className="absolute top-2 left-2 bg-[#E771A3] text-white px-3 py-1 rounded-full text-sm font-medium">
+												<div className="absolute top-2 left-2 bg-[#E771A3] text-white px-2 md:px-3 py-1 md:py-1 text-[10px] md:text-sm rounded-full  font-medium">
 													Only {product.stock} left!
 												</div>
 											)}
 											{hasOffer && (
-												<div className="absolute top-2 right-2 bg-[#E771A3] text-white px-3 py-1 rounded-full text-sm font-bold">
+												<div className="absolute top-2 right-2 bg-[#E771A3] text-white px-2 md:px-3 py-1 md:py-1 text-[10px] md:text-sm rounded-full  font-bold">
 													{discount}% OFF
 												</div>
 											)}
 											{product.isBestSeller && (
-												<div className="absolute top-2 left-2 bg-[#F6D6DF] text-[#E771A3] px-3 py-1 rounded-full text-sm font-bold">
+												<div className="absolute top-2 left-2 bg-[#F6D6DF] text-[#E771A3]  px-2 md:px-3 py-1 md:py-1 rounded-full text-[10px] md:text-sm font-bold">
 													⭐ Best Seller
 												</div>
 											)}
 										</div>
 
 										{/* Product Info */}
-										<div className="p-4">
+										<div className="px-2 py-2 md:p-4">
 											<div className="flex items-center justify-between mb-2">
 												<span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
 													{categoryMap[product.category] || product.category}
@@ -301,10 +301,14 @@ const Products = () => {
 											</div>
 
 											{/* Price Section */}
-											<div className="mb-3">
+											<div className="">  {/* if text in 2 line, h-12 md:h-full  */}
+												<h1 class="text-md md:text-xl mb-2 font-semibold text-gray-800 line-clamp-2">{product.name}</h1> 
+											</div>
+											 
+											<div className="mb-2 md:mb-3">
 												{hasOffer ? (
 													<div className="flex items-center gap-2">
-														<span className="text-[#E771A3] font-bold text-xl">
+														<span className="text-[#E771A3] font-bold text-lg md:text-xl">
 															৳{product.offerPrice}
 														</span>
 														<span className="text-gray-400 text-sm line-through">
@@ -312,13 +316,13 @@ const Products = () => {
 														</span>
 													</div>
 												) : (
-													<p className="text-[#E771A3] font-bold text-xl">
+													<p className="text-[#E771A3] font-bold  text-lg md:text-xl">
 														৳{product.price}
 													</p>
 												)}
 											</div>
 
-											<button className="w-full bg-[#E771A3] text-white px-4 py-2 rounded-md hover:bg-[#d15f93] transition-colors">
+											<button className="w-full bg-[#E771A3] text-white  px-4 py-2 rounded-md hover:bg-[#d15f93] transition-colors">
 												View Details
 											</button>
 										</div>
@@ -330,12 +334,12 @@ const Products = () => {
 						{/* Pagination */}
 						{totalPages > 1 && (
 							<div className="flex justify-center mt-12">
-								<nav className="flex items-center space-x-2">
+								<nav className="flex items-center space-x-1 md:space-x-2">
 									{/* Previous Button */}
 									<button
 										onClick={() => handlePageChange(currentPage - 1)}
 										disabled={currentPage === 1}
-										className={`px-4 py-2 rounded-md transition-colors ${
+										className={`text-sm px- py-1 md:px-4 md:py-2  rounded-md transition-colors ${
 											currentPage === 1
 												? "bg-gray-200 text-gray-400 cursor-not-allowed"
 												: "bg-white border border-gray-300 hover:bg-gray-50"
@@ -351,7 +355,7 @@ const Products = () => {
 											onClick={() =>
 												typeof page === "number" && handlePageChange(page)
 											}
-											className={`px-4 py-2 rounded-md transition-colors ${
+											className={`px-2 md:px-4 py-1 md:py-2 rounded-md transition-colors ${
 												page === currentPage
 													? "bg-[#E771A3] text-white"
 													: page === "..."
@@ -368,7 +372,7 @@ const Products = () => {
 									<button
 										onClick={() => handlePageChange(currentPage + 1)}
 										disabled={currentPage === totalPages}
-										className={`px-4 py-2 rounded-md transition-colors ${
+										className={`text-sm px- py-1 md:px-4 md:py-2 rounded-md transition-colors ${
 											currentPage === totalPages
 												? "bg-gray-200 text-gray-400 cursor-not-allowed"
 												: "bg-white border border-gray-300 hover:bg-gray-50"
