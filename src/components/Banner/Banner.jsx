@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
+import banner02 from '../../assets/banner02.png'
+import banner03 from '../../assets/banner03.png'
+import banner04 from '../../assets/banner04.png'
 
 const slides = [
 	{
 		id: 1,
-		image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+		image: banner02,
 		title: "Build Modern Websites",
 		desc: "Create fast and responsive websites with modern technologies.",
 	},
 	{
 		id: 2,
-		image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c",
+		image: banner03,
 		title: "Professional Web Development",
 		desc: "We design and develop high-quality websites for your business.",
 	},
 	{
 		id: 3,
-		image: "https://images.unsplash.com/photo-1518770660439-4636190af475",
+		image: banner04,
 		title: "Grow Your Business Online",
 		desc: "Reach more customers with powerful digital experiences.",
 	},
@@ -27,7 +30,7 @@ const BannerSlider = () => {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-		}, 4000);
+		}, 2000);
 
 		return () => clearInterval(interval);
 	}, []);
