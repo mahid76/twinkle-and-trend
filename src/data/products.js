@@ -7,6 +7,7 @@ import tr5 from "../assets/t&tr5.jpg";
 import cat1 from "../assets/cat1.png";
 import cat2 from "../assets/cat2.png";
 import cat3 from "../assets/cat3.jpeg";
+import doll1 from "../assets/doll1.png";
 
 export const products = [
 	// Fashion Category (8 Products)
@@ -35,14 +36,14 @@ export const products = [
 		name: "Designer Handbag",
 		price: 3499,
 		// offerPrice: 2999, // ✅ Offer Price
-		image: tr1,
+		image: doll1,
 		rating: 4.6,
 		description:
 			"Elegant designer handbag for women. Perfect for office and casual wear.",
 		category: "fashion", // ✅ lowercase
 		stock: 35,
 		isBestSeller: false,
-		images: [tr1, tr1, tr1, tr1],
+		images: [doll1, cat1, cat2, cat3],
 		features: [
 			"Premium synthetic leather",
 			"Gold-plated hardware",

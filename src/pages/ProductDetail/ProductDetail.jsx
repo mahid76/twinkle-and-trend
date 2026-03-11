@@ -174,11 +174,11 @@ Please confirm my order!
 				<div className="space-y-4">
 					{/* Main Image */}
 					<div className="bg-white rounded-lg shadow-lg overflow-hidden">
-						<div className="relative" onContextMenu={(e) => e.preventDefault()}>
+						<div className="relative overflow-hidden aspect-4/5 rounded-lg" onContextMenu={(e) => e.preventDefault()}>
 							<img
 								src={product.images[activeImage]}
 								alt={product.name}
-								className="w-full h-96 object-cover"
+								className="w-full h-full  object-cover"
 							/>
 								{/* Watermark */}
 								
@@ -205,7 +205,7 @@ Please confirm my order!
 								}`}
 							>
 								<div
-									className="relative"
+									className="relative overflow-hidden aspect-4/5 rounded-lg"
 									onContextMenu={(e) => e.preventDefault()}
 								>
 									<img
@@ -214,7 +214,7 @@ Please confirm my order!
 										onDragStart={(e) => e.preventDefault()}
 										src={img}
 										alt={`${product.name} ${index + 1}`}
-										className="w-full h-20 object-cover"
+										className="w-full h-full object-cover"
 									/>
 
 									{/* Watermark */}

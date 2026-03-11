@@ -120,20 +120,20 @@ const Products = () => {
 
 	return (
 		<Container>
-			<div className="py-8">
+			<div className=" py-5 md:py-8">
 				{/* Page Header */}
-				<div className="text-center mb-8">
-					<h1 className="text-4xl font-primary font-bold text-gray-800 mb-2">
+				<div className="text-center mb-2 md:mb-8">
+					<h1 className="text-2xl sm:text-4xl font-primary font-bold text-gray-800 mb-2 md:mb-4">
 						Shop All Products
 					</h1>
-					<p className="text-gray-600">
+					<p className="text-gray-600 md:text-base text-sm">
 						{sortedProducts.length} products found
 					</p>
 				</div>
 
 				{/* Search & Filter Bar */}
-				<div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-					<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+				<div className="bg-red rounded-md md:rounded-lg shadow-sm md:shadow-lg p-3 md:p-6 mb-4 md:mb-8">
+					<div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4">
 						{/* Search Input */}
 						<div className="relative">
 							<input
@@ -144,7 +144,7 @@ const Products = () => {
 									setSearchTerm(e.target.value);
 									handleFilterChange();
 								}}
-								className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E771A3]"
+								className="w-full px-2 py-2 md:px-4 md:py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E771A3]"
 							/>
 							<svg
 								className="absolute right-3 top-3 w-5 h-5 text-gray-400"
@@ -168,7 +168,7 @@ const Products = () => {
 								setSelectedCategory(e.target.value);
 								handleFilterChange();
 							}}
-							className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E771A3]"
+							className="w-full px-2 py-2 md:px-4 md:py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E771A3]"
 						>
 							<option value="">All Categories</option>
 							{categories
@@ -190,7 +190,7 @@ const Products = () => {
 								setSortBy(e.target.value);
 								handleFilterChange();
 							}}
-							className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E771A3]"
+							className="w-full px-2 py-2 md:px-4 md:py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E771A3]"
 						>
 							<option value="default">Sort By: Default</option>
 							<option value="price-low">Price: Low to High</option>
@@ -201,7 +201,7 @@ const Products = () => {
 				</div>
 
 				{/* Category Pills */}
-				<div className="flex flex-wrap gap-2 mb-8">
+				<div className="flex flex-wrap gap-2 mb-4 md:mb-8">
 					{categories.map((category) => (
 						<button
 							key={category}
@@ -239,12 +239,12 @@ const Products = () => {
 									<Link
 										key={product.id}
 										to={`/products/${product.id}`}
-										className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+										className="bg-white rounded-md md:rounded-lg shadow-sm md:shadow-lg overflow-hidden hover:shadow-md md:hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
 									>
 										{/* Product Image */}
 										<div className="relative overflow-hidden ">
 											<div
-												className="relative"
+												className="relative overflow-hidden aspect-4/5 rounded-lg"
 												onContextMenu={(e) => e.preventDefault()}
 											>
 												<img
@@ -252,7 +252,7 @@ const Products = () => {
 													alt={product.name}
 													draggable="false"
 													onDragStart={(e) => e.preventDefault()}
-													className="w-full h-64 object-cover select-none"
+													className="w-full h-full  object-cover select-none"
 												/>
 												{/* Watermark */}
 
