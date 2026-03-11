@@ -1,21 +1,17 @@
-import React from 'react'
-import BestSellingProducts from '../../components/BestSellingProducts/BestSellingProducts'
-import Banner from '../../components/Banner/Banner'
-import ProdutsHome from '../../components/ProductsHome/ProductsHome'
-import OfferHome from '../../components/OfferHome/OfferHome'
-
-
+import Banner from "../../components/Banner/Banner";
+import BestSellingProducts from "../../components/BestSellingProducts/BestSellingProducts";
+import OfferHome from "../../components/OfferHome/OfferHome";
+import ProductsHome from "../../components/ProductsHome/ProductsHome";
 
 const Home = () => {
-  return (
-    	<>
+	return (
+		<>
 			<Banner />
-			<OfferHome/>
-			
-			<ProdutsHome/>
+			<OfferHome />
+			<ProductsHome />
 			<BestSellingProducts />
 		</>
-  )
-}
+	);
+};
 
-export default Home
+export default Home;
