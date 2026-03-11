@@ -12,7 +12,22 @@ const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
-  // Get Unique Categories
+  // ✅ Category Mapping (Slug to Name)
+  const categoryMap = {
+    "fashion": "Fashion",
+    "toys": "Toys",
+    "home-kitchen": "Home & Kitchen",
+    "religious": "Religious",
+    "electronics": "Electronics",
+    "sports": "Sports",
+  };
+
+  // ✅ Reverse Mapping (Name to Slug)
+  const reverseCategoryMap = Object.fromEntries(
+    Object.entries(categoryMap).map(([key, value]) => [value, key])
+  );
+
+  // ✅ Get Unique Categories (from products data - slugs)
   const categories = ["All", ...new Set(products.map((p) => p.category))];
 
   // Initialize from URL params
@@ -21,15 +36,11 @@ const Products = () => {
     const searchParam = searchParams.get("search");
 
     if (categoryParam) {
-      const categoryMap = {
-        "fashion": "Fashion",
-        "toys": "Toys",
-        "home-kitchen": "Home & Kitchen",
-        "religious": "Religious",
-        "electronics": "Electronics",
-        "sports": "Sports",
-      };
-      setSelectedCategory(categoryMap[categoryParam] || "");
+      // ✅ Map slug to category name for display
+      const categoryName = categoryMap[categoryParam];
+      if (categoryName) {
+        setSelectedCategory(categoryName);
+      }
     }
 
     if (searchParam) {
@@ -37,13 +48,17 @@ const Products = () => {
     }
   }, [searchParams]);
 
-  // Filter Products
+  // ✅ Filter Products
   const filteredProducts = products.filter((product) => {
     const matchesSearch = product.name
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
+    
+    // ✅ Check if category matches (slug comparison)
     const matchesCategory =
-      selectedCategory === "" || product.category === selectedCategory;
+      selectedCategory === "" || 
+      product.category === reverseCategoryMap[selectedCategory];
+    
     return matchesSearch && matchesCategory;
   });
 
@@ -159,8 +174,8 @@ const Products = () => {
               {categories
                 .filter((c) => c !== "All")
                 .map((category) => (
-                  <option key={category} value={category}>
-                    {category}
+                  <option key={category} value={categoryMap[category] || category}>
+                    {categoryMap[category] || category}
                   </option>
                 ))}
             </select>
@@ -188,17 +203,17 @@ const Products = () => {
             <button
               key={category}
               onClick={() => {
-                setSelectedCategory(category === "All" ? "" : category);
+                setSelectedCategory(category === "All" ? "" : categoryMap[category]);
                 handleFilterChange();
               }}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 (category === "All" && selectedCategory === "") ||
-                selectedCategory === category
+                selectedCategory === categoryMap[category]
                   ? "bg-[#E771A3] text-white"
                   : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
-              {category}
+              {categoryMap[category] || category}
             </button>
           ))}
         </div>
@@ -251,7 +266,7 @@ const Products = () => {
                     <div className="p-4">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
-                          {product.category}
+                          {categoryMap[product.category] || product.category}
                         </span>
                         <div className="flex items-center">
                           <span className="text-yellow-500 text-sm">★</span>
@@ -260,10 +275,6 @@ const Products = () => {
                           </span>
                         </div>
                       </div>
-
-                      <h3 className="text-lg font-bold text-gray-800 mb-2 truncate">
-                        {product.name}
-                      </h3>
 
                       {/* Price Section */}
                       <div className="mb-3">
