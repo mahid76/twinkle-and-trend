@@ -9,6 +9,7 @@ import OffersPage from "./pages/OffersPage/OffersPage";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Products from "./pages/Products/Products";
 
+
 const router = createBrowserRouter([
 	{
 		path: "/",
