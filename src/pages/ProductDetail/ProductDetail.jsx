@@ -174,7 +174,7 @@ Please confirm my order!
 				<div className="space-y-4">
 					{/* Main Image */}
 					<div className="bg-white rounded-lg shadow-lg overflow-hidden">
-						<div className="relative overflow-hidden aspect-4/5 rounded-lg" onContextMenu={(e) => e.preventDefault()}>
+						<div className="relative overflow-hidden  aspect-4/5 rounded-lg" onContextMenu={(e) => e.preventDefault()}>
 							<img
 								src={product.images[activeImage]}
 								alt={product.name}
@@ -205,7 +205,7 @@ Please confirm my order!
 								}`}
 							>
 								<div
-									className="relative overflow-hidden aspect-4/5 rounded-lg"
+									className="relative overflow-hidden   aspect-4/5 rounded-lg"
 									onContextMenu={(e) => e.preventDefault()}
 								>
 									<img

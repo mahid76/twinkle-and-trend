@@ -41,7 +41,7 @@ export const products = [
 		description:
 			"Elegant designer handbag for women. Perfect for office and casual wear.",
 		category: "fashion", // ✅ lowercase
-		stock: 35,
+		stock: 2,
 		isBestSeller: false,
 		images: [doll1, cat1, cat2, cat3],
 		features: [
@@ -158,7 +158,7 @@ export const products = [
 		rating: 4.0,
 		description: "Warm winter gloves with touchscreen compatible fingertips.",
 		category: "fashion", // ✅ lowercase
-		stock: 70,
+		stock: 0,
 		isBestSeller: false,
 		images: [tr2, tr2, tr2, tr2],
 		features: [
