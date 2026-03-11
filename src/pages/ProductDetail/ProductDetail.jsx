@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Container from "../../components/layout/Container";
-import { getProductById, getDiscountPercentage } from "../../data/products";
+import { getDiscountPercentage, getProductById } from "../../data/products";
 
 const ProductDetail = () => {
 	const { id } = useParams();
@@ -48,13 +48,15 @@ const ProductDetail = () => {
 	};
 
 	// Calculate Price (Offer Price if available)
-	const displayPrice = product?.offerPrice && product?.offerPrice < product?.price
-		? product.offerPrice
-		: product?.price;
+	const displayPrice =
+		product?.offerPrice && product?.offerPrice < product?.price
+			? product.offerPrice
+			: product?.price;
 
-	const originalPrice = product?.offerPrice && product?.offerPrice < product?.price
-		? product.price
-		: null;
+	const originalPrice =
+		product?.offerPrice && product?.offerPrice < product?.price
+			? product.price
+			: null;
 
 	const discount = originalPrice
 		? getDiscountPercentage(originalPrice, displayPrice)
@@ -69,11 +71,11 @@ const ProductDetail = () => {
 🛒 *New Order Request*
 
 📦 *Product:* ${product.name}
-${originalPrice ? `💰 *Original Price:* ৳${originalPrice}` : ''}
+${originalPrice ? `💰 *Original Price:* ৳${originalPrice}` : ""}
 ${originalPrice ? `💰 *Offer Price:* ৳${displayPrice}` : `💰 *Price:* ৳${displayPrice}`}
 📊 *Quantity:* ${quantity}
 💵 *Total:* ৳${totalAmount}
-${originalPrice ? `💰 *You Save:* ৳${originalPrice - displayPrice}` : ''}
+${originalPrice ? `💰 *You Save:* ৳${originalPrice - displayPrice}` : ""}
 
 📍 *Category:* ${product.category}
 ⭐ *Rating:* ${product.rating}/5
@@ -94,11 +96,11 @@ Please confirm my order!
 🛒 *New Order Request*
 
 📦 *Product:* ${product.name}
-${originalPrice ? `💰 *Original Price:* ৳${originalPrice}` : ''}
+${originalPrice ? `💰 *Original Price:* ৳${originalPrice}` : ""}
 ${originalPrice ? `💰 *Offer Price:* ৳${displayPrice}` : `💰 *Price:* ৳${displayPrice}`}
 📊 *Quantity:* ${quantity}
 💵 *Total:* ৳${totalAmount}
-${originalPrice ? `💰 *You Save:* ৳${originalPrice - displayPrice}` : ''}
+${originalPrice ? `💰 *You Save:* ৳${originalPrice - displayPrice}` : ""}
 
 📍 *Category:* ${product.category}
 ⭐ *Rating:* ${product.rating}/5
@@ -172,11 +174,22 @@ Please confirm my order!
 				<div className="space-y-4">
 					{/* Main Image */}
 					<div className="bg-white rounded-lg shadow-lg overflow-hidden">
-						<img
-							src={product.images[activeImage]}
-							alt={product.name}
-							className="w-full h-96 object-cover"
-						/>
+						<div className="relative" onContextMenu={(e) => e.preventDefault()}>
+							<img
+								src={product.images[activeImage]}
+								alt={product.name}
+								className="w-full h-96 object-cover"
+							/>
+								{/* Watermark */}
+								
+							<div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+								<p className="text-[#D15F93] text-xl font-bold opacity-30 rotate-[-20deg]">
+									Twinkle and trend
+								</p>
+							</div>
+							{/* invisible protection layer */}
+							<div className="absolute inset-0"></div>
+						</div>
 					</div>
 
 					{/* Thumbnail Images */}
@@ -191,11 +204,29 @@ Please confirm my order!
 										: "border-gray-200 hover:border-gray-300"
 								}`}
 							>
-								<img
-									src={img}
-									alt={`${product.name} ${index + 1}`}
-									className="w-full h-20 object-cover"
-								/>
+								<div
+									className="relative"
+									onContextMenu={(e) => e.preventDefault()}
+								>
+									<img
+										draggable="false"
+										onContextMenu={(e) => e.preventDefault()}
+										onDragStart={(e) => e.preventDefault()}
+										src={img}
+										alt={`${product.name} ${index + 1}`}
+										className="w-full h-20 object-cover"
+									/>
+
+									{/* Watermark */}
+
+									<div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+										<p className="text-[#D15F93] text-xl font-bold opacity-30 rotate-[-20deg]">
+											Twinkle and trend
+										</p>
+									</div>
+									{/* invisible protection layer */}
+									<div className="absolute inset-0"></div>
+								</div>
 							</button>
 						))}
 					</div>
@@ -309,67 +340,67 @@ Please confirm my order!
 									fill="currentColor"
 									viewBox="0 0 24 24"
 								>
-															<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-						</svg>
-						Visit Facebook Page
-					</button>
-					<button
-						onClick={handleSendMessageFacebook}
-						disabled={product.stock === 0}
-						className="bg-blue-500 text-white px-8 py-3 rounded-md hover:bg-blue-600 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-lg font-medium flex items-center justify-center gap-2"
-					>
-						<svg
-							className="w-6 h-6"
-							fill="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-						</svg>
-						Send Message
-					</button>
-				</div>
-			</div>
+									<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+								</svg>
+								Visit Facebook Page
+							</button>
+							<button
+								onClick={handleSendMessageFacebook}
+								disabled={product.stock === 0}
+								className="bg-blue-500 text-white px-8 py-3 rounded-md hover:bg-blue-600 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-lg font-medium flex items-center justify-center gap-2"
+							>
+								<svg
+									className="w-6 h-6"
+									fill="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+								</svg>
+								Send Message
+							</button>
+						</div>
+					</div>
 
-			{/* Product Details */}
-			<div className="border-t border-gray-200 pt-6 space-y-3">
-				<div className="flex items-center space-x-2">
-					<span className="text-gray-600 w-24">Category:</span>
-					<span className="text-gray-800 font-medium">
-						{product.category}
-					</span>
-				</div>
-				<div className="flex items-center space-x-2">
-					<span className="text-gray-600 w-24">SKU:</span>
-					<span className="text-gray-800 font-medium">
-						T&T-{product.id}
-					</span>
-				</div>
-				<div className="flex items-center space-x-2">
-					<span className="text-gray-600 w-24">Stock:</span>
-					<span className="text-gray-800 font-medium">
-						{product.stock} units
-					</span>
-				</div>
-				<div className="flex items-center space-x-2">
-					<span className="text-gray-600 w-24">Brand:</span>
-					<span className="text-gray-800 font-medium">Twinkle & Trend</span>
-				</div>
-			</div>
+					{/* Product Details */}
+					<div className="border-t border-gray-200 pt-6 space-y-3">
+						<div className="flex items-center space-x-2">
+							<span className="text-gray-600 w-24">Category:</span>
+							<span className="text-gray-800 font-medium">
+								{product.category}
+							</span>
+						</div>
+						<div className="flex items-center space-x-2">
+							<span className="text-gray-600 w-24">SKU:</span>
+							<span className="text-gray-800 font-medium">
+								T&T-{product.id}
+							</span>
+						</div>
+						<div className="flex items-center space-x-2">
+							<span className="text-gray-600 w-24">Stock:</span>
+							<span className="text-gray-800 font-medium">
+								{product.stock} units
+							</span>
+						</div>
+						<div className="flex items-center space-x-2">
+							<span className="text-gray-600 w-24">Brand:</span>
+							<span className="text-gray-800 font-medium">Twinkle & Trend</span>
+						</div>
+					</div>
 
-			{/* Features */}
-			<div className="border-t border-gray-200 pt-6">
-				<h3 className="font-bold text-gray-800 mb-3">Product Features:</h3>
-				<ul className="space-y-2">
-					{product.features.map((feature, index) => (
-						<li key={index} className="flex items-start space-x-2">
-							<span className="text-[#E771A3] mt-1">✓</span>
-							<span className="text-gray-600">{feature}</span>
-						</li>
-					))}
-				</ul>
+					{/* Features */}
+					<div className="border-t border-gray-200 pt-6">
+						<h3 className="font-bold text-gray-800 mb-3">Product Features:</h3>
+						<ul className="space-y-2">
+							{product.features.map((feature, index) => (
+								<li key={index} className="flex items-start space-x-2">
+									<span className="text-[#E771A3] mt-1">✓</span>
+									<span className="text-gray-600">{feature}</span>
+								</li>
+							))}
+						</ul>
+					</div>
+				</div>
 			</div>
-		</div>
-		</div>
 		</Container>
 	);
 };
