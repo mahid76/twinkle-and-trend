@@ -152,7 +152,7 @@ const Products = () => {
 				</div>
 
 				{/* View More / View Less */}
-				<div className="flex justify-center mt-10">
+				<div className="flex justify-center mt-5 md:mt-10">
 					{visibleCount < products.length ? (
 						<button
 							onClick={() => setVisibleCount((prev) => prev + 4)}

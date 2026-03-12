@@ -23,9 +23,9 @@ const ProductSlider = () => {
 	if (loading) {
 		return (
 			<div className="max-w-7xl mx-auto py-12 px-4">
-				<h2 className="text-3xl font-bold text-center mb-10 text-gray-800">
+				<h1 className="text-2xl sm:text-4xl font-primary font-bold text-gray-800 mb-2">
 					Best Selling Products
-				</h2>
+				</h1>
 				<div className="flex items-center justify-center min-h-[400px]">
 					<div className="text-center">
 						<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500 mx-auto mb-4"></div>
@@ -37,10 +37,12 @@ const ProductSlider = () => {
 	}
 
 	return (
-		<div className="max-w-7xl mx-auto py-12 px-4">
-			<h2 className="text-3xl font-bold text-center mb-10 text-gray-800">
-				Best Selling Products
-			</h2>
+		<div className="max-w-7xl  mx-auto py-4 md:py-8 px-4">
+			<div className="mb-6 md:mb-10">
+				<h1 className="text-2xl text-center sm:text-4xl font-primary font-bold text-gray-800 mb-2">
+					Best Selling Products
+				</h1>
+			</div>
 
 			<div className="relative group">
 				<Swiper
@@ -60,21 +62,22 @@ const ProductSlider = () => {
 					}}
 					navigation={true}
 					breakpoints={{
-						0: { slidesPerView: 1, navigation: false },
-						640: { slidesPerView: 2, navigation: false },
-						1024: { slidesPerView: 3, navigation: true },
-						1280: { slidesPerView: 4, navigation: true },
+						0: { slidesPerView: 1, navigation: false, pagination: false , autoplay: false },
+						640: { slidesPerView: 2, navigation: false , autoplay: false },
+						1024: { slidesPerView: 3, navigation: true , autoplay: false },
+						1280: { slidesPerView: 4, navigation: true , autoplay: false },
 					}}
 					className="rounded-xl"
 				>
 					{products.map((product) => (
 						<SwiperSlide key={product.id}>
 							<Link to={`/products/${product.id}`}>
-								<div className="bg-white rounded-xl shadow p-4 border border-slate-100 hover:shadow-lg transition-all duration-300 h-full flex flex-col">
+							<div className="flex justify-center md:block">
+									<div className="bg-white rounded-xl shadow p-2 md:p-4 border border-slate-100 hover:shadow-lg transition-all duration-300 h-full flex flex-col">
 									{/* Product Image */}
-									<div className="relative overflow-hidden rounded-lg w-full h-64 object-cover transition-transform duration-300 hover:scale-110water">
+									<div className="relative overflow-hidden rounded-lg max-w-70 md:w-full h-full object-cover transition-transform duration-300 hover:scale-105">
 										<div
-											className="relative"
+											className="relative overflow-hidden "
 											onContextMenu={(e) => e.preventDefault()}
 										>
 											<img
@@ -83,7 +86,7 @@ const ProductSlider = () => {
 												onDragStart={(e) => e.preventDefault()}
 												src={product.image}
 												alt={product.name}
-												className="w-full h-52 object-cover hover:scale-105 transition-transform duration-300"
+												className="aspect-4/5  object-cover select-none transition-transform duration-500 hover:scale-105"
 											/>
 											{/* Watermark */}
 
@@ -97,36 +100,37 @@ const ProductSlider = () => {
 											<div className="absolute inset-0"></div>
 										</div>
 										{product.stock === 0 && (
-											<div className="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-medium">
+											<div className="absolute top-2 right-2 bg-red-500 text-white px-2 md:px-3 py-1 md:py-1 text-[10px] md:text-sm rounded-full font-medium">
 												Out of Stock
 											</div>
 										)}
 										{product.stock < 10 && product.stock > 0 && (
-											<div className="absolute top-2 left-2 bg-[#E6A0B5] text-white px-3 py-1 rounded-full text-xs font-medium">
+											<div className="absolute top-2 left-2 bg-[#E771A3] text-white px-2 md:px-3 py-1 md:py-1 text-[10px] md:text-sm rounded-full  font-medium">
 												Only {product.stock} left!
 											</div>
 										)}
 									</div>
 
 									{/* Product Info */}
-									<div className="mt-4 flex flex-col flex-grow">
+									<div className="mt-3 md:mt-4 flex flex-col grow">
 										<h3 className="text-lg font-semibold text-gray-800 line-clamp-2">
 											{product.name}
 										</h3>
-										<p className="text-emerald-600 font-bold text-xl mt-2">
+										<p className="text-emerald-600 font-bold text-xl mt-1 md:mt-2">
 											৳{product.price}
 										</p>
-										<div className="flex items-center mt-2">
+										<div className="flex items-center mt-1 md:mt-2">
 											<span className="text-yellow-500 text-sm">★</span>
 											<span className="text-gray-600 text-sm ml-1">
 												{product.rating}
 											</span>
 										</div>
-										<button className="mt-4 w-full bg-teal-500 text-white py-2.5 rounded-lg font-medium hover:bg-teal-600 transition-colors">
+										<button className="mt-2 md:mt-4 w-full bg-teal-500 text-white py-2.5 rounded-lg font-medium hover:bg-teal-600 transition-colors">
 											View Details
 										</button>
 									</div>
 								</div>
+							</div>
 							</Link>
 						</SwiperSlide>
 					))}
