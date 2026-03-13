@@ -49,7 +49,7 @@ const OfferHome = () => {
 
             <Swiper
               modules={[Pagination, Autoplay]}
-              spaceBetween={16}
+              spaceBetween={12}
               loop={filteredProducts.length > 3}
               autoplay={{
                 delay: 2000,
@@ -61,8 +61,8 @@ const OfferHome = () => {
                 el: ".offers-pagination",
               }}
               breakpoints={{
-                0: { slidesPerView: 1.2 },
-                480: { slidesPerView: 1.5 },
+                0: { slidesPerView: 1 },
+                480: { slidesPerView: 1 },
                 640: { slidesPerView: 2 },
                 1024: { slidesPerView: 3 },
               }}
@@ -78,7 +78,7 @@ const OfferHome = () => {
                     <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 h-full">
 
                       {/* Image */}
-                      <div className="relative overflow-hidden rounded-t-xl aspect-[4/5]">
+                      <div className="relative overflow-hidden rounded-t-xl aspect-[4/4] sm:aspect-[4/5]">
                         <Link to={`/products/${product.id}`}>
                           <img
                             src={product.image}
@@ -94,25 +94,25 @@ const OfferHome = () => {
                       </div>
 
                       {/* Content */}
-                      <div className="p-3 sm:p-4">
+                      <div className="p-2 sm:p-4">
 
                         <Link to={`/products/${product.id}`}>
-                          <h3 className="text-sm sm:text-lg font-semibold text-gray-800 hover:text-[#E771A3] truncate">
+                          <h3 className="text-xs sm:text-lg font-semibold text-gray-800 hover:text-[#E771A3] truncate">
                             {product.name}
                           </h3>
                         </Link>
 
-                        <p className="text-gray-500 text-xs sm:text-sm mt-1 line-clamp-2 h-8">
+                        <p className="text-gray-500 text-[11px] sm:text-sm mt-1 line-clamp-2 h-7">
                           {product.description}
                         </p>
 
                         {/* Price */}
                         <div className="flex items-center gap-2 mt-2">
-                          <span className="text-lg sm:text-xl font-bold text-[#E771A3]">
+                          <span className="text-base sm:text-xl font-bold text-[#E771A3]">
                             ৳{product.offerPrice}
                           </span>
 
-                          <span className="text-gray-400 line-through text-xs sm:text-sm">
+                          <span className="text-gray-400 line-through text-[11px] sm:text-sm">
                             ৳{product.price}
                           </span>
                         </div>
@@ -120,7 +120,7 @@ const OfferHome = () => {
                         {/* Button */}
                         <Link
                           to={`/products/${product.id}`}
-                          className="block mt-3 text-center bg-[#E771A3] text-white py-2 rounded-lg hover:bg-[#d15f93] transition font-semibold text-xs sm:text-sm"
+                          className="block mt-2 text-center bg-[#E771A3] text-white py-1.5 rounded-lg hover:bg-[#d15f93] transition font-semibold text-[11px] sm:text-sm"
                         >
                           Grab Offer
                         </Link>
