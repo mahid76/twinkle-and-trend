@@ -16,7 +16,7 @@ const ProductDetail = () => {
 	const whatsappNumber = "8801601117737";
 
 	// ✅ Facebook Page Username (আপনার Facebook Page Username দিন)
-	const facebookPageUsername = "sewingfly";
+	const facebookPageUsername = "profile.php?id=61574753113504";
 
 	// Fetch Product Data
 	useEffect(() => {
