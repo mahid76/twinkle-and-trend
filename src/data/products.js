@@ -24,6 +24,7 @@ export const products = [
 			stock: 50,
 			isBestSeller: true,
 			images: [cat1, cat2, cat1, cat3],
+			hdImages: [doll1, doll1, doll1, doll1],
 			features: [
 				"Genuine leather material",
 				"Multiple compartments",
