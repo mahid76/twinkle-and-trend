@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import Container from "../../components/layout/Container";
 import { getDiscountPercentage, getProductById } from "../../data/products";
 
+
 const ProductDetail = () => {
 	const { id } = useParams();
 	const [product, setProduct] = useState(null);
@@ -290,14 +291,14 @@ Please confirm my order!
 								<div className="flex items-center border border-gray-300 rounded-md">
 									<button
 										onClick={() => handleQuantityChange(-1)}
-										className=" px-2 py-1 md:px-4 md:py-2 hover:bg-gray-100 transition-colors"
+										className="  px-4 md:py-2 hover:bg-gray-100 transition-colors"
 									>
 										-
 									</button>
 									<span className="px- py-1 md:px-6 md:py-2 font-medium">{quantity}</span>
 									<button
 										onClick={() => handleQuantityChange(1)}
-										className="px-2 py-1 md:px-4 md:py-2 hover:bg-gray-100 transition-colors"
+										className=" px-4 md:py-2 hover:bg-gray-100 transition-colors"
 									>
 										+
 									</button>
