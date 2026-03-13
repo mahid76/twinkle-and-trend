@@ -50,7 +50,7 @@ const ProductSlider = () => {
 					spaceBetween={20}
 					loop={true}
 					autoplay={{
-						delay: 2000,
+						delay: 3000,
 						disableOnInteraction: false,
 					}}
 					pagination={{
@@ -62,10 +62,10 @@ const ProductSlider = () => {
 					}}
 					navigation={true}
 					breakpoints={{
-						0: { slidesPerView: 1, navigation: false, pagination: false , autoplay: false },
-						640: { slidesPerView: 2, navigation: false , autoplay: false },
-						1024: { slidesPerView: 3, navigation: true , autoplay: false },
-						1280: { slidesPerView: 4, navigation: true , autoplay: false },
+						0: { slidesPerView: 1, navigation: false, pagination: false },
+						640: { slidesPerView: 2, navigation: false },
+						1024: { slidesPerView: 3, navigation: true },
+						1280: { slidesPerView: 4, navigation: true },
 					}}
 					className="rounded-xl"
 				>
