@@ -232,10 +232,10 @@ Please confirm my order!
 				<div className="details mt-5 md:mt-0">
 					<div className="space-y-6">
 						<div>
-							<h1 className="text-3xl font-primary font-bold text-gray-800 mb-2">
+							<h1 className="text-2xl md:text-3xl font-primary font-bold text-gray-800 mb-1 md:mb-2">
 								{product.name}
 							</h1>
-							<div className="flex items-center space-x-2 mb-4">
+							<div className="flex items-center space-x-1 md:space-x-2 mb-1 md:mb-4">
 								<div className="flex items-center">
 									{[...Array(5)].map((_, i) => (
 										<span
@@ -261,25 +261,25 @@ Please confirm my order!
 						<div className="space-y-2">
 							{originalPrice && (
 								<div className="flex items-center gap-3">
-									<span className="text-4xl font-bold text-[#E771A3]">
+									<span className="text-2xl md:text-4xl font-bold text-[#E771A3]">
 										৳{displayPrice}
 									</span>
-									<span className="text-xl text-gray-400 line-through">
+									<span className="text-md md:text-xl text-gray-400 line-through">
 										৳{originalPrice}
 									</span>
-									<span className="text-sm text-green-600 font-bold bg-green-100 px-2 py-1 rounded">
+									<span className="text-[8px] md:text-sm text-green-600 font-bold bg-green-100 px-2 py-1 rounded">
 										{discount}% OFF
 									</span>
 								</div>
 							)}
 							{!originalPrice && (
-								<div className="text-4xl font-bold text-[#E771A3]">
+								<div className="text-2xl md:text-4xl font-bold text-[#E771A3]">
 									৳{displayPrice}
 								</div>
 							)}
 						</div>
 
-						<p className="text-gray-600 leading-relaxed text-lg">
+						<p className="text-gray-600 leading-relaxed text-sm md:text-lg">
 							{product.description}
 						</p>
 
@@ -290,14 +290,14 @@ Please confirm my order!
 								<div className="flex items-center border border-gray-300 rounded-md">
 									<button
 										onClick={() => handleQuantityChange(-1)}
-										className="px-4 py-2 hover:bg-gray-100 transition-colors"
+										className=" px-2 py-1 md:px-4 md:py-2 hover:bg-gray-100 transition-colors"
 									>
 										-
 									</button>
-									<span className="px-6 py-2 font-medium">{quantity}</span>
+									<span className="px- py-1 md:px-6 md:py-2 font-medium">{quantity}</span>
 									<button
 										onClick={() => handleQuantityChange(1)}
-										className="px-4 py-2 hover:bg-gray-100 transition-colors"
+										className="px-2 py-1 md:px-4 md:py-2 hover:bg-gray-100 transition-colors"
 									>
 										+
 									</button>
@@ -311,12 +311,12 @@ Please confirm my order!
 						</div>
 
 						{/* Buy Now Buttons */}
-						<div className="border-t border-gray-200 pt-6 space-y-3">
+						<div className="border-t border-gray-200 pt-4 md:pt-6 space-y-2 md:space-y-3">
 							{/* WhatsApp Button */}
 							<button
 								onClick={handleBuyNowWhatsApp}
 								disabled={product.stock === 0}
-								className="bg-green-500 text-white px-8 py-3 rounded-md hover:bg-green-600 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-lg font-medium flex items-center justify-center gap-2"
+								className="bg-green-500 text-white px-4 py-2 md:px-8 md:py-3 rounded-md hover:bg-green-600 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base md:text-lg font-medium flex items-center justify-center gap-2"
 							>
 								<svg
 									className="w-6 h-6"
@@ -348,7 +348,7 @@ Please confirm my order!
 								<button
 									onClick={handleSendMessageFacebook}
 									disabled={product.stock === 0}
-									className="bg-blue-500 text-white px-8 py-3 rounded-md hover:bg-blue-600 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-lg font-medium flex items-center justify-center gap-2"
+									className="bg-blue-500 text-white px-4 py-2 md:px-8 md:py-3 rounded-md hover:bg-blue-600 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base md:text-lg font-medium flex items-center justify-center gap-2"
 								>
 									<svg
 										className="w-6 h-6"
