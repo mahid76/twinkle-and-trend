@@ -333,7 +333,7 @@ Please confirm my order!
 							<button
 								onClick={handleVisitFacebookPage}
 								disabled={product.stock === 0}
-								className="bg-blue-600 text-white px-8 py-3 rounded-md hover:bg-blue-700 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-lg font-medium flex items-center justify-center gap-2"
+								className="bg-blue-600 text-white py-1 hidden md:px-8 md:py-3 rounded-md hover:bg-blue-700 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm md:text-lg font-medium md:flex items-center justify-center gap-1 md:gap-2"
 							>
 								<svg
 									className="w-6 h-6"
