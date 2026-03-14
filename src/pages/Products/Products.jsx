@@ -3,6 +3,20 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import Container from "../../components/layout/Container";
 import { getDiscountPercentage, products } from "../../data/products";
+import { useCart } from "../../context/CartContext";
+
+// ✅ Skeleton Card
+const SkeletonCard = () => (
+	<div className="bg-white rounded-md md:rounded-lg shadow-sm overflow-hidden animate-pulse">
+		<div className="aspect-4/5 bg-gray-200 rounded-lg" />
+		<div className="px-2 py-2 md:p-4 space-y-2">
+			<div className="h-3 bg-gray-200 rounded w-1/2" />
+			<div className="h-4 bg-gray-200 rounded w-3/4" />
+			<div className="h-4 bg-gray-200 rounded w-1/3" />
+			<div className="h-8 bg-gray-200 rounded w-full" />
+		</div>
+	</div>
+);
 
 const Products = () => {
 	const [searchParams] = useSearchParams();
@@ -10,9 +24,18 @@ const Products = () => {
 	const [selectedCategory, setSelectedCategory] = useState("");
 	const [sortBy, setSortBy] = useState("default");
 	const [currentPage, setCurrentPage] = useState(1);
-	const [imagesLoaded, setImagesLoaded] = useState(false);
-	const [loadProgress, setLoadProgress] = useState(0);
+	const [addedMap, setAddedMap] = useState({});
+
+	// ✅ Loading মাত্র 600ms — তারপর skeleton সরে যাবে
+	const [loading, setLoading] = useState(true);
+
 	const itemsPerPage = 12;
+	const { addToCart } = useCart();
+
+	useEffect(() => {
+		const timer = setTimeout(() => setLoading(false), 600);
+		return () => clearTimeout(timer);
+	}, []);
 
 	const categoryMap = {
 		fashion: "Fashion",
@@ -29,7 +52,6 @@ const Products = () => {
 
 	const categories = ["All", ...new Set(products.map((p) => p.category))];
 
-	// URL params
 	useEffect(() => {
 		const categoryParam = searchParams.get("category");
 		const searchParam = searchParams.get("search");
@@ -39,35 +61,6 @@ const Products = () => {
 		if (searchParam) setSearchTerm(searchParam);
 	}, [searchParams]);
 
-	// ✅ Preload শুধু first page এর images
-	useEffect(() => {
-		const firstPageImages = products
-			.slice(0, itemsPerPage)
-			.map((p) => p.image)
-			.filter(Boolean);
-
-		let loaded = 0;
-		const total = firstPageImages.length;
-
-		if (total === 0) {
-			setImagesLoaded(true);
-			return;
-		}
-
-		firstPageImages.forEach((src) => {
-			const img = new Image();
-			img.src = src;
-			const done = () => {
-				loaded++;
-				setLoadProgress(Math.round((loaded / total) * 100));
-				if (loaded === total) setImagesLoaded(true);
-			};
-			img.onload = done;
-			img.onerror = done;
-		});
-	}, []);
-
-	// Filter
 	const filteredProducts = products.filter((product) => {
 		const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
 		const matchesCategory =
@@ -76,7 +69,6 @@ const Products = () => {
 		return matchesSearch && matchesCategory;
 	});
 
-	// Sort
 	const sortedProducts = [...filteredProducts].sort((a, b) => {
 		if (sortBy === "price-low") return a.price - b.price;
 		if (sortBy === "price-high") return b.price - a.price;
@@ -84,7 +76,6 @@ const Products = () => {
 		return 0;
 	});
 
-	// Pagination
 	const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
 	const startIndex = (currentPage - 1) * itemsPerPage;
 	const currentProducts = sortedProducts.slice(startIndex, startIndex + itemsPerPage);
@@ -96,6 +87,14 @@ const Products = () => {
 			setCurrentPage(page);
 			window.scrollTo({ top: 0, behavior: "smooth" });
 		}
+	};
+
+	const handleAddToCart = (e, product) => {
+		e.preventDefault();
+		const defaultVariant = product.variants?.[0] ?? null;
+		addToCart(product, defaultVariant, 1);
+		setAddedMap((prev) => ({ ...prev, [product.id]: true }));
+		setTimeout(() => setAddedMap((prev) => ({ ...prev, [product.id]: false })), 2000);
 	};
 
 	const getPageNumbers = () => {
@@ -152,7 +151,7 @@ const Products = () => {
 	return (
 		<Container>
 			<div className="py-5 md:py-8">
-				{/* Page Header */}
+				{/* Header */}
 				<div className="text-center mb-2 md:mb-8">
 					<h1 className="text-2xl sm:text-4xl font-primary font-bold text-gray-800 mb-2 md:mb-4">
 						Shop All Products
@@ -162,7 +161,7 @@ const Products = () => {
 					</p>
 				</div>
 
-				{/* Search & Filter Bar */}
+				{/* Filter Bar */}
 				<div className="bg-red rounded-md md:rounded-lg shadow-sm md:shadow-lg p-3 md:p-6 mb-4 md:mb-8">
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4">
 						<div className="relative">
@@ -209,8 +208,7 @@ const Products = () => {
 							key={category}
 							onClick={() => { setSelectedCategory(category === "All" ? "" : categoryMap[category]); handleFilterChange(); }}
 							className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-								(category === "All" && selectedCategory === "") ||
-								selectedCategory === categoryMap[category]
+								(category === "All" && selectedCategory === "") || selectedCategory === categoryMap[category]
 									? "bg-[#E771A3] text-white"
 									: "bg-gray-100 text-gray-700 hover:bg-gray-200"
 							}`}
@@ -220,13 +218,20 @@ const Products = () => {
 					))}
 				</div>
 
-				{/* Products Grid */}
-				{currentProducts.length > 0 ? (
+				{/* ✅ Skeleton — 600ms পরে সরে যাবে */}
+				{loading ? (
+					<div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+						{Array.from({ length: 12 }).map((_, i) => (
+							<SkeletonCard key={i} />
+						))}
+					</div>
+				) : currentProducts.length > 0 ? (
 					<>
 						<div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 							{currentProducts.map((product) => {
 								const hasOffer = product.offerPrice && product.offerPrice < product.price;
 								const discount = hasOffer ? getDiscountPercentage(product.price, product.offerPrice) : 0;
+								const isAdded = addedMap[product.id];
 
 								return (
 									<Link
@@ -242,39 +247,28 @@ const Products = () => {
 													draggable="false"
 													onDragStart={(e) => e.preventDefault()}
 													className="w-full h-full object-cover select-none"
+													loading="lazy"
 												/>
 												<div className="absolute inset-0 flex items-center justify-center pointer-events-none">
 													<p className="text-[#D15F93] text-xl font-bold opacity-30 rotate-[-20deg]">Twinkle and trend</p>
 												</div>
 												<div className="absolute inset-0" />
 											</div>
-											{product.stock === 0 && (
-												<div className="absolute top-2 right-2 bg-red-500 text-white px-2 md:px-3 py-1 text-[10px] md:text-sm rounded-full font-medium">Out of Stock</div>
-											)}
-											{product.stock < 10 && product.stock > 0 && (
-												<div className="absolute top-2 left-2 bg-[#E771A3] text-white px-2 md:px-3 py-1 text-[10px] md:text-sm rounded-full font-medium">Only {product.stock} left!</div>
-											)}
-											{hasOffer && (
-												<div className="absolute md:top-4 md:right-4 top-2 right-2 bg-[#E771A3] text-white px-2 md:px-3 py-1 text-[10px] md:text-sm rounded-full font-bold">{discount}% OFF</div>
-											)}
-											{product.isBestSeller && (
-												<div className="absolute top-2 left-2 bg-[#F6D6DF] text-[#E771A3] px-2 md:px-3 py-1 rounded-full text-[10px] md:text-sm font-bold">⭐ Best Seller</div>
-											)}
+											{product.stock === 0 && <div className="absolute top-2 right-2 bg-red-500 text-white px-2 md:px-3 py-1 text-[10px] md:text-sm rounded-full font-medium">Out of Stock</div>}
+											{product.stock < 10 && product.stock > 0 && <div className="absolute top-2 left-2 bg-[#E771A3] text-white px-2 md:px-3 py-1 text-[10px] md:text-sm rounded-full font-medium">Only {product.stock} left!</div>}
+											{hasOffer && <div className="absolute md:top-4 md:right-4 top-2 right-2 bg-[#E771A3] text-white px-2 md:px-3 py-1 text-[10px] md:text-sm rounded-full font-bold">{discount}% OFF</div>}
+											{product.isBestSeller && <div className="absolute top-2 left-2 bg-[#F6D6DF] text-[#E771A3] px-2 md:px-3 py-1 rounded-full text-[10px] md:text-sm font-bold">⭐ Best Seller</div>}
 										</div>
 
 										<div className="px-2 py-2 md:p-4">
 											<div className="flex items-center justify-between mb-2">
-												<span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
-													{categoryMap[product.category] || product.category}
-												</span>
+												<span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">{categoryMap[product.category] || product.category}</span>
 												<div className="flex items-center">
 													<span className="text-yellow-500 text-sm">★</span>
 													<span className="text-gray-600 text-sm ml-1">{product.rating}</span>
 												</div>
 											</div>
-											<div>
-												<h1 className="text-md md:text-xl mb-2 font-semibold text-gray-800 line-clamp-2">{product.name}</h1>
-											</div>
+											<h1 className="text-md md:text-xl mb-2 font-semibold text-gray-800 line-clamp-2">{product.name}</h1>
 											<div className="mb-2 md:mb-3">
 												{hasOffer ? (
 													<div className="flex items-center gap-2">
@@ -285,8 +279,18 @@ const Products = () => {
 													<p className="text-[#E771A3] font-bold text-lg md:text-xl">৳{product.price}</p>
 												)}
 											</div>
-											<button className="w-full bg-[#E771A3] text-white px-4 py-2 rounded-md hover:bg-[#d15f93] transition-colors">
-												View Details
+											<button
+												onClick={(e) => handleAddToCart(e, product)}
+												disabled={product.stock === 0}
+												className={`w-full px-4 py-2 rounded-md transition-all duration-300 font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ${
+													isAdded ? "bg-green-500 text-white" : "bg-[#E771A3] text-white hover:bg-[#d15f93]"
+												}`}
+											>
+												{isAdded ? (
+													<><svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" /></svg>Added!</>
+												) : (
+													<><svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>Add to Cart</>
+												)}
 											</button>
 										</div>
 									</Link>
@@ -302,11 +306,7 @@ const Products = () => {
 											key={index}
 											onClick={() => typeof page === "number" && handlePageChange(page)}
 											className={`px-2 md:px-4 py-1 md:py-2 rounded-md transition-colors ${
-												page === currentPage
-													? "bg-[#E771A3] text-white"
-													: page === "..."
-														? "cursor-default"
-														: "bg-white border border-gray-300 hover:bg-gray-50"
+												page === currentPage ? "bg-[#E771A3] text-white" : page === "..." ? "cursor-default" : "bg-white border border-gray-300 hover:bg-gray-50"
 											}`}
 											disabled={page === "..."}
 										>
@@ -323,7 +323,7 @@ const Products = () => {
 							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
 						</svg>
 						<h3 className="text-xl font-bold text-gray-800 mb-2">No products found</h3>
-						<p className="text-gray-600 mb-4">Try adjusting your search or filter to find what you're looking for.</p>
+						<p className="text-gray-600 mb-4">Try adjusting your search or filter.</p>
 						<button
 							onClick={() => { setSearchTerm(""); setSelectedCategory(""); setSortBy("default"); handleFilterChange(); }}
 							className="bg-[#E771A3] text-white px-6 py-2 rounded-md hover:bg-[#F6D6DF] transition-colors"
