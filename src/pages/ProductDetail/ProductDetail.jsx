@@ -424,11 +424,11 @@ Please confirm my order!
 				<span className="text-gray-800">{product.name}</span>
 			</nav>
 
-			<div className="block md:flex md:justify-between mb-8 md:mb-12">
+			<div className="block md:flex md:justify-between mb-8 md:mb-12 md:gap-10">
 				{/* ── Image Column ── */}
 				<div className="product-image md:block">
 					{/* ── Desktop layout ── */}
-					<div className="hidden md:flex md:items-center md:justify-between">
+					<div className="hidden md:flex md:items-center md:justify-between ">
 						{/* Main image with hover zoom */}
 						<HoverZoomImage image={currentImage} hdImage={currentHdImage}>
 							<div
@@ -685,7 +685,7 @@ Please confirm my order!
 							<button
 								onClick={handleBuyNowWhatsApp}
 								disabled={activeStock === 0}
-								className="bg-green-500 text-white px-4 py-2 md:px-8 md:py-3 rounded-md hover:bg-green-600 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base md:text-lg font-medium flex items-center justify-center gap-2"
+								className="bg-green-500 text-white px-4 py-2 md:px-35 md:py-3 rounded-md hover:bg-green-600 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base md:text-lg font-medium flex items-center justify-center gap-2 cursor-pointer"
 							>
 								<svg
 									className="w-6 h-6"
@@ -701,24 +701,24 @@ Please confirm my order!
 								<button
 									onClick={handleVisitFacebookPage}
 									disabled={activeStock === 0}
-									className="bg-blue-600 text-white px-4 py-2 md:px-8 md:py-3 rounded-md hover:bg-blue-700 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm md:text-lg font-medium flex items-center justify-center gap-1 md:gap-2"
+									className="bg-blue-600 text-white px-4 py-2 md:px-8 md:py-3 rounded-md hover:bg-blue-700 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm md:text-base font-medium flex items-center justify-center gap-1 md:gap-2 cursor-pointer"
 								>
 									<svg
-										className="w-5 h-5 md:w-6 md:h-6"
+										className="w-4 h-4 md:w-6 md:h-5"
 										fill="currentColor"
 										viewBox="0 0 24 24"
 									>
 										<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
 									</svg>
-									Visit Facebook Page
+									Visit Facebook
 								</button>
 								<button
 									onClick={handleSendMessageFacebook}
 									disabled={activeStock === 0}
-									className="bg-blue-500 text-white px-4 py-2 md:px-8 md:py-3 rounded-md hover:bg-blue-600 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base md:text-lg font-medium flex items-center justify-center gap-2"
+									className="bg-blue-500 text-white px-4 py-2 md:px-8 md:py-3 rounded-md hover:bg-blue-600 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm md:text-base font-medium flex items-center justify-center gap-2 cursor-pointer"
 								>
 									<svg
-										className="w-5 h-5 md:w-6 md:h-6"
+										className="w-4 h-4 md:w-6 md:h-5"
 										fill="currentColor"
 										viewBox="0 0 24 24"
 									>
