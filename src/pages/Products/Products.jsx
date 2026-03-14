@@ -22,6 +22,7 @@ const Products = () => {
 	const [searchParams] = useSearchParams();
 	const [searchTerm, setSearchTerm] = useState("");
 	const [selectedCategory, setSelectedCategory] = useState("");
+	
 	const [sortBy, setSortBy] = useState("default");
 	const [currentPage, setCurrentPage] = useState(1);
 	const [addedMap, setAddedMap] = useState({});
