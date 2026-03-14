@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Container from "../../components/layout/Container";
+import { useCart } from "../../context/CartContext";
 import { getDiscountPercentage, getProductById } from "../../data/products";
 
 // ─── HD Image Zoom Modal (mobile) ─────────────────────────────────────────────
@@ -298,6 +299,15 @@ const ProductDetail = () => {
 		setQuantity(1);
 	};
 
+	//cart
+	const { addToCart } = useCart();
+	const [addedToCart, setAddedToCart] = useState(false);
+
+	const handleAddToCart = () => {
+		addToCart(product, selectedVariant, quantity);
+		setAddedToCart(true);
+		setTimeout(() => setAddedToCart(false), 2000);
+	};
 	const handleQuantityChange = (change) => {
 		const maxStock = selectedVariant ? selectedVariant.stock : product?.stock;
 		setQuantity((prev) => {
@@ -331,8 +341,8 @@ const ProductDetail = () => {
 		product?.hdImages?.[activeImage] ||
 		currentImage;
 
-const buildOrderMessage = () =>
-	`
+	const buildOrderMessage = () =>
+		`
 *New Order Request*
 
 *Product:* ${product.name}
@@ -348,7 +358,6 @@ ${originalPrice ? `*You Save:* Tk.${(originalPrice - displayPrice) * quantity}` 
 
 Please confirm my order!
 	`.trim();
-
 
 	const handleBuyNowWhatsApp = () => {
 		if (activeStock > 0)
@@ -424,11 +433,11 @@ Please confirm my order!
 				<span className="text-gray-800">{product.name}</span>
 			</nav>
 
-			<div className="block md:flex md:justify-between mb-8 md:mb-12">
+			<div className="block md:flex md:justify-between mb-8 md:mb-12 md:gap-10">
 				{/* ── Image Column ── */}
 				<div className="product-image md:block">
 					{/* ── Desktop layout ── */}
-					<div className="hidden md:flex md:items-center md:justify-between">
+					<div className="hidden md:flex md:items-center md:justify-between ">
 						{/* Main image with hover zoom */}
 						<HoverZoomImage image={currentImage} hdImage={currentHdImage}>
 							<div
@@ -681,14 +690,85 @@ Please confirm my order!
 						</div>
 
 						{/* Buy Buttons */}
-						<div className="border-t border-gray-200 pt-4 md:pt-6 space-y-2 md:space-y-3">
+						{/* Buy Buttons */}
+						<div className="border-t border-gray-200 pt-4 md:pt-6 space-y-3">
+							{/* ── Row 1: Add to Cart + View Cart ── */}
+							<div className="flex gap-2">
+								<button
+									onClick={handleAddToCart}
+									disabled={activeStock === 0}
+									className={`flex-1 py-2.5 md:py-3 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 transition-all duration-300 border-2 disabled:opacity-50 disabled:cursor-not-allowed ${
+										addedToCart
+											? "bg-green-500 border-green-500 text-white scale-[0.98]"
+											: "bg-white border-[#E771A3] text-[#E771A3] hover:bg-[#E771A3] hover:text-white"
+									}`}
+								>
+									{addedToCart ? (
+										<>
+											<svg
+												className="w-4 h-4 md:w-5 md:h-5"
+												fill="none"
+												stroke="currentColor"
+												strokeWidth={2.5}
+												viewBox="0 0 24 24"
+											>
+												<path
+													d="M5 13l4 4L19 7"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+												/>
+											</svg>
+											<span>Added!</span>
+										</>
+									) : (
+										<>
+											<svg
+												className="w-4 h-4 md:w-5 md:h-5"
+												fill="none"
+												stroke="currentColor"
+												strokeWidth={2}
+												viewBox="0 0 24 24"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+												/>
+											</svg>
+											<span>Add to Cart</span>
+										</>
+									)}
+								</button>
+
+								<Link
+									to="/cart"
+									className="flex-1 py-2.5 md:py-3 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 bg-[#E771A3] text-white hover:bg-[#d15f93] transition-all duration-300"
+								>
+									<svg
+										className="w-4 h-4 md:w-5 md:h-5"
+										fill="none"
+										stroke="currentColor"
+										strokeWidth={2}
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+										/>
+									</svg>
+									<span>View Cart</span>
+								</Link>
+							</div>
+
+							{/* ── Row 2: WhatsApp full width ── */}
 							<button
 								onClick={handleBuyNowWhatsApp}
 								disabled={activeStock === 0}
-								className="bg-green-500 text-white px-4 py-2 md:px-8 md:py-3 rounded-md hover:bg-green-600 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base md:text-lg font-medium flex items-center justify-center gap-2"
+								className="w-full py-2.5 md:py-3 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 bg-[#25D366] text-white hover:bg-[#1ebe5d] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
 							>
 								<svg
-									className="w-6 h-6"
+									className="w-4 h-4 md:w-5 md:h-5"
 									fill="currentColor"
 									viewBox="0 0 24 24"
 								>
@@ -697,34 +777,38 @@ Please confirm my order!
 								Buy Now on WhatsApp
 							</button>
 
+							{/* ── Row 3: Facebook Visit + Send Message ── */}
 							<div className="flex gap-2">
 								<button
 									onClick={handleVisitFacebookPage}
 									disabled={activeStock === 0}
-									className="bg-blue-600 text-white px-4 py-2 md:px-8 md:py-3 rounded-md hover:bg-blue-700 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm md:text-lg font-medium flex items-center justify-center gap-1 md:gap-2"
+									className="flex-1 py-2.5 md:py-3 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 bg-[#1877F2] text-white hover:bg-[#1464d8] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
 								>
 									<svg
-										className="w-5 h-5 md:w-6 md:h-6"
+										className="w-4 h-4 md:w-5 md:h-5"
 										fill="currentColor"
 										viewBox="0 0 24 24"
 									>
 										<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
 									</svg>
-									Visit Facebook Page
+									<span className="hidden sm:inline">Visit Facebook</span>
+									<span className="sm:hidden">Facebook</span>
 								</button>
+
 								<button
 									onClick={handleSendMessageFacebook}
 									disabled={activeStock === 0}
-									className="bg-blue-500 text-white px-4 py-2 md:px-8 md:py-3 rounded-md hover:bg-blue-600 w-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base md:text-lg font-medium flex items-center justify-center gap-2"
+									className="flex-1 py-2.5 md:py-3 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 bg-[#0084FF] text-white hover:bg-[#006fe0] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
 								>
 									<svg
-										className="w-5 h-5 md:w-6 md:h-6"
+										className="w-4 h-4 md:w-5 md:h-5"
 										fill="currentColor"
 										viewBox="0 0 24 24"
 									>
-										<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+										<path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.652V24l4.088-2.242c1.092.301 2.246.464 3.443.464 6.627 0 12-4.974 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z" />
 									</svg>
-									Send Message
+									<span className="hidden sm:inline">Send Message</span>
+									<span className="sm:hidden">Messenger</span>
 								</button>
 							</div>
 						</div>
