@@ -1,50 +1,53 @@
 // src/data/products.js
+import cat1 from "../assets/cat1.png";
+import cat2 from "../assets/cat2.png";
+import cat3 from "../assets/cat3.jpeg";
+import doll1 from "../assets/doll1.png";
+import doll1low from "../assets/doll1low.png";
 import tr1 from "../assets/t&tr1.JPEG";
 import tr2 from "../assets/t&tr2.jpg";
 import tr3 from "../assets/t&tr3.jpg";
 import tr4 from "../assets/t&tr4.jpg";
 import tr5 from "../assets/t&tr5.jpg";
-import cat1 from "../assets/cat1.png";
-import cat2 from "../assets/cat2.png";
-import cat3 from "../assets/cat3.jpeg";
-import doll1 from "../assets/doll1.png";
 
 export const products = [
 	// Fashion Category (8 Products)
-		{
-			id: 1,
-			name: "Premium Leather Bag",
-			price: 2999,
-			offerPrice: 2499, // ✅ Offer Price
-			image: cat1,
-			rating: 4.5,
-			description:
-				"Premium quality leather bag with multiple compartments. Perfect for daily use.",
-			category: "fashion", // ✅ lowercase
-			stock: 50,
-			isBestSeller: true,
-			images: [cat1, cat2, cat1, cat3],
-			hdImages: [doll1, doll1, doll1, doll1],
-			features: [
-				"Genuine leather material",
-				"Multiple compartments",
-				"Adjustable shoulder strap",
-				"Dimensions: 30x20x10 cm",
-			],
+	{
+		id: 1,
+		name: "Premium Leather Bag",
+		price: 2999,
+		offerPrice: 2499, // ✅ Offer Price
+		image: cat1,
+		rating: 4.5,
+		description:
+			"Premium quality leather bag with multiple compartments. Perfect for daily use.",
+		category: "fashion", // ✅ lowercase
+		stock: 50,
+		isBestSeller: true,
+		images: [cat1, cat2, cat1, cat3],
+		hdImages: [doll1, doll1, doll1, doll1],
+		features: [
+			"Genuine leather material",
+			"Multiple compartments",
+			"Adjustable shoulder strap",
+			"Dimensions: 30x20x10 cm",
+		],
 	},
 	{
 		id: 2,
 		name: "Designer Handbag",
 		price: 3499,
 		// offerPrice: 2999, // ✅ Offer Price
-		image: doll1,
+		image: doll1low,
 		rating: 4.6,
 		description:
 			"Elegant designer handbag for women. Perfect for office and casual wear.",
 		category: "fashion", // ✅ lowercase
 		stock: 2,
 		isBestSeller: false,
-		images: [doll1, cat1, cat2, cat3],
+		images: [doll1low, cat1, cat2, cat3],
+		hdImages: [doll1, doll1, doll1, doll1],
+
 		features: [
 			"Premium synthetic leather",
 			"Gold-plated hardware",
@@ -670,7 +673,7 @@ export const getFeaturedProducts = () => {
 // ✅ NEW: Get Products with Offers
 export const getProductsWithOffers = () => {
 	return products.filter(
-		(product) => product.offerPrice && product.offerPrice < product.price
+		(product) => product.offerPrice && product.offerPrice < product.price,
 	);
 };
 
@@ -679,3 +682,4 @@ export const getDiscountPercentage = (originalPrice, offerPrice) => {
 	if (!offerPrice || offerPrice >= originalPrice) return 0;
 	return Math.round(((originalPrice - offerPrice) / originalPrice) * 100);
 };
+
