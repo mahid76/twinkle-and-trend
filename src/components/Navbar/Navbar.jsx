@@ -111,55 +111,60 @@ const Navbar = () => {
 	};
 
 	return (
-		<nav className="w-full relative z-50 bg-white from-[#FAD0E4] via-[#F7B3D3] to-[#FAD0E4] text-black shadow-md">
-			<Container>
-				<div className="flex items-center justify-between py-2">
-					<Logo onClick={handleLinkClick} />
-					<DesktopMenu onLinkClick={handleLinkClick} />
-					<SearchBar
-						searchQuery={searchQuery}
-						setSearchQuery={setSearchQuery}
-						showSuggestions={showSuggestions}
-						searchResults={searchResults}
-						handleSearch={handleSearch}
-						handleProductClick={handleProductClick}
-						searchRef={searchRef}
-					/>
-					<MobileMenu
-						isMobile={true}
-						mobileMenuOpen={mobileMenuOpen}
-						setMobileMenuOpen={setMobileMenuOpen}
-						mobileDropdownOpen={mobileDropdownOpen}
-						setMobileDropdownOpen={setMobileDropdownOpen}
-						toggleSearchModal={toggleSearchModal}
-						handleLinkClick={handleLinkClick}
-					/>
-				</div>
-			</Container>
+		<>
+			{/* Spacer so page content doesn't hide behind fixed navbar */}
+			<div className="h-[60px]" />
 
-			{/* Mobile Menu (Full Screen) */}
-			<MobileMenu
-				isMobile={false}
-				mobileMenuOpen={mobileMenuOpen}
-				setMobileMenuOpen={setMobileMenuOpen}
-				mobileDropdownOpen={mobileDropdownOpen}
-				setMobileDropdownOpen={setMobileDropdownOpen}
-				handleLinkClick={handleLinkClick}
-			/>
+			<nav className="w-full fixed top-0 left-0 right-0 z-50 bg-white from-[#FAD0E4] via-[#F7B3D3] to-[#FAD0E4] text-black shadow-md">
+				<Container>
+					<div className="flex items-center justify-between py-2">
+						<Logo onClick={handleLinkClick} />
+						<DesktopMenu onLinkClick={handleLinkClick} />
+						<SearchBar
+							searchQuery={searchQuery}
+							setSearchQuery={setSearchQuery}
+							showSuggestions={showSuggestions}
+							searchResults={searchResults}
+							handleSearch={handleSearch}
+							handleProductClick={handleProductClick}
+							searchRef={searchRef}
+						/>
+						<MobileMenu
+							isMobile={true}
+							mobileMenuOpen={mobileMenuOpen}
+							setMobileMenuOpen={setMobileMenuOpen}
+							mobileDropdownOpen={mobileDropdownOpen}
+							setMobileDropdownOpen={setMobileDropdownOpen}
+							toggleSearchModal={toggleSearchModal}
+							handleLinkClick={handleLinkClick}
+						/>
+					</div>
+				</Container>
 
-			<SearchModal
-				showSearchModal={showSearchModal}
-				setShowSearchModal={setShowSearchModal}
-				searchQuery={searchQuery}
-				setSearchQuery={setSearchQuery}
-				showSuggestions={showSuggestions}
-				searchResults={searchResults}
-				handleSearch={handleSearch}
-				handleProductClick={handleProductClick}
-				inputRef={inputRef}
-				searchRef={searchRef}
-			/>
-		</nav>
+				{/* Mobile Menu (Full Screen) */}
+				<MobileMenu
+					isMobile={false}
+					mobileMenuOpen={mobileMenuOpen}
+					setMobileMenuOpen={setMobileMenuOpen}
+					mobileDropdownOpen={mobileDropdownOpen}
+					setMobileDropdownOpen={setMobileDropdownOpen}
+					handleLinkClick={handleLinkClick}
+				/>
+
+				<SearchModal
+					showSearchModal={showSearchModal}
+					setShowSearchModal={setShowSearchModal}
+					searchQuery={searchQuery}
+					setSearchQuery={setSearchQuery}
+					showSuggestions={showSuggestions}
+					searchResults={searchResults}
+					handleSearch={handleSearch}
+					handleProductClick={handleProductClick}
+					inputRef={inputRef}
+					searchRef={searchRef}
+				/>
+			</nav>
+		</>
 	);
 };
 
