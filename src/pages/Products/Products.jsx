@@ -111,6 +111,43 @@ const Products = () => {
 		return pages;
 	};
 
+	// ✅ Loading screen
+	if (!imagesLoaded) {
+		return (
+			<div className="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
+				<div className="mb-8 text-center">
+					<h2 className="text-2xl font-primary font-bold text-[#E771A3] mb-1">
+						Twinkle & Trend
+					</h2>
+					<p className="text-gray-400 text-sm">Loading products...</p>
+				</div>
+
+				<div className="w-64 md:w-80">
+					<div className="flex justify-between text-xs text-gray-400 mb-2">
+						<span>Loading images</span>
+						<span>{loadProgress}%</span>
+					</div>
+					<div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
+						<div
+							className="h-2 bg-[#E771A3] rounded-full transition-all duration-300 ease-out"
+							style={{ width: `${loadProgress}%` }}
+						/>
+					</div>
+				</div>
+
+				<div className="flex gap-2 mt-8">
+					{[0, 1, 2].map((i) => (
+						<div
+							key={i}
+							className="w-2 h-2 bg-[#E771A3] rounded-full animate-bounce"
+							style={{ animationDelay: `${i * 0.15}s` }}
+						/>
+					))}
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<Container>
 			<div className="py-5 md:py-8">
