@@ -155,7 +155,7 @@ Please confirm my order!
 
 	return (
 		<Container>
-			<div className="py-8"></div>
+			<div className="py-4 md:py-6"></div>
 			{/* Breadcrumb */}
 			<nav className="text-sm text-gray-500 mb-6">
 				<Link to="/" className="hover:text-[#E771A3]">
