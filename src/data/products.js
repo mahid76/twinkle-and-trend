@@ -4,24 +4,32 @@ import cat2 from "../assets/cat2.png";
 import cat3 from "../assets/cat3.jpeg";
 import doll1 from "../assets/doll1.png";
 import doll1low from "../assets/doll1low.png";
+import logo from "../assets/logo.png";
 import tr1 from "../assets/t&tr1.JPEG";
 import tr2 from "../assets/t&tr2.jpg";
 import tr3 from "../assets/t&tr3.jpg";
 import tr4 from "../assets/t&tr4.jpg";
 import tr5 from "../assets/t&tr5.jpg";
+import whiteCat01 from "../assets/white-cat01.png";
+import whiteCat02 from "../assets/white-cat02.png";
+import whiteCat03 from "../assets/white-cat03.png";
+import whiteCat04 from "../assets/white-cat04.png";
+import blackCat01 from "../assets/black-cat01.png";
+import blackCat02 from "../assets/black-cat02.png";
+import blackCat03 from "../assets/black-cat03.png";
+import blackCat04 from "../assets/black-cat04.png";
 
 export const products = [
 	// Fashion Category (8 Products)
 	{
 		id: 1,
 		name: "Premium Leather Bag",
-		price: 2999,
-		offerPrice: 2499, // ✅ Offer Price
-		image: cat1,
+		price: 2999, // ✅ default price (প্রথম variant এর)
+		offerPrice: 2499,
+		image: whiteCat01, // ✅ default image (প্রথম variant এর)
 		rating: 4.5,
-		description:
-			"Premium quality leather bag with multiple compartments. Perfect for daily use.",
-		category: "fashion", // ✅ lowercase
+		description: "Premium quality leather bag with multiple compartments.",
+		category: "fashion",
 		stock: 50,
 		isBestSeller: true,
 		images: [cat1, cat2, cat1, cat3],
@@ -31,6 +39,37 @@ export const products = [
 			"Multiple compartments",
 			"Adjustable shoulder strap",
 			"Dimensions: 30x20x10 cm",
+		],
+
+		// ✅ Color Variants
+		variants: [
+			{
+				color: "White",
+				colorHex: "#1a1a1a",
+				price: 2999,
+				offerPrice: 2499,
+				images: [whiteCat01, whiteCat02, whiteCat03, whiteCat04], // ✅ 4টা regular image
+				hdImages: [doll1, logo, cat1, cat2], // ✅ 4টা HD image
+				stock: 50,
+			},
+			{
+				color: "black",
+				colorHex: "#8B4513",
+				price: 3299,
+				offerPrice: null,
+				images: [blackCat01, blackCat02, blackCat03, blackCat04],
+				hdImages: [whiteCat01, whiteCat02, whiteCat03, whiteCat04],
+				stock: 20,
+			},
+			{
+				color: "Red",
+				colorHex: "#dc2626",
+				price: 3499,
+				offerPrice: 2999,
+				images: [cat3, cat2, cat1, cat3],
+				hdImages: [doll1, doll1, doll1, doll1],
+				stock: 5,
+			},
 		],
 	},
 	{
@@ -682,4 +721,3 @@ export const getDiscountPercentage = (originalPrice, offerPrice) => {
 	if (!offerPrice || offerPrice >= originalPrice) return 0;
 	return Math.round(((originalPrice - offerPrice) / originalPrice) * 100);
 };
-
