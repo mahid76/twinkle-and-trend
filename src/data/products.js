@@ -1,4 +1,8 @@
 // src/data/products.js
+import blackCat01 from "../assets/black-cat01.png";
+import blackCat02 from "../assets/black-cat02.png";
+import blackCat03 from "../assets/black-cat03.png";
+import blackCat04 from "../assets/black-cat04.png";
 import cat1 from "../assets/cat1.png";
 import cat2 from "../assets/cat2.png";
 import cat3 from "../assets/cat3.jpeg";
@@ -14,15 +18,12 @@ import whiteCat01 from "../assets/white-cat01.png";
 import whiteCat02 from "../assets/white-cat02.png";
 import whiteCat03 from "../assets/white-cat03.png";
 import whiteCat04 from "../assets/white-cat04.png";
-import blackCat01 from "../assets/black-cat01.png";
-import blackCat02 from "../assets/black-cat02.png";
-import blackCat03 from "../assets/black-cat03.png";
-import blackCat04 from "../assets/black-cat04.png";
 
 export const products = [
 	// Fashion Category (8 Products)
 	{
 		id: 1,
+		showStock: true,
 		name: "Premium Leather Bag",
 		price: 2999, // ✅ default price (প্রথম variant এর)
 		offerPrice: 2499,
@@ -49,7 +50,8 @@ export const products = [
 				price: 2999,
 				offerPrice: 2499,
 				images: [whiteCat01, whiteCat02, whiteCat03, whiteCat04], // ✅ 4টা regular image
-				hdImages: [doll1, logo, cat1, cat2], // ✅ 4টা HD image
+				hdImages: [doll1, logo, cat1, cat2],
+				showStock: true,
 				stock: 50,
 			},
 			{
@@ -59,7 +61,14 @@ export const products = [
 				offerPrice: null,
 				images: [blackCat01, blackCat02, blackCat03, blackCat04],
 				hdImages: [whiteCat01, whiteCat02, whiteCat03, whiteCat04],
+				showStock: false,
 				stock: 20,
+				features: [
+					"Premium brown leather",
+					"Gold-plated hardware",
+					"Interior zip pocket",
+					"Dimensions: 30x20x10 cm",
+				],
 			},
 			{
 				color: "Red",
@@ -68,12 +77,21 @@ export const products = [
 				offerPrice: 2999,
 				images: [cat3, cat2, cat1, cat3],
 				hdImages: [doll1, doll1, doll1, doll1],
+				showStock: true,
 				stock: 5,
+				description: "Classic black leather bag. Perfect for formal occasions.",
+				features: [
+					"Genuine black leather",
+					"Multiple compartments",
+					"Adjustable shoulder strap",
+					"Dimensions: 30x20x10 cm",
+				],
 			},
 		],
 	},
 	{
 		id: 2,
+		showStock: true,
 		name: "Designer Handbag",
 		price: 3499,
 		// offerPrice: 2999, // ✅ Offer Price
@@ -96,6 +114,7 @@ export const products = [
 	},
 	{
 		id: 3,
+		showStock: true,
 		name: "Leather Wallet",
 		price: 1299,
 		offerPrice: 999, // ✅ Offer Price
@@ -116,6 +135,7 @@ export const products = [
 	},
 	{
 		id: 4,
+		showStock: true,
 		name: "Sunglasses",
 		price: 899,
 		offerPrice: 699, // ✅ Offer Price
@@ -135,6 +155,7 @@ export const products = [
 	},
 	{
 		id: 5,
+		showStock: true,
 		name: "Wrist Watch",
 		price: 4999,
 		// offerPrice: 4499, // ✅ Offer Price
@@ -155,6 +176,7 @@ export const products = [
 	},
 	{
 		id: 6,
+		showStock: true,
 		name: "Fashion Belt",
 		price: 799,
 		offerPrice: 599, // ✅ Offer Price
@@ -175,6 +197,7 @@ export const products = [
 	},
 	{
 		id: 7,
+		showStock: true,
 		name: "Scarf",
 		price: 599,
 		offerPrice: 449, // ✅ Offer Price
@@ -194,6 +217,7 @@ export const products = [
 	},
 	{
 		id: 8,
+		showStock: true,
 		name: "Gloves",
 		price: 499,
 		// offerPrice: 349, // ✅ Offer Price
@@ -215,6 +239,7 @@ export const products = [
 	// Toys Category (6 Products)
 	{
 		id: 9,
+		showStock: true,
 		name: "Cat Doll",
 		price: 599,
 		// offerPrice: 449, // ✅ Offer Price
@@ -235,6 +260,7 @@ export const products = [
 	},
 	{
 		id: 10,
+		showStock: true,
 		name: "Two Doll Set",
 		price: 1999,
 		// offerPrice: 1699, // ✅ Offer Price
@@ -254,6 +280,7 @@ export const products = [
 	},
 	{
 		id: 11,
+		showStock: true,
 		name: "Teddy Bear",
 		price: 899,
 		// offerPrice: 699, // ✅ Offer Price
@@ -273,6 +300,7 @@ export const products = [
 	},
 	{
 		id: 12,
+		showStock: true,
 		name: "Puzzle Game",
 		price: 499,
 		// offerPrice: 399, // ✅ Offer Price
@@ -292,6 +320,7 @@ export const products = [
 	},
 	{
 		id: 13,
+		showStock: true,
 		name: "Building Blocks",
 		price: 1299,
 		// offerPrice: 1099, // ✅ Offer Price
@@ -311,6 +340,7 @@ export const products = [
 	},
 	{
 		id: 14,
+		showStock: true,
 		name: "Remote Control Car",
 		price: 2499,
 		// offerPrice: 2199, // ✅ Offer Price
@@ -332,6 +362,7 @@ export const products = [
 	// Home & Kitchen Category (6 Products)
 	{
 		id: 15,
+		showStock: true,
 		name: "Stanley Cup",
 		price: 399,
 		// offerPrice: 299, // ✅ Offer Price
@@ -351,6 +382,7 @@ export const products = [
 	},
 	{
 		id: 16,
+		showStock: true,
 		name: "Kitchen Knife Set",
 		price: 2499,
 		// offerPrice: 2199, // ✅ Offer Price
@@ -370,6 +402,7 @@ export const products = [
 	},
 	{
 		id: 17,
+		showStock: true,
 		name: "Coffee Maker",
 		price: 3999,
 		// offerPrice: 3499, // ✅ Offer Price
@@ -389,6 +422,7 @@ export const products = [
 	},
 	{
 		id: 18,
+		showStock: true,
 		name: "Blender",
 		price: 2999,
 		// offerPrice: 2699, // ✅ Offer Price
@@ -408,6 +442,7 @@ export const products = [
 	},
 	{
 		id: 19,
+		showStock: true,
 		name: "Air Fryer",
 		price: 5999,
 		// offerPrice: 5499, // ✅ Offer Price
@@ -427,6 +462,7 @@ export const products = [
 	},
 	{
 		id: 20,
+		showStock: true,
 		name: "Storage Containers",
 		price: 999,
 		// offerPrice: 799, // ✅ Offer Price
@@ -449,6 +485,7 @@ export const products = [
 	// Religious Category (4 Products)
 	{
 		id: 21,
+		showStock: true,
 		name: "Tashbih",
 		price: 4999,
 		// offerPrice: 4499, // ✅ Offer Price
@@ -468,6 +505,7 @@ export const products = [
 	},
 	{
 		id: 22,
+		showStock: true,
 		name: "Prayer Mat",
 		price: 1299,
 		// offerPrice: 999,
@@ -488,6 +526,7 @@ export const products = [
 	},
 	{
 		id: 23,
+		showStock: true,
 		name: "Quran Stand",
 		price: 1999,
 		// offerPrice: 1799,
@@ -507,6 +546,7 @@ export const products = [
 	},
 	{
 		id: 24,
+		showStock: true,
 		name: "Islamic Wall Art",
 		price: 899,
 		// offerPrice: 699,
@@ -529,6 +569,7 @@ export const products = [
 	// Electronics Category (4 Products)
 	{
 		id: 25,
+		showStock: true,
 		name: "Wireless Earbuds",
 		price: 2999,
 		// offerPrice: 2499,
@@ -549,6 +590,7 @@ export const products = [
 	},
 	{
 		id: 26,
+		showStock: true,
 		name: "Power Bank",
 		price: 1499,
 		// offerPrice: 1199,
@@ -568,6 +610,7 @@ export const products = [
 	},
 	{
 		id: 27,
+		showStock: true,
 		name: "Smart Watch",
 		price: 4999,
 		// offerPrice: 4499,
@@ -588,6 +631,7 @@ export const products = [
 	},
 	{
 		id: 28,
+		showStock: true,
 		name: "Bluetooth Speaker",
 		price: 1999,
 		// offerPrice: 1699,
@@ -609,6 +653,7 @@ export const products = [
 	// Sports Category (2 Products)
 	{
 		id: 29,
+		showStock: true,
 		name: "Yoga Mat",
 		price: 1299,
 		// offerPrice: 999,
@@ -628,6 +673,7 @@ export const products = [
 	},
 	{
 		id: 30,
+		showStock: true,
 		name: "Dumbbell Set",
 		price: 3499,
 		offerPrice: 2999,
