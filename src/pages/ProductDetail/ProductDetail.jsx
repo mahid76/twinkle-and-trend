@@ -1,6 +1,6 @@
 // src/pages/ProductDetail/ProductDetail.jsx
 import { useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams,useSearchParams  } from "react-router-dom";
 import Container from "../../components/layout/Container";
 import { useCart } from "../../context/CartContext";
 import { getDiscountPercentage, getProductById } from "../../data/products";
@@ -262,6 +262,7 @@ const VariantSwatch = ({ variant, isSelected, onClick }) => {
 // ─── Main Component ───────────────────────────────────────────────────────────
 const ProductDetail = () => {
 	const { id } = useParams();
+	const [searchParams] = useSearchParams(); 
 	const [product, setProduct] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -281,7 +282,16 @@ const ProductDetail = () => {
 			if (foundProduct) {
 				setProduct(foundProduct);
 				if (foundProduct.variants?.length > 0) {
-					setSelectedVariant(foundProduct.variants[0]);
+					// ✅ URL এ color থাকলে সেই variant select করবে
+					const colorParam = searchParams.get("color");
+					if (colorParam) {
+						const matchedVariant = foundProduct.variants.find(
+							(v) => v.color === colorParam,
+						);
+						setSelectedVariant(matchedVariant || foundProduct.variants[0]);
+					} else {
+						setSelectedVariant(foundProduct.variants[0]);
+					}
 				}
 			} else {
 				setError("Product not found");
@@ -291,8 +301,7 @@ const ProductDetail = () => {
 		} finally {
 			setLoading(false);
 		}
-	}, [id]);
-
+	}, [id, searchParams]); // ✅ searchParams dependency যোগ করুন
 	const handleVariantChange = (variant) => {
 		setSelectedVariant(variant);
 		setActiveImage(0);
@@ -433,9 +442,9 @@ Please confirm my order!
 				<span className="text-gray-800">{product.name}</span>
 			</nav>
 
-			<div className="block md:flex md:justify-between mb-8 md:mb-12 md:gap-10">
+			<div className="block md:flex md:justify-between md:items-start mb-8 md:mb-12 md:gap-10">
 				{/* ── Image Column ── */}
-				<div className="product-image md:block">
+				<div className="product-image md:block md:flex-shrink-0">
 					{/* ── Desktop layout ── */}
 					<div className="hidden md:flex md:items-center md:justify-between ">
 						{/* Main image with hover zoom */}
@@ -513,7 +522,7 @@ Please confirm my order!
 					<div className="md:hidden">
 						<div
 							className="relative overflow-hidden rounded-lg mx-auto"
-							style={{ maxWidth: "100%", aspectRatio: "4/5" }}
+							style={{ maxWidth: "75%", aspectRatio: "4/5" }}
 							onContextMenu={(e) => e.preventDefault()}
 						>
 							<img
@@ -584,7 +593,7 @@ Please confirm my order!
 				</div>
 
 				{/* ── Details Column ── */}
-				<div className="details mt-5 md:mt-0">
+				<div className="details mt-5 md:mt-0 md:flex-1">
 					<div className="space-y-6">
 						{/* Name & Rating */}
 						<div>
@@ -635,7 +644,7 @@ Please confirm my order!
 						</div>
 
 						<p className="text-gray-600 leading-relaxed text-sm md:text-lg">
-							{product.description}
+							{selectedVariant?.description || product.description}
 						</p>
 
 						{/* ✅ Color Variant Selector */}
@@ -685,7 +694,15 @@ Please confirm my order!
 							<span
 								className={`font-medium ${activeStock > 0 ? "text-green-600" : "text-red-500"}`}
 							>
-								{activeStock > 0 ? `In Stock (${activeStock})` : "Out of Stock"}
+								{activeStock > 0
+									? (
+											selectedVariant
+												? selectedVariant.showStock
+												: product.showStock
+										)
+										? `In Stock (${activeStock})`
+										: "In Stock"
+									: "Out of Stock"}
 							</span>
 						</div>
 
@@ -827,12 +844,16 @@ Please confirm my order!
 									T&T-{product.id}
 								</span>
 							</div>
-							<div className="flex items-center space-x-2">
-								<span className="text-gray-600 w-24">Stock:</span>
-								<span className="text-gray-800 font-medium">
-									{activeStock} units
-								</span>
-							</div>
+							{(selectedVariant
+								? selectedVariant.showStock
+								: product.showStock) && (
+								<div className="flex items-center space-x-2">
+									<span className="text-gray-600 w-24">Stock:</span>
+									<span className="text-gray-800 font-medium">
+										{activeStock} units
+									</span>
+								</div>
+							)}
 							<div className="flex items-center space-x-2">
 								<span className="text-gray-600 w-24">Brand:</span>
 								<span className="text-gray-800 font-medium">
@@ -847,12 +868,14 @@ Please confirm my order!
 								Product Features:
 							</h3>
 							<ul className="space-y-2">
-								{product.features.map((feature, index) => (
-									<li key={index} className="flex items-start space-x-2">
-										<span className="text-[#E771A3] mt-1">✓</span>
-										<span className="text-gray-600">{feature}</span>
-									</li>
-								))}
+								{(selectedVariant?.features || product.features).map(
+									(feature, index) => (
+										<li key={index} className="flex items-start space-x-2">
+											<span className="text-[#E771A3] mt-1">✓</span>
+											<span className="text-gray-600">{feature}</span>
+										</li>
+									),
+								)}
 							</ul>
 						</div>
 					</div>
