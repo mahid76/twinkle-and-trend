@@ -6,6 +6,7 @@ import blackCat04 from "../assets/black-cat04.png";
 import cat1 from "../assets/cat1.png";
 import cat2 from "../assets/cat2.png";
 import cat3 from "../assets/cat3.jpeg";
+import cat04 from '../assets/cat04.jpeg'
 import doll1 from "../assets/doll1.png";
 import doll1low from "../assets/doll1low.png";
 import logo from "../assets/logo.png";
@@ -139,13 +140,13 @@ export const products = [
 		name: "Sunglasses",
 		price: 899,
 		offerPrice: 699, // ✅ Offer Price
-		image: tr2,
+		image: "https://res.cloudinary.com/dekctkc5i/image/upload/v1775588080/samples/animals/kitten-playing.gif",
 		rating: 4.4,
 		description: "Stylish sunglasses with UV protection for men and women.",
 		category: "fashion", // ✅ lowercase
 		stock: 45,
 		isBestSeller: true,
-		images: [tr2, tr2, tr2, tr2],
+		images: ["https://res.cloudinary.com/dcdngkbi1/image/upload/v1775587291/samples/animals/three-dogs.jpg", tr2, tr2, tr2],
 		features: [
 			"UV400 protection",
 			"Lightweight frame",
