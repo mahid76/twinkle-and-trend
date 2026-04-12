@@ -146,7 +146,7 @@ export const products = [
 		category: "fashion", // ✅ lowercase
 		stock: 45,
 		isBestSeller: true,
-		images: ["https://res.cloudinary.com/dcdngkbi1/image/upload/v1775587291/samples/animals/three-dogs.jpg", tr2, tr2, tr2],
+		images: ["https://res.cloudinary.com/dekctkc5i/image/upload/v1775588080/samples/animals/kitten-playing.gif", tr2, tr2, tr2],
 		features: [
 			"UV400 protection",
 			"Lightweight frame",
