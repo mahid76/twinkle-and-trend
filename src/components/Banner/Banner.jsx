@@ -1,25 +1,25 @@
 // src/components/Banner/BannerSlider.jsx
 import { useEffect, useState } from "react";
-import banner02 from '../../assets/banner02.png'
-import banner03 from '../../assets/banner03.png'
-import banner04 from '../../assets/banner04.png'
+// import banner02 from '../../assets/banner02.png'
+// import banner03 from '../../assets/banner03.png'
+// import banner04 from '../../assets/banner04.png'
 
 const slides = [
 	{
 		id: 1,
-		image: banner02,
+		image: "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776204517/banner02_wo7t1v.png",
 		title: "Build Modern Websites",
 		desc: "Create fast and responsive websites with modern technologies.",
 	},
 	{
 		id: 2,
-		image: banner03,
+		image: "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776204518/banner03_iq555e.png",
 		title: "Professional Web Development",
 		desc: "We design and develop high-quality websites for your business.",
 	},
 	{
 		id: 3,
-		image: banner04,
+		image: "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776204519/banner04_lfljho.png",
 		title: "Grow Your Business Online",
 		desc: "Reach more customers with powerful digital experiences.",
 	},
