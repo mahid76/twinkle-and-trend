@@ -1,6 +1,6 @@
 // src/components/Navbar/Logo.jsx
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.png";
+// import logo from "../../assets/logo.png";
 
 const Logo = ({ onClick }) => {
 	return (
@@ -10,7 +10,7 @@ const Logo = ({ onClick }) => {
 					draggable="false"
 					onContextMenu={(e) => e.preventDefault()}
 					onDragStart={(e) => e.preventDefault()}
-					src={logo}
+					src={"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776204520/logo_bs89oj.png"}
 					alt="Logo"
 					className="h-10 mr-4"
 				/>
