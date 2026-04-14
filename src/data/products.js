@@ -6,7 +6,6 @@ import blackCat04 from "../assets/black-cat04.png";
 import cat1 from "../assets/cat1.png";
 import cat2 from "../assets/cat2.png";
 import cat3 from "../assets/cat3.jpeg";
-import cat04 from '../assets/cat04.jpeg'
 import doll1 from "../assets/doll1.png";
 import doll1low from "../assets/doll1low.png";
 import logo from "../assets/logo.png";
@@ -96,7 +95,7 @@ export const products = [
 		name: "Designer Handbag",
 		price: 3499,
 		// offerPrice: 2999, // ✅ Offer Price
-		image: doll1low,
+		image: "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776178764/InShot_20260413_120551279_ejfgx4.jpg",
 		rating: 4.6,
 		description:
 			"Elegant designer handbag for women. Perfect for office and casual wear.",
@@ -119,14 +118,14 @@ export const products = [
 		name: "Leather Wallet",
 		price: 1299,
 		offerPrice: 999, // ✅ Offer Price
-		image: tr1,
+		image: "https://res.cloudinary.com/dltlnoi9z/image/upload/v1776178764/InShot_20260413_120551279_ejfgx4.jpg",
 		rating: 4.3,
 		description:
 			"Genuine leather wallet with multiple card slots and cash compartment.",
 		category: "fashion", // ✅ lowercase
 		stock: 60,
 		isBestSeller: false,
-		images: [tr1, tr1, tr1, tr1],
+		images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/v1776178764/InShot_20260413_120551279_ejfgx4.jpg", tr1, tr1, tr1],
 		features: [
 			"Genuine leather",
 			"Multiple card slots",
@@ -237,7 +236,7 @@ export const products = [
 		],
 	},
 
-	// Toys Category (6 Products)
+	// catBag Category (6 Products)
 	{
 		id: 9,
 		showStock: true,
@@ -248,10 +247,10 @@ export const products = [
 		rating: 4.2,
 		description:
 			"Soft and cuddly cat doll. Great gift for kids and cat lovers.",
-		category: "toys", // ✅ lowercase
+		category: "catBag", // ✅ lowercase
 		stock: 100,
 		isBestSeller: false,
-		images: [tr2, tr2, tr2, tr2],
+		images: [tr2, tr2, tr2],
 		features: [
 			"Soft plush material",
 			"Machine washable",
@@ -268,7 +267,7 @@ export const products = [
 		image: tr4,
 		rating: 4.6,
 		description: "Beautiful two doll set. Perfect for collection and gifting.",
-		category: "toys", // ✅ lowercase
+		category: "catBag", // ✅ lowercase
 		stock: 30,
 		isBestSeller: false,
 		images: [tr4, tr4, tr4, tr4],
@@ -288,7 +287,7 @@ export const products = [
 		image: tr2,
 		rating: 4.8,
 		description: "Cute teddy bear for kids. Perfect birthday gift.",
-		category: "toys", // ✅ lowercase
+		category: "catBag", // ✅ lowercase
 		stock: 55,
 		isBestSeller: true,
 		images: [tr2, tr2, tr2, tr2],
@@ -299,66 +298,7 @@ export const products = [
 			"Dimensions: 40x30x20 cm",
 		],
 	},
-	{
-		id: 12,
-		showStock: true,
-		name: "Puzzle Game",
-		price: 499,
-		// offerPrice: 399, // ✅ Offer Price
-		image: tr3,
-		rating: 4.5,
-		description: "Educational puzzle game for kids. Improves cognitive skills.",
-		category: "toys", // ✅ lowercase
-		stock: 40,
-		isBestSeller: false,
-		images: [tr3, tr3, tr3, tr3],
-		features: [
-			"500 pieces",
-			"Educational",
-			"High-quality cardboard",
-			"Age: 8+",
-		],
-	},
-	{
-		id: 13,
-		showStock: true,
-		name: "Building Blocks",
-		price: 1299,
-		// offerPrice: 1099, // ✅ Offer Price
-		image: tr4,
-		rating: 4.7,
-		description: "Creative building blocks set. 200+ pieces for endless fun.",
-		category: "toys", // ✅ lowercase
-		stock: 35,
-		isBestSeller: false,
-		images: [tr4, tr4, tr4, tr4],
-		features: [
-			"200+ pieces",
-			"Non-toxic material",
-			"Compatible with major brands",
-			"Age: 5+",
-		],
-	},
-	{
-		id: 14,
-		showStock: true,
-		name: "Remote Control Car",
-		price: 2499,
-		// offerPrice: 2199, // ✅ Offer Price
-		image: tr3,
-		rating: 4.6,
-		description: "Fast remote control car with rechargeable battery.",
-		category: "toys", // ✅ lowercase
-		stock: 20,
-		isBestSeller: false,
-		images: [tr3, tr3, tr3, tr3],
-		features: [
-			"Rechargeable battery",
-			"Speed: 20 km/h",
-			"Range: 50 meters",
-			"Age: 6+",
-		],
-	},
+
 
 	// Home & Kitchen Category (6 Products)
 	{

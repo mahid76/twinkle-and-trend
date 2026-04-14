@@ -14,7 +14,7 @@ const Logo = ({ onClick }) => {
 					alt="Logo"
 					className="h-10 mr-4"
 				/>
-				<span className="text-lg font-primary font-bold">
+				<span className="md:text-2xl text-lg  font-primary font-bold">
 					Twinkle and Trend
 				</span>
 			</div>
