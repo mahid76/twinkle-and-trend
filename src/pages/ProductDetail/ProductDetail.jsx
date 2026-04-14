@@ -1,7 +1,8 @@
 // src/pages/ProductDetail/ProductDetail.jsx
 import { useEffect, useRef, useState } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Container from "../../components/layout/Container";
+import { useAuth } from "../../context/AuthContext"; // ✅ FIX: import করা হয়েছে
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
 import { getDiscountPercentage, getProductById } from "../../data/products";
@@ -264,6 +265,9 @@ const VariantSwatch = ({ variant, isSelected, onClick }) => {
 const ProductDetail = () => {
 	const { id } = useParams();
 	const [searchParams] = useSearchParams();
+	const navigate = useNavigate(); // ✅ FIX: useNavigate declare করা হয়েছে
+	const { user } = useAuth(); // ✅ FIX: useAuth থেকে user নেওয়া হয়েছে
+
 	const [product, setProduct] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -276,7 +280,7 @@ const ProductDetail = () => {
 
 	const handleWishlist = () => {
 		if (!user) {
-			navigate("/login");
+			navigate("/login"); // ✅ FIX: এখন navigate কাজ করবে
 			return;
 		}
 		toggleWishlist(product);
@@ -312,7 +316,8 @@ const ProductDetail = () => {
 		} finally {
 			setLoading(false);
 		}
-	}, [id, searchParams]); // ✅ searchParams dependency যোগ করুন
+	}, [id, searchParams]);
+
 	const handleVariantChange = (variant) => {
 		setSelectedVariant(variant);
 		setActiveImage(0);
@@ -570,20 +575,20 @@ Please confirm my order!
 							</button>
 						</div>
 
-						{/* Mobile thumbnails — variant change হলে update হবে */}
-						<div className="flex justify-center gap-2 mt-3">
+						{/* Mobile thumbnails */}
+						<div className="flex gap-2 mt-3 overflow-x-auto pb-2 justify-center">
 							{activeImages.map((img, index) => (
 								<button
 									key={index}
 									onClick={() => setActiveImage(index)}
-									className={`flex-shrink-0 border-2 rounded-lg overflow-hidden transition-all ${
+									className={`border-2 rounded-lg overflow-hidden flex-shrink-0 transition-all ${
 										activeImage === index
-											? "border-[#E771A3] ring-2 ring-[#E771A3] ring-opacity-50"
-											: "border-gray-200 hover:border-gray-300"
+											? "border-[#E771A3]"
+											: "border-gray-200"
 									}`}
 								>
 									<div
-										className="relative w-[60px]"
+										className="w-16"
 										style={{ aspectRatio: "4/5" }}
 										onContextMenu={(e) => e.preventDefault()}
 									>
@@ -592,10 +597,9 @@ Please confirm my order!
 											onContextMenu={(e) => e.preventDefault()}
 											onDragStart={(e) => e.preventDefault()}
 											src={img}
-											alt={`${product.name} ${index + 1}`}
+											alt={`Thumbnail ${index + 1}`}
 											className="w-full h-full object-cover"
 										/>
-										<div className="absolute inset-0" />
 									</div>
 								</button>
 							))}
@@ -603,315 +607,314 @@ Please confirm my order!
 					</div>
 				</div>
 
-				{/* ── Details Column ── */}
-				<div className="details mt-5 md:mt-0 md:flex-1">
-					<div className="space-y-6">
-						{/* Name & Rating */}
-						<div>
-							<h1 className="text-2xl md:text-3xl font-primary font-bold text-gray-800 mb-1 md:mb-2">
-								{product.name}
-							</h1>
-							<div className="flex items-center space-x-1 md:space-x-2 mb-1 md:mb-4">
-								<div className="flex items-center">
-									{[...Array(5)].map((_, i) => (
-										<span
-											key={i}
-											className={
-												i < Math.floor(product.rating)
-													? "text-yellow-500"
-													: "text-gray-300"
-											}
-										>
-											★
-										</span>
-									))}
-								</div>
-								<span className="text-gray-500 text-sm ml-2">
-									({product.rating} / 5.0)
-								</span>
-								<span className="text-gray-400 text-sm ml-2">(12 reviews)</span>
+				{/* ── Info Column ── */}
+				<div className="flex-1 mt-6 md:mt-0 space-y-4 md:space-y-6">
+					{/* Title + Rating */}
+					<div>
+						<h1 className="text-xl md:text-3xl font-bold text-gray-900 mb-2">
+							{product.name}
+						</h1>
+						<div className="flex items-center">
+							<div className="flex">
+								{[1, 2, 3, 4, 5].map((star) => (
+									<span
+										key={star}
+										className={`text-lg ${
+											star <= Math.floor(product.rating)
+												? "text-yellow-500"
+												: "text-gray-300"
+										}`}
+									>
+										★
+									</span>
+								))}
 							</div>
+							<span className="text-gray-500 text-sm ml-2">
+								({product.rating} / 5.0)
+							</span>
+							<span className="text-gray-400 text-sm ml-2">(12 reviews)</span>
 						</div>
+					</div>
 
-						{/* Price */}
-						<div className="space-y-2">
-							{originalPrice ? (
-								<div className="flex items-center gap-3">
-									<span className="text-2xl md:text-4xl font-bold text-[#E771A3]">
-										৳{displayPrice}
-									</span>
-									<span className="text-md md:text-xl text-gray-400 line-through">
-										৳{originalPrice}
-									</span>
-									<span className="text-[8px] md:text-sm text-green-600 font-bold bg-green-100 px-2 py-1 rounded">
-										{discount}% OFF
-									</span>
-								</div>
-							) : (
-								<div className="text-2xl md:text-4xl font-bold text-[#E771A3]">
+					{/* Price */}
+					<div className="space-y-2">
+						{originalPrice ? (
+							<div className="flex items-center gap-3">
+								<span className="text-2xl md:text-4xl font-bold text-[#E771A3]">
 									৳{displayPrice}
-								</div>
-							)}
-						</div>
-						{/* ✅ Wishlist button */}
-						<button
-							onClick={handleWishlist}
-							className={`flex items-center gap-2 text-sm font-medium transition-all ${
-								wishlisted
-									? "text-[#E771A3]"
-									: "text-gray-500 hover:text-[#E771A3]"
-							}`}
-						>
-							<svg
-								className="w-5 h-5"
-								fill={wishlisted ? "#E771A3" : "none"}
-								stroke="#E771A3"
-								strokeWidth={2}
-								viewBox="0 0 24 24"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-								/>
-							</svg>
-							{wishlisted ? "Wishlisted" : "Add to Wishlist"}
-						</button>
-						<p className="text-gray-600 leading-relaxed text-sm md:text-lg">
-							{selectedVariant?.description || product.description}
-						</p>
-
-						{/* ✅ Color Variant Selector */}
-						{product.variants?.length > 0 && (
-							<div>
-								<p className="text-gray-700 font-medium mb-3">
-									Color:{" "}
-									<span className="text-[#E771A3] font-semibold">
-										{selectedVariant?.color}
-									</span>
-								</p>
-								<div className="flex flex-wrap gap-3">
-									{product.variants.map((variant, index) => (
-										<VariantSwatch
-											key={index}
-											variant={variant}
-											isSelected={selectedVariant?.color === variant.color}
-											onClick={handleVariantChange}
-										/>
-									))}
-								</div>
+								</span>
+								<span className="text-md md:text-xl text-gray-400 line-through">
+									৳{originalPrice}
+								</span>
+								<span className="text-[8px] md:text-sm text-green-600 font-bold bg-green-100 px-2 py-1 rounded">
+									{discount}% OFF
+								</span>
+							</div>
+						) : (
+							<div className="text-2xl md:text-4xl font-bold text-[#E771A3]">
+								৳{displayPrice}
 							</div>
 						)}
+					</div>
 
-						{/* Quantity */}
-						<div className="flex items-center space-x-4">
-							<div className="flex items-center space-x-2">
-								<span className="text-gray-600 font-medium">Quantity:</span>
-								<div className="flex items-center border border-gray-300 rounded-md">
-									<button
-										onClick={() => handleQuantityChange(-1)}
-										className="px-4 md:py-2 hover:bg-gray-100 transition-colors"
-									>
-										-
-									</button>
-									<span className="px-3 py-1 md:px-6 md:py-2 font-medium">
-										{quantity}
-									</span>
-									<button
-										onClick={() => handleQuantityChange(1)}
-										className="px-4 md:py-2 hover:bg-gray-100 transition-colors"
-									>
-										+
-									</button>
-								</div>
+					{/* ✅ Wishlist button */}
+					<button
+						onClick={handleWishlist}
+						className={`flex items-center gap-2 text-sm font-medium transition-all ${
+							wishlisted
+								? "text-[#E771A3]"
+								: "text-gray-500 hover:text-[#E771A3]"
+						}`}
+					>
+						<svg
+							className="w-5 h-5"
+							fill={wishlisted ? "#E771A3" : "none"}
+							stroke="#E771A3"
+							strokeWidth={2}
+							viewBox="0 0 24 24"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+							/>
+						</svg>
+						{wishlisted ? "Wishlisted" : "Add to Wishlist"}
+					</button>
+
+					<p className="text-gray-600 leading-relaxed text-sm md:text-lg">
+						{selectedVariant?.description || product.description}
+					</p>
+
+					{/* ✅ Color Variant Selector */}
+					{product.variants?.length > 0 && (
+						<div>
+							<p className="text-gray-700 font-medium mb-3">
+								Color:{" "}
+								<span className="text-[#E771A3] font-semibold">
+									{selectedVariant?.color}
+								</span>
+							</p>
+							<div className="flex flex-wrap gap-3">
+								{product.variants.map((variant, index) => (
+									<VariantSwatch
+										key={index}
+										variant={variant}
+										isSelected={selectedVariant?.color === variant.color}
+										onClick={handleVariantChange}
+									/>
+								))}
 							</div>
-							<span
-								className={`font-medium ${activeStock > 0 ? "text-green-600" : "text-red-500"}`}
+						</div>
+					)}
+
+					{/* Quantity */}
+					<div className="flex items-center space-x-4">
+						<div className="flex items-center space-x-2">
+							<span className="text-gray-600 font-medium">Quantity:</span>
+							<div className="flex items-center border border-gray-300 rounded-md">
+								<button
+									onClick={() => handleQuantityChange(-1)}
+									className="px-4 md:py-2 hover:bg-gray-100 transition-colors"
+								>
+									-
+								</button>
+								<span className="px-3 py-1 md:px-6 md:py-2 font-medium">
+									{quantity}
+								</span>
+								<button
+									onClick={() => handleQuantityChange(1)}
+									className="px-4 md:py-2 hover:bg-gray-100 transition-colors"
+								>
+									+
+								</button>
+							</div>
+						</div>
+						<span
+							className={`font-medium ${activeStock > 0 ? "text-green-600" : "text-red-500"}`}
+						>
+							{activeStock > 0
+								? (
+										selectedVariant
+											? selectedVariant.showStock
+											: product.showStock
+									)
+									? `In Stock (${activeStock})`
+									: "In Stock"
+								: "Out of Stock"}
+						</span>
+					</div>
+
+					{/* Buy Buttons */}
+					<div className="border-t border-gray-200 pt-4 md:pt-6 space-y-3">
+						{/* ── Row 1: Add to Cart + View Cart ── */}
+						<div className="flex gap-2">
+							<button
+								onClick={handleAddToCart}
+								disabled={activeStock === 0}
+								className={`flex-1 py-2.5 md:py-3 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 transition-all duration-300 border-2 disabled:opacity-50 disabled:cursor-not-allowed ${
+									addedToCart
+										? "bg-green-500 border-green-500 text-white scale-[0.98]"
+										: "bg-white border-[#E771A3] text-[#E771A3] hover:bg-[#E771A3] hover:text-white"
+								}`}
 							>
-								{activeStock > 0
-									? (
-											selectedVariant
-												? selectedVariant.showStock
-												: product.showStock
-										)
-										? `In Stock (${activeStock})`
-										: "In Stock"
-									: "Out of Stock"}
-							</span>
+								{addedToCart ? (
+									<>
+										<svg
+											className="w-4 h-4 md:w-5 md:h-5"
+											fill="none"
+											stroke="currentColor"
+											strokeWidth={2.5}
+											viewBox="0 0 24 24"
+										>
+											<path
+												d="M5 13l4 4L19 7"
+												strokeLinecap="round"
+												strokeLinejoin="round"
+											/>
+										</svg>
+										<span>Added!</span>
+									</>
+								) : (
+									<>
+										<svg
+											className="w-4 h-4 md:w-5 md:h-5"
+											fill="none"
+											stroke="currentColor"
+											strokeWidth={2}
+											viewBox="0 0 24 24"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+											/>
+										</svg>
+										<span>Add to Cart</span>
+									</>
+								)}
+							</button>
+
+							<Link
+								to="/cart"
+								className="flex-1 py-2.5 md:py-3 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 bg-[#E771A3] text-white hover:bg-[#d15f93] transition-all duration-300"
+							>
+								<svg
+									className="w-4 h-4 md:w-5 md:h-5"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth={2}
+									viewBox="0 0 24 24"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+									/>
+								</svg>
+								<span>View Cart</span>
+							</Link>
 						</div>
 
-						{/* Buy Buttons */}
-						{/* Buy Buttons */}
-						<div className="border-t border-gray-200 pt-4 md:pt-6 space-y-3">
-							{/* ── Row 1: Add to Cart + View Cart ── */}
-							<div className="flex gap-2">
-								<button
-									onClick={handleAddToCart}
-									disabled={activeStock === 0}
-									className={`flex-1 py-2.5 md:py-3 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 transition-all duration-300 border-2 disabled:opacity-50 disabled:cursor-not-allowed ${
-										addedToCart
-											? "bg-green-500 border-green-500 text-white scale-[0.98]"
-											: "bg-white border-[#E771A3] text-[#E771A3] hover:bg-[#E771A3] hover:text-white"
-									}`}
-								>
-									{addedToCart ? (
-										<>
-											<svg
-												className="w-4 h-4 md:w-5 md:h-5"
-												fill="none"
-												stroke="currentColor"
-												strokeWidth={2.5}
-												viewBox="0 0 24 24"
-											>
-												<path
-													d="M5 13l4 4L19 7"
-													strokeLinecap="round"
-													strokeLinejoin="round"
-												/>
-											</svg>
-											<span>Added!</span>
-										</>
-									) : (
-										<>
-											<svg
-												className="w-4 h-4 md:w-5 md:h-5"
-												fill="none"
-												stroke="currentColor"
-												strokeWidth={2}
-												viewBox="0 0 24 24"
-											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-												/>
-											</svg>
-											<span>Add to Cart</span>
-										</>
-									)}
-								</button>
+						{/* ── Row 2: WhatsApp full width ── */}
+						<button
+							onClick={handleBuyNowWhatsApp}
+							disabled={activeStock === 0}
+							className="w-full py-2.5 md:py-3 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 bg-[#25D366] text-white hover:bg-[#1ebe5d] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+						>
+							<svg
+								className="w-4 h-4 md:w-5 md:h-5"
+								fill="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+							</svg>
+							Buy Now on WhatsApp
+						</button>
 
-								<Link
-									to="/cart"
-									className="flex-1 py-2.5 md:py-3 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 bg-[#E771A3] text-white hover:bg-[#d15f93] transition-all duration-300"
-								>
-									<svg
-										className="w-4 h-4 md:w-5 md:h-5"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth={2}
-										viewBox="0 0 24 24"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-										/>
-									</svg>
-									<span>View Cart</span>
-								</Link>
-							</div>
-
-							{/* ── Row 2: WhatsApp full width ── */}
+						{/* ── Row 3: Facebook Visit + Send Message ── */}
+						<div className="flex gap-2">
 							<button
-								onClick={handleBuyNowWhatsApp}
+								onClick={handleVisitFacebookPage}
 								disabled={activeStock === 0}
-								className="w-full py-2.5 md:py-3 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 bg-[#25D366] text-white hover:bg-[#1ebe5d] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+								className="flex-1 py-2.5 md:py-3 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 bg-[#1877F2] text-white hover:bg-[#1464d8] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
 							>
 								<svg
 									className="w-4 h-4 md:w-5 md:h-5"
 									fill="currentColor"
 									viewBox="0 0 24 24"
 								>
-									<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+									<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
 								</svg>
-								Buy Now on WhatsApp
+								<span className="hidden sm:inline">Visit Facebook</span>
+								<span className="sm:hidden">Facebook</span>
 							</button>
 
-							{/* ── Row 3: Facebook Visit + Send Message ── */}
-							<div className="flex gap-2">
-								<button
-									onClick={handleVisitFacebookPage}
-									disabled={activeStock === 0}
-									className="flex-1 py-2.5 md:py-3 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 bg-[#1877F2] text-white hover:bg-[#1464d8] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+							<button
+								onClick={handleSendMessageFacebook}
+								disabled={activeStock === 0}
+								className="flex-1 py-2.5 md:py-3 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 bg-[#0084FF] text-white hover:bg-[#006fe0] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+							>
+								<svg
+									className="w-4 h-4 md:w-5 md:h-5"
+									fill="currentColor"
+									viewBox="0 0 24 24"
 								>
-									<svg
-										className="w-4 h-4 md:w-5 md:h-5"
-										fill="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-									</svg>
-									<span className="hidden sm:inline">Visit Facebook</span>
-									<span className="sm:hidden">Facebook</span>
-								</button>
-
-								<button
-									onClick={handleSendMessageFacebook}
-									disabled={activeStock === 0}
-									className="flex-1 py-2.5 md:py-3 rounded-xl font-semibold text-sm md:text-base flex items-center justify-center gap-2 bg-[#0084FF] text-white hover:bg-[#006fe0] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
-								>
-									<svg
-										className="w-4 h-4 md:w-5 md:h-5"
-										fill="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.652V24l4.088-2.242c1.092.301 2.246.464 3.443.464 6.627 0 12-4.974 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z" />
-									</svg>
-									<span className="hidden sm:inline">Send Message</span>
-									<span className="sm:hidden">Messenger</span>
-								</button>
-							</div>
+									<path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.652V24l4.088-2.242c1.092.301 2.246.464 3.443.464 6.627 0 12-4.974 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z" />
+								</svg>
+								<span className="hidden sm:inline">Send Message</span>
+								<span className="sm:hidden">Messenger</span>
+							</button>
 						</div>
+					</div>
 
-						{/* Product Meta */}
-						<div className="border-t border-gray-200 pt-6 space-y-3">
+					{/* Product Meta */}
+					<div className="border-t border-gray-200 pt-6 space-y-3">
+						<div className="flex items-center space-x-2">
+							<span className="text-gray-600 w-24">Category:</span>
+							<span className="text-gray-800 font-medium">
+								{product.category}
+							</span>
+						</div>
+						<div className="flex items-center space-x-2">
+							<span className="text-gray-600 w-24">SKU:</span>
+							<span className="text-gray-800 font-medium">
+								T&T-{product.id}
+							</span>
+						</div>
+						{(selectedVariant
+							? selectedVariant.showStock
+							: product.showStock) && (
 							<div className="flex items-center space-x-2">
-								<span className="text-gray-600 w-24">Category:</span>
+								<span className="text-gray-600 w-24">Stock:</span>
 								<span className="text-gray-800 font-medium">
-									{product.category}
+									{activeStock} units
 								</span>
 							</div>
-							<div className="flex items-center space-x-2">
-								<span className="text-gray-600 w-24">SKU:</span>
-								<span className="text-gray-800 font-medium">
-									T&T-{product.id}
-								</span>
-							</div>
-							{(selectedVariant
-								? selectedVariant.showStock
-								: product.showStock) && (
-								<div className="flex items-center space-x-2">
-									<span className="text-gray-600 w-24">Stock:</span>
-									<span className="text-gray-800 font-medium">
-										{activeStock} units
-									</span>
-								</div>
+						)}
+						<div className="flex items-center space-x-2">
+							<span className="text-gray-600 w-24">Brand:</span>
+							<span className="text-gray-800 font-medium">
+								Twinkle & Trend
+							</span>
+						</div>
+					</div>
+
+					{/* Features */}
+					<div className="border-t border-gray-200 pt-6">
+						<h3 className="font-bold text-gray-800 mb-3">
+							Product Features:
+						</h3>
+						<ul className="space-y-2">
+							{(selectedVariant?.features || product.features).map(
+								(feature, index) => (
+									<li key={index} className="flex items-start space-x-2">
+										<span className="text-[#E771A3] mt-1">✓</span>
+										<span className="text-gray-600">{feature}</span>
+									</li>
+								),
 							)}
-							<div className="flex items-center space-x-2">
-								<span className="text-gray-600 w-24">Brand:</span>
-								<span className="text-gray-800 font-medium">
-									Twinkle & Trend
-								</span>
-							</div>
-						</div>
-
-						{/* Features */}
-						<div className="border-t border-gray-200 pt-6">
-							<h3 className="font-bold text-gray-800 mb-3">
-								Product Features:
-							</h3>
-							<ul className="space-y-2">
-								{(selectedVariant?.features || product.features).map(
-									(feature, index) => (
-										<li key={index} className="flex items-start space-x-2">
-											<span className="text-[#E771A3] mt-1">✓</span>
-											<span className="text-gray-600">{feature}</span>
-										</li>
-									),
-								)}
-							</ul>
-						</div>
+						</ul>
 					</div>
 				</div>
 			</div>
