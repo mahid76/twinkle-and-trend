@@ -1,8 +1,9 @@
 // src/pages/ProductDetail/ProductDetail.jsx
 import { useEffect, useRef, useState } from "react";
-import { Link, useParams,useSearchParams  } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import Container from "../../components/layout/Container";
 import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
 import { getDiscountPercentage, getProductById } from "../../data/products";
 
 // ─── HD Image Zoom Modal (mobile) ─────────────────────────────────────────────
@@ -262,7 +263,7 @@ const VariantSwatch = ({ variant, isSelected, onClick }) => {
 // ─── Main Component ───────────────────────────────────────────────────────────
 const ProductDetail = () => {
 	const { id } = useParams();
-	const [searchParams] = useSearchParams(); 
+	const [searchParams] = useSearchParams();
 	const [product, setProduct] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -270,6 +271,16 @@ const ProductDetail = () => {
 	const [activeImage, setActiveImage] = useState(0);
 	const [zoomOpen, setZoomOpen] = useState(false);
 	const [selectedVariant, setSelectedVariant] = useState(null);
+	const { toggleWishlist, isInWishlist } = useWishlist();
+	const wishlisted = product ? isInWishlist(product.id) : false;
+
+	const handleWishlist = () => {
+		if (!user) {
+			navigate("/login");
+			return;
+		}
+		toggleWishlist(product);
+	};
 
 	const whatsappNumber = "8801601117737";
 	const facebookPageUsername = "profile.php?id=61574753113504";
@@ -642,7 +653,30 @@ Please confirm my order!
 								</div>
 							)}
 						</div>
-
+						{/* ✅ Wishlist button */}
+						<button
+							onClick={handleWishlist}
+							className={`flex items-center gap-2 text-sm font-medium transition-all ${
+								wishlisted
+									? "text-[#E771A3]"
+									: "text-gray-500 hover:text-[#E771A3]"
+							}`}
+						>
+							<svg
+								className="w-5 h-5"
+								fill={wishlisted ? "#E771A3" : "none"}
+								stroke="#E771A3"
+								strokeWidth={2}
+								viewBox="0 0 24 24"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+								/>
+							</svg>
+							{wishlisted ? "Wishlisted" : "Add to Wishlist"}
+						</button>
 						<p className="text-gray-600 leading-relaxed text-sm md:text-lg">
 							{selectedVariant?.description || product.description}
 						</p>
