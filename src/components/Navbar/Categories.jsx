@@ -1,9 +1,8 @@
 // src/components/Navbar/Categories.jsx
 export const categories = [
-	{ name: "Fashion", slug: "fashion" },
 	{ name: "Cat Bag", slug: "catBag" },
-	{ name: "Home & Kitchen", slug: "home-kitchen" },
-	{ name: "Religious", slug: "religious" },
-	{ name: "Electronics", slug: "electronics" },
-	{ name: "Sports", slug: "sports" },
+	{ name: "Bags & Accessories", slug: "bags" },
+	{ name: "Toys", slug: "toys" },
+	{ name: "Drink Ware", slug: "drinkWare" },
+	{ name: "Digital Prayer Tasbih", slug: "digitalPrayerTasbih" },
 ];
