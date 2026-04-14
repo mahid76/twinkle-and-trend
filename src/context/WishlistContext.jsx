@@ -8,17 +8,26 @@ import { useAuth } from "./AuthContext";
 const WishlistContext = createContext();
 
 export const WishlistProvider = ({ children }) => {
-    const { user } = useAuth();
+    const { user, authLoading } = useAuth(); // ✅ FIX: authLoading নেওয়া হয়েছে
     const [wishlistItems, setWishlistItems] = useState([]);
 
     useEffect(() => {
-        if (!user) { setWishlistItems([]); return; }
+        // ✅ FIX: auth load না হওয়া পর্যন্ত কিছু করব না
+        // আগে authLoading check না থাকায় user=null ভেবে wishlist clear হয়ে যাচ্ছিল
+        if (authLoading) return;
+
+        if (!user) {
+            setWishlistItems([]);
+            return;
+        }
+
+        // ✅ user আছে — Firestore থেকে real-time sync করো
         const ref = collection(db, "users", user.uid, "wishlist");
         const unsubscribe = onSnapshot(ref, (snapshot) => {
             setWishlistItems(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
         });
         return () => unsubscribe();
-    }, [user]);
+    }, [user, authLoading]); // ✅ FIX: authLoading dependency যোগ করা হয়েছে
 
     const addToWishlist = async (product) => {
         if (!user) return;
