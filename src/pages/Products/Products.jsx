@@ -39,7 +39,7 @@ const Products = () => {
     }, []);
 
     const categoryMap = {
-        fashion: "Fashion", toys: "Toys", "home-kitchen": "Home & Kitchen",
+        fashion: "Fashion", catBag: "Cat Bag", "home-kitchen": "Home & Kitchen",
         religious: "Religious", electronics: "Electronics", sports: "Sports",
     };
     const reverseCategoryMap = Object.fromEntries(Object.entries(categoryMap).map(([k, v]) => [v, k]));
