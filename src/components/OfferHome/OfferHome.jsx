@@ -75,7 +75,7 @@ const OfferHome = () => {
 												<Link to={`/products/${product.id}`}>
 													<h3 className="text-xs sm:text-lg font-semibold text-gray-800 hover:text-[#E771A3] truncate">{product.name}</h3>
 												</Link>
-												<p className="text-gray-500 text-[11px] sm:text-sm mt-1 line-clamp-2 h-7">{product.description}</p>
+												{/* <p className="text-gray-500 text-[11px] sm:text-sm mt-1 line-clamp-2 h-7">{product.description}</p> */}
 												<div className="flex items-center gap-2 mt-2">
 													<span className="text-base sm:text-xl font-bold text-[#E771A3]">৳{product.offerPrice}</span>
 													<span className="text-gray-400 line-through text-[11px] sm:text-sm">৳{product.price}</span>
