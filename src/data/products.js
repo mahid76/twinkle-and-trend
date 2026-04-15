@@ -1,5 +1,4 @@
 // src/data/products.js
-import tr1 from "../assets/t&tr1.JPEG";
 
 export const products = [
 	// catBag Category (8 Products)
@@ -131,9 +130,9 @@ export const products = [
 		isBestSeller: false,
 		images: [
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192952/InShot_20260415_001018145_qwvlpk.jpg",
-			tr1,
-			tr1,
-			tr1,
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192952/InShot_20260415_001018145_qwvlpk.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192952/InShot_20260415_001018145_qwvlpk.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192952/InShot_20260415_001018145_qwvlpk.jpg",
 		],
 		hdImages: [
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192952/InShot_20260415_001018145_qwvlpk.jpg",
