@@ -10,7 +10,7 @@
   --color-tertiary: #f5f5f5;
 }
 
-/* ✅ Swiper pagination fix */
+/* ✅ Swiper */
 .swiper {
   padding-bottom: 30px;
 }
@@ -18,51 +18,22 @@
   bottom: 0px !important;
 }
 
-/* ✅ Image protection — drag ও select বন্ধ */
+/* ✅ Image protection — drag & select বন্ধ
+   NOTE: pointer-events: none আগে ছিল — সেটা সরানো হয়েছে
+   কারণ ওটা wishlist/cart button click block করত */
 img {
   -webkit-user-drag: none;
-  -moz-user-drag: none;
   user-drag: none;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
-  /* ✅ BUG FIX: pointer-events: none সরানো হয়েছে!
-     আগের code এ এটা ছিল — এতে img এর উপরের buttons (wishlist, zoom)
-     click করা যেত না। এখন ঠিক। */
 }
 
-/* ✅ Hover brightness — subtle */
-img:hover {
-  filter: brightness(0.97);
-}
-
-/* ✅ Accessibility: skip link (index.html এ আছে) */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
-.focus\:not-sr-only:focus {
-  position: absolute;
-  width: auto;
-  height: auto;
-  padding: 0.5rem 1rem;
-  margin: 0;
-  overflow: visible;
-  clip: auto;
-  white-space: normal;
-}
-
-/* ✅ Focus visible — keyboard navigation accessibility */
+/* ✅ Focus visible — keyboard accessibility */
 :focus-visible {
   outline: 2px solid #E771A3;
   outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* ✅ Smooth scroll */
@@ -70,7 +41,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* ✅ Custom swiper slider styles */
+/* ✅ Custom slider */
 .custom_slider {
   display: flex !important;
   justify-content: center;
