@@ -5,33 +5,36 @@ export const products = [
 	{
 		id: 1,
 		showStock: false,
-		name: "Premium Cat Bag01",
-		price: 2999, // ✅ default price (প্রথম variant এর)
-		offerPrice: 2499,
+		name: "Premium Cat Bag",
+		price: 6249, // ✅ default price (প্রথম variant এর)
+		// offerPrice: 2499,
 		image:
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192952/InShot_20260415_000710127_g8k9yi.jpg", // ✅ default image (প্রথম variant এর)
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192948/InShot_20260415_000912018_oc8j2d.jpg", // ✅ default image (প্রথম variant এর)
 		rating: 4.5,
-		description: "Premium quality leather bag with multiple compartments.",
+		description:
+			"আপনার স্টাইলকে দিন একদম ইউনিক টাচ এই সুপার কিউট Realistic Cat Bag দিয়ে!",
 		category: "catBag",
 		stock: 50,
 		isBestSeller: true,
 		images: [
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192948/InShot_20260415_000912018_oc8j2d.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192952/InShot_20260415_001018145_qwvlpk.jpg",
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192952/InShot_20260415_000710127_g8k9yi.jpg",
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192951/InShot_20260415_000813463_svi4xl.jpg",
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192950/InShot_20260415_000853839_sofpxh.jpg",
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192951/InShot_20260415_001219851_xezxct.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192951/InShot_20260415_000743589_hmyq8a.jpg",
 		],
 		hdImages: [
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192948/InShot_20260415_000912018_oc8j2d.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192952/InShot_20260415_001018145_qwvlpk.jpg",
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192952/InShot_20260415_000710127_g8k9yi.jpg",
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192951/InShot_20260415_000813463_svi4xl.jpg",
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192950/InShot_20260415_000853839_sofpxh.jpg",
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192951/InShot_20260415_001219851_xezxct.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192951/InShot_20260415_000743589_hmyq8a.jpg",
 		],
 		features: [
-			"Genuine leather material",
-			"Multiple compartments",
-			"Adjustable shoulder strap",
-			"Dimensions: 30x20x10 cm",
+			"🐾 Ultra-Realistic Design – একদম লাইফ-লাইক ক্যাট লুক",
+			"🎀 Premium Soft Fur – সুপার নরম ও আরামদায়ক ফিনিশ",
+			"💼 Multi-purpose Use – পার্টি, আউটিং বা গিফট হিসেবে পারফেক্ট",
+			"🎁 Perfect Gift Item – ক্যাট লাভারদের জন্য দারুণ চয়েস",
+			"👜 Lightweight & Comfortable – সহজে বহনযোগ্য",
+			"Size:- Big Size (XXL) With Gift Box 🎁",
 		],
 
 		// ✅ Color Variants
@@ -86,8 +89,8 @@ export const products = [
 		id: 2,
 		showStock: false,
 		name: "Premium Cat Bag02",
-		price: 3499,
-		// offerPrice: 2999, // ✅ Offer Price
+		price: 4999,
+		offerPrice: 3499, // ✅ Offer Price
 		image:
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192951/InShot_20260415_000743589_hmyq8a.jpg",
 		rating: 4.6,
@@ -152,18 +155,19 @@ export const products = [
 	{
 		id: 4,
 		showStock: false,
-		name: "Sunglasses",
-		price: 899,
-		offerPrice: 699, // ✅ Offer Price
+		name: "Labubu Doll Backpack",
+		price: 1250,
+		// offerPrice: 699, // ✅ Offer Price
 		image:
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192925/InShot_20260415_003023912_li0qz2.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192928/InShot_20260415_002301278_crehjw.jpg",
 		rating: 4.4,
-		description: "Stylish sunglasses with UV protection for men and women.",
+		description:
+			"আপনার দৈনন্দিন স্টাইলকে আরও আকর্ষণীয় ও ইউনিক করে তুলতে নিয়ে আসুন এই Adorable Labubu Doll Backpack..",
 		category: "bags", // ✅ lowercase
 		stock: 45,
 		isBestSeller: true,
 		images: [
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192925/InShot_20260415_003023912_li0qz2.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192928/InShot_20260415_003006590_wre7h0.jpg",
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192931/InShot_20260415_002939781_cy6jlp.jpg",
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192931/InShot_20260415_002920040_pmzy1z.jpg",
 		],
@@ -173,59 +177,224 @@ export const products = [
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192931/InShot_20260415_002920040_pmzy1z.jpg",
 		],
 		features: [
-			"UV400 protection",
-			"Lightweight frame",
-			"Scratch-resistant lenses",
-			"Includes case",
+			"সাইজ: মিডিয়াম (হালকা ও সহজে বহনযোগ্য)",
+			"🎨 কালার: গোলাপি, সবুজ,  আকাশি, কফি, গ্রে । ",
+		],
+		//color
+		variants: [
+			{
+				name: "Labubu Doll Backpack Pink ",
+				color: "Pink",
+				colorHex: "#FFC0CB",
+				price: 1250,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192928/InShot_20260415_002301278_crehjw.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192928/InShot_20260415_002301278_crehjw.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
+			{
+				name: "Labubu Doll Backpack Grey ",
+				color: "Grey",
+				colorHex: "#808080",
+				price: 1250,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192931/InShot_20260415_002203559_joq9nv.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192931/InShot_20260415_002203559_joq9nv.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
+			{
+				name: "Labubu Doll Backpack Green ",
+				color: "Green",
+				colorHex: "#008000",
+				price: 1250,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192930/InShot_20260415_002218822_gzp9av.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192930/InShot_20260415_002218822_gzp9av.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
+			{
+				name: "Labubu Doll Backpack Light Blue ",
+				color: "Light Blue",
+				colorHex: "#ADD8E6",
+				price: 1250,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192930/InShot_20260415_002233962_tl6rrj.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192930/InShot_20260415_002233962_tl6rrj.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
+			{
+				name: "Labubu Doll Backpack Coffee ",
+				color: "Coffee",
+				colorHex: "#6F4E37",
+				price: 1250,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192929/InShot_20260415_002247300_hh0rjh.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192929/InShot_20260415_002247300_hh0rjh.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
+		],
+	},
+	{
+		id: 5,
+		showStock: false,
+		name: "Cat Hand Bag",
+		price: 1250,
+		// offerPrice: 699, // ✅ Offer Price
+		image:
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192928/InShot_20260415_003006590_wre7h0.jpg",
+		rating: 4.4,
+		description:
+			"আপনার দৈনন্দিন স্টাইলকে আরও আকর্ষণীয় করতে নিয়ে আসুন, নরম ফ্লাফি ডিজাইন, সুন্দর ক্যাট ফেস এবং ট্রেন্ডি লুক- Cat Hand Bag",
+		category: "bags", // ✅ lowercase
+		stock: 45,
+		isBestSeller: true,
+		images: [
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192928/InShot_20260415_003006590_wre7h0.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192931/InShot_20260415_002939781_cy6jlp.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192931/InShot_20260415_002920040_pmzy1z.jpg",
+		],
+		hdImages: [
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192928/InShot_20260415_003006590_wre7h0.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192931/InShot_20260415_002939781_cy6jlp.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192931/InShot_20260415_002920040_pmzy1z.jpg",
+		],
+		features: [
+			"প্রিমিয়াম সফট ফার ম্যাটেরিয়াল – হাতে নিলেই ভালো লাগবে",
+			"কিউট ক্যাট ডিজাইন – সবার নজর কাড়বে সহজেই",
+			"হালকা ওজন – সারাদিন বহন করতে আরামদায়ক",
+			"স্ট্রং জিপার ও স্ট্র্যাপ – টেকসই ও নিরাপদ",
+			"ছোট প্রয়োজনীয় জিনিস রাখার জন্য পারফেক্ট",
+			"🎨 কালার:🟡 ইয়েলো | ⚪ হোয়াইট | ⚫ গ্রে",
+		],
+
+		//color
+		variants: [
+			{
+				name: "Cat Hand Bag",
+				color: "Grey",
+				colorHex: "#808080",
+				price: 1250,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192925/InShot_20260415_003023912_li0qz2.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192925/InShot_20260415_003023912_li0qz2.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
+			{
+				name: "Cat Hand Bag",
+				color: "White",
+				colorHex: "#FFFFFF",
+				price: 1250,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192916/InShot_20260415_003041420_vjnwgu.jpg",
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192917/InShot_20260415_003102182_rs5t2u.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192916/InShot_20260415_003041420_vjnwgu.jpg",
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192917/InShot_20260415_003102182_rs5t2u.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
+			{
+				name: "Cat Hand Bag",
+				color: "Yellow",
+				colorHex: "#FFFF00 ",
+				price: 1250,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192916/InShot_20260415_003207005_hdxulu.jpg",
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192919/InShot_20260415_003120384_kbsz6n.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192916/InShot_20260415_003207005_hdxulu.jpg",
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192919/InShot_20260415_003120384_kbsz6n.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
 		],
 	},
 	// toys Category (1 Products)
 
 	{
-		id: 5,
+		id: 6,
 		showStock: false,
-		name: "Sunglasses",
-		price: 899,
-		offerPrice: 699, // ✅ Offer Price
+		name: "Premium Cat Plush Toy",
+		price: "450-850",
+		// offerPrice: 699, // ✅ Offer Price
 		image:
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192902/InShot_20260415_003458835_og7sfl.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192899/InShot_20260415_003638749_u3cigs.jpg",
 		rating: 4.4,
-		description: "Stylish sunglasses with UV protection for men and women.",
+		description: "🧸 সুপার সফট ও হাই কোয়ালিটি প্লাশ ম্যাটেরিয়াল",
 		category: "toys", // ✅ lowercase
 		stock: 45,
 		isBestSeller: true,
 		images: [
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192902/InShot_20260415_003458835_og7sfl.jpg",
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192911/InShot_20260415_003437939_qw4ilc.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192900/InShot_20260415_003535767_rytp9n.jpg",
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192901/InShot_20260415_003515162_mz7a3j.jpg",
 		],
 		hdImages: [
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192902/InShot_20260415_003458835_og7sfl.jpg",
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192911/InShot_20260415_003437939_qw4ilc.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192900/InShot_20260415_003535767_rytp9n.jpg",
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192901/InShot_20260415_003515162_mz7a3j.jpg",
 		],
 		features: [
-			"UV400 protection",
-			"Lightweight frame",
-			"Scratch-resistant lenses",
-			"Includes case",
+			"🧸 সুপার সফট ও হাই কোয়ালিটি প্লাশ ম্যাটেরিয়াল",
+			"😻 কিউট ও রিয়ালিস্টিক ডিজাইন",
+			"🎁 গিফট দেওয়ার জন্য পারফেক্ট (বয়ফ্রেন্ড/গার্লফ্রেন্ড/বন্ধুদের জন্য)",
+			"🛋️ হোম ডেকর বা বেড ডেকোরেশন হিসেবে ব্যবহারযোগ্য",
+			"👶 শিশু থেকে বড় সবাই ব্যবহার করতে পারবে",
+			"উচ্চতা ও দৈর্ঘ্য – মাঝারি",
 		],
 	},
 	// drinkWare Category (1 Products)
 
 	{
-		id: 6,
+		id: 7,
 		showStock: false,
-		name: "Sunglasses",
-		price: 899,
-		offerPrice: 699, // ✅ Offer Price
+		name: "Bunny Bottle Bag",
+		price: 2050,
+		offerPrice: 1250, // ✅ Offer Price
 		image:
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192902/InShot_20260415_003458835_og7sfl.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192923/InShot_20260415_002516977_hjp7cm.jpg",
 		rating: 4.4,
-		description: "Stylish sunglasses with UV protection for men and women.",
+		description: `🐰✨ কিউট Bunny Bottle Bag – স্টাইল আর ইউটিলিটির পারফেক্ট কম্বো! 
+		✨🐻এটা শুধু একটি পানির বোতল নয়, বরং একটি ফ্যাশন স্টেটমেন্ট!`,
 		category: "drinkWare", // ✅ lowercase
 		stock: 45,
-		isBestSeller: true,
+		isBestSeller: false,
 		images: [
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192902/InShot_20260415_003458835_og7sfl.jpg",
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192911/InShot_20260415_003437939_qw4ilc.jpg",
@@ -237,42 +406,169 @@ export const products = [
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192901/InShot_20260415_003515162_mz7a3j.jpg",
 		],
 		features: [
-			"UV400 protection",
-			"Lightweight frame",
-			"Scratch-resistant lenses",
-			"Includes case",
+			"	✔️ প্রিমিয়াম কোয়ালিটি ট্রান্সপারেন্ট বোতল",
+			"✔️ কিউট Bunny & Bear ডেকোরেশন 🐰🐻",
+			"✔️ স্টাইলিশ পার্ল ও চেইন স্ট্র্যাপ – ক্যারি করা সহজ",
+			"✔️ লিক-প্রুফ ডিজাইন 💧",
+			"✔️ লাইটওয়েট ও ডিউরেবল",
+			"🎨 কালার :- গোলাপি, সাদা, সবুজ, কালো",
+		],
+		//color
+		variants: [
+			{
+				name: "Bunny Bottle Bag",
+				color: "Pink",
+				colorHex: "#FFC0CB",
+				price: 1250,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192927/InShot_20260415_002338470_dyt9c0.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192927/InShot_20260415_002338470_dyt9c0.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
+			{
+				name: "Bunny Bottle Bag",
+				color: "Green",
+				colorHex: "#008000",
+				price: 1250,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192924/InShot_20260415_002404592_khwsgi.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192924/InShot_20260415_002404592_khwsgi.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
+			{
+				name: "Bunny Bottle Bag",
+				color: "White",
+				colorHex: "#FFFFFF",
+				price: 1250,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192928/InShot_20260415_002325627_zy0vsc.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192928/InShot_20260415_002325627_zy0vsc.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
+			{
+				name: "Bunny Bottle Bag",
+				color: "Black",
+				colorHex: "#000000",
+				price: 1250,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192925/InShot_20260415_002352377_nzbnu9.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192925/InShot_20260415_002352377_nzbnu9.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
 		],
 	},
 	// digitalPrayerTasbih Category (1 Products)
 
 	{
-		id: 7,
+		id: 8,
 		showStock: false,
-		name: "Sunglasses",
-		price: 899,
-		offerPrice: 699, // ✅ Offer Price
+		name: "Tashbih",
+		price: 1999,
+		offerPrice: 1500, // ✅ Offer Price
 		image:
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192902/InShot_20260415_003458835_og7sfl.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192861/InShot_20260415_004509659_erqczs.jpg",
 		rating: 4.4,
-		description: "Stylish sunglasses with UV protection for men and women.",
+		description: `🐰✨ কিউট Bunny Bottle Bag – স্টাইল আর ইউটিলিটির পারফেক্ট কম্বো! 
+		✨🐻এটা শুধু একটি পানির বোতল নয়, বরং একটি ফ্যাশন স্টেটমেন্ট!`,
 		category: "digitalPrayerTasbih", // ✅ lowercase
 		stock: 45,
-		isBestSeller: true,
+		isBestSeller: false,
 		images: [
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192902/InShot_20260415_003458835_og7sfl.jpg",
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192911/InShot_20260415_003437939_qw4ilc.jpg",
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192901/InShot_20260415_003515162_mz7a3j.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192861/InShot_20260415_004509659_erqczs.jpg",
 		],
 		hdImages: [
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192902/InShot_20260415_003458835_og7sfl.jpg",
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192911/InShot_20260415_003437939_qw4ilc.jpg",
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192901/InShot_20260415_003515162_mz7a3j.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192861/InShot_20260415_004509659_erqczs.jpg",
 		],
 		features: [
-			"UV400 protection",
-			"Lightweight frame",
-			"Scratch-resistant lenses",
-			"Includes case",
+			"	✔️ প্রিমিয়াম কোয়ালিটি ট্রান্সপারেন্ট বোতল",
+			"✔️ কিউট Bunny & Bear ডেকোরেশন 🐰🐻",
+			"✔️ স্টাইলিশ পার্ল ও চেইন স্ট্র্যাপ – ক্যারি করা সহজ",
+			"✔️ লিক-প্রুফ ডিজাইন 💧",
+			"✔️ লাইটওয়েট ও ডিউরেবল",
+			"🎨 কালার :- গোলাপি, সাদা, সবুজ, কালো",
+		],
+		//color
+		variants: [
+			{
+				name: "Tashbih",
+				color: "Pink",
+				colorHex: "#FFC0CB",
+				price: 1500,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192880/InShot_20260415_004230590_snhqjy.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192880/InShot_20260415_004230590_snhqjy.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
+			{
+				name: "Tashbih",
+				color: "Blue",
+				colorHex: "#0000FF",
+				price: 1500,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192884/InShot_20260415_004201496_knnksv.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192884/InShot_20260415_004201496_knnksv.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
+			{
+				name: "Tashbih",
+				color: "Yellow",
+				colorHex: "#FFFF00",
+				price: 1500,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192875/InShot_20260415_004257037_ssdpkx.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192875/InShot_20260415_004257037_ssdpkx.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
+			{
+				name: "Tashbih",
+				color: "Black",
+				colorHex: "#000000",
+				price: 1500,
+				// offerPrice: 2499,
+				images: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192873/InShot_20260415_004317208_mimjur.jpg",
+				], // ✅ 4টা regular image
+				hdImages: [
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776192873/InShot_20260415_004317208_mimjur.jpg",
+				],
+				showStock: false,
+				stock: 50,
+			},
 		],
 	},
 ];
