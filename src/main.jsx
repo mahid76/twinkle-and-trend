@@ -7,7 +7,6 @@ import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import DisableRightClick from "./components/layout/DisableRightClick";
-import SkipToContent from "./components/SkipToContent/SkipToContent";
 
 // ✅ Lazy load — প্রতিটা page আলাদা JS chunk হবে
 // Initial load অনেক দ্রুত হবে (Performance ↑)
@@ -56,7 +55,6 @@ createRoot(document.getElementById("root")).render(
       <CartProvider>
         <WishlistProvider>
           <DisableRightClick />
-          <SkipToContent />
           <RouterProvider router={router} />
         </WishlistProvider>
       </CartProvider>
