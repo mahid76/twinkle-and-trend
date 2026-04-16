@@ -1,25 +1,27 @@
 // src/components/Banner/Banner.jsx
 import { useEffect, useState } from "react";
 
-// Cloudinary helper: URL এ width inject করে
-const cloudinaryResize = (url, width) =>
-  url.replace("/upload/", `/upload/w_${width},q_auto,f_auto/`).replace(/q_auto\/f_auto\//, "");
+// ✅ FIX: f_webp explicit — f_auto কে বিশ্বাস করা যায় না
+// f_webp সরাসরি WebP deliver করে, browser header এর উপর depend করে না
+const cld = (publicPath, width) =>
+  `https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_${width}/${publicPath}`;
 
-const slides = [
+// Banner image public paths (version + filename)
+const SLIDES = [
   {
     id: 1,
-    image: "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776204517/banner02_wo7t1v.png",
+    path: "v1776204517/banner02_wo7t1v.png",
     title: "Twinkle and Trend — ট্রেন্ডি ফ্যাশন ও খেলনার অনলাইন শপ",
   },
   {
     id: 2,
-    image: "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776204518/banner03_iq555e.png",
-    title: "Twinkle and Trend — Professional Web Development",
+    path: "v1776204518/banner03_iq555e.png",
+    title: "Twinkle and Trend — বিশেষ অফার ও নতুন কালেকশন",
   },
   {
     id: 3,
-    image: "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776204519/banner04_lfljho.png",
-    title: "Twinkle and Trend — Grow Your Business Online",
+    path: "v1776204519/banner04_lfljho.png",
+    title: "Twinkle and Trend — সেরা দামে কিনুন",
   },
 ];
 
@@ -28,44 +30,39 @@ const BannerSlider = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 3000);
+      setCurrent((prev) => (prev === SLIDES.length - 1 ? 0 : prev + 1));
+    }, 3500);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <section
       className="relative w-full overflow-hidden"
-      aria-label="Promotional banner slideshow"
+      aria-label="প্রচারমূলক ব্যানার"
     >
-      {/*
-        ✅ CLS Fix: aspect-ratio দিয়ে height reserve করা হয়েছে
-        Mobile: 16/9 ratio (350px এর মতো)
-        Desktop: 1920x600 = 16/5 ratio
-      */}
+      {/* ✅ CLS Fix: aspect-ratio দিয়ে space reserve — layout shift হবে না */}
       <div className="relative w-full aspect-[16/9] md:aspect-[16/5]">
-        {slides.map((slide, index) => (
+        {SLIDES.map((slide, index) => (
           <div
             key={slide.id}
-            role="img"
-            aria-label={slide.title}
             aria-hidden={index !== current}
             className={`absolute inset-0 transition-opacity duration-700 ${
               index === current ? "opacity-100" : "opacity-0"
             }`}
           >
             <img
-              src={cloudinaryResize(slide.image, 1920)}
+              // ✅ f_webp explicitly — Cloudinary কে force করা হচ্ছে WebP দিতে
+              src={cld(slide.path, 1920)}
               srcSet={`
-                ${cloudinaryResize(slide.image, 768)} 768w,
-                ${cloudinaryResize(slide.image, 1024)} 1024w,
-                ${cloudinaryResize(slide.image, 1920)} 1920w
+                ${cld(slide.path, 768)} 768w,
+                ${cld(slide.path, 1200)} 1200w,
+                ${cld(slide.path, 1920)} 1920w
               `}
               sizes="100vw"
               alt={slide.title}
-              // ✅ LCP Fix: প্রথম image eager + high priority
+              // ✅ LCP Fix: প্রথম image → eager + high priority + sync decode
               loading={index === 0 ? "eager" : "lazy"}
-              fetchpriority={index === 0 ? "high" : "low"}
+              fetchpriority={index === 0 ? "high" : "auto"}
               decoding={index === 0 ? "sync" : "async"}
               draggable="false"
               onContextMenu={(e) => e.preventDefault()}
@@ -74,8 +71,10 @@ const BannerSlider = () => {
               width="1920"
               height="600"
             />
-            {/* Watermark */}
-            <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-black/70 text-white text-[8px] md:text-xs px-2 md:px-3 md:py-2 py-1 rounded select-none pointer-events-none">
+            <div
+              className="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-black/70 text-white text-[8px] md:text-xs px-2 md:px-3 md:py-2 py-1 rounded select-none pointer-events-none"
+              aria-hidden="true"
+            >
               © Twinkle and Trend
             </div>
           </div>
@@ -86,16 +85,16 @@ const BannerSlider = () => {
       <div
         className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2"
         role="tablist"
-        aria-label="Banner navigation"
+        aria-label="ব্যানার নেভিগেশন"
       >
-        {slides.map((_, index) => (
+        {SLIDES.map((_, index) => (
           <button
             key={index}
             role="tab"
             aria-selected={index === current}
-            aria-label={`Slide ${index + 1}`}
+            aria-label={`স্লাইড ${index + 1}`}
             onClick={() => setCurrent(index)}
-            className={`rounded-full transition-all duration-300 focus-visible:outline-2 focus-visible:outline-white ${
+            className={`rounded-full transition-all duration-300 ${
               index === current
                 ? "bg-white w-6 h-2"
                 : "bg-white/50 w-2 h-2 hover:bg-white/80"

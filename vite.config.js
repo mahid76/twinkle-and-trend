@@ -3,46 +3,46 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss(),
-  ],
+  plugins: [react(), tailwindcss()],
 
   build: {
-    // ✅ Target modern browsers for smaller bundles
     target: 'es2020',
-
-    // ✅ Chunk size warning limit
     chunkSizeWarningLimit: 600,
 
     rollupOptions: {
       output: {
-        // ✅ Manual chunk splitting — Firebase, Swiper, Framer আলাদা হবে
-        // এতে initial JS bundle অনেক ছোট হবে (Performance ↑)
-        manualChunks: {
+        // ✅ Manual chunks — প্রতিটা library আলাদা chunk এ যাবে
+        // Browser cache করবে, page reload এ re-download হবে না
+        manualChunks(id) {
+          // Firebase — সবচেয়ে বড়, আলাদা করা জরুরি
+          if (id.includes('firebase/auth'))       return 'firebase-auth';
+          if (id.includes('firebase/firestore'))  return 'firebase-firestore';
+          if (id.includes('firebase/app') || id.includes('@firebase')) return 'firebase-app';
+
+          // Swiper — forced reflow করে, আলাদা রাখো
+          if (id.includes('swiper'))              return 'swiper';
+
+          // ✅ Framer Motion — SearchModal এ use হয়, lazy load করা হবে
+          if (id.includes('framer-motion'))       return 'framer-motion';
+
           // React core
-          'react-vendor': ['react', 'react-dom', 'react-router', 'react-router-dom'],
-          // Firebase — সবচেয়ে বড় dependency, আলাদা chunk এ
-          'firebase-app': ['firebase/app', 'firebase/auth'],
-          'firebase-firestore': ['firebase/firestore'],
-          // UI libraries
-          'swiper-vendor': ['swiper'],
-          'framer-vendor': ['framer-motion'],
-          'icons-vendor': ['react-icons'],
+          if (id.includes('react-dom'))           return 'react-dom';
+          if (id.includes('react-router'))        return 'react-router';
+
+          // Icons
+          if (id.includes('react-icons'))         return 'icons';
         },
       },
     },
   },
 
-  // ✅ Optimize dependencies pre-bundling
   optimizeDeps: {
     include: [
       'react',
       'react-dom',
       'react-router-dom',
-      'firebase/app',
-      'firebase/auth',
-      'firebase/firestore',
     ],
+    // Firebase কে pre-bundle করো না — lazy load এর জন্য
+    exclude: ['firebase/auth', 'firebase/firestore'],
   },
 })

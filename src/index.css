@@ -1,16 +1,27 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+/* ✅ FIX: @import fonts সরানো হয়েছে — এটা render-blocking ছিল (780ms delay)
+   Fonts এখন index.html এ non-blocking <link> দিয়ে load হচ্ছে */
 @import "tailwindcss";
 
 @theme {
-  --font-primary: "Cormorant Garamond", serif;
-  --font-secondary: "Inter", sans-serif;
-  --font-teretory: "Poppins", sans-serif;
+  --font-primary: "Cormorant Garamond", Georgia, serif;
+  --font-secondary: "Inter", system-ui, sans-serif;
+  --font-teretory: "Poppins", system-ui, sans-serif;
   --color-primary: #E771A3;
   --color-secondary: #fafafa;
   --color-tertiary: #f5f5f5;
 }
 
-/* ✅ Swiper */
+/* ✅ Font display — fonts load না হওয়া পর্যন্ত system font দেখাবে, flash হবে না */
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-display: optional;
+}
+@font-face {
+  font-family: "Inter";
+  font-display: optional;
+}
+
+/* Swiper */
 .swiper {
   padding-bottom: 30px;
 }
@@ -18,9 +29,7 @@
   bottom: 0px !important;
 }
 
-/* ✅ Image protection — drag & select বন্ধ
-   NOTE: pointer-events: none আগে ছিল — সেটা সরানো হয়েছে
-   কারণ ওটা wishlist/cart button click block করত */
+/* Image protection — pointer-events: none সরানো (button click block করত) */
 img {
   -webkit-user-drag: none;
   user-drag: none;
@@ -29,37 +38,33 @@ img {
   user-select: none;
 }
 
-/* ✅ Focus visible — keyboard accessibility */
+/* Focus visible — keyboard accessibility */
 :focus-visible {
   outline: 2px solid #E771A3;
   outline-offset: 2px;
   border-radius: 2px;
 }
 
-/* ✅ Smooth scroll */
+/* Smooth scroll */
 html {
   scroll-behavior: smooth;
 }
 
-/* ✅ Custom slider */
+/* Custom slider */
 .custom_slider {
   display: flex !important;
   justify-content: center;
   margin-top: 20px;
   padding-bottom: 80px;
 }
-.custom_slider li {
-  margin: 0 5px;
-}
+.custom_slider li { margin: 0 5px; }
 .custom_slider li div {
-  width: 12px;
-  height: 12px;
+  width: 12px; height: 12px;
   background: #7d8184;
   border-radius: 50%;
   transition: all 0.3s ease;
 }
 .custom_slider li.slick-active div {
   background: #E771A3;
-  width: 16px;
-  height: 16px;
+  width: 16px; height: 16px;
 }
