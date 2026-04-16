@@ -4,19 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Primary SEO -->
+    <!-- SEO -->
     <title>Twinkle and Trend | ট্রেন্ডি ফ্যাশন, খেলনা ও ইলেকট্রনিক্স</title>
-    <meta name="description" content="Twinkle and Trend — বাংলাদেশের ট্রেন্ডি ফ্যাশন, খেলনা, ইলেকট্রনিক্স ও আরও অনেক কিছুর অনলাইন শপ। দ্রুত ডেলিভারি ও সেরা দামে কিনুন।" />
-    <meta name="keywords" content="twinkle and trend, fashion, toys, electronics, home kitchen, online shop, bangladesh, বাংলাদেশ" />
-    <meta name="author" content="Twinkle and Trend" />
+    <meta name="description" content="Twinkle and Trend — বাংলাদেশের ট্রেন্ডি ফ্যাশন, খেলনা, ইলেকট্রনিক্স ও আরও অনেক কিছুর অনলাইন শপ।" />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#E771A3" />
-
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/favicon.png" />
-
-    <!-- Canonical -->
     <link rel="canonical" href="https://twinkle-and-trend.vercel.app/" />
 
     <!-- Open Graph -->
@@ -24,22 +18,51 @@
     <meta property="og:title" content="Twinkle and Trend | ট্রেন্ডি ফ্যাশন, খেলনা ও ইলেকট্রনিক্স" />
     <meta property="og:description" content="বাংলাদেশের ট্রেন্ডি ফ্যাশন, খেলনা ও ইলেকট্রনিক্স কিনুন সেরা দামে।" />
     <meta property="og:url" content="https://twinkle-and-trend.vercel.app/" />
-    <meta property="og:site_name" content="Twinkle and Trend" />
     <meta property="og:image" content="https://twinkle-and-trend.vercel.app/og-image.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="bn_BD" />
-
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Twinkle and Trend | Fashion, Toys & More" />
-    <meta name="twitter:description" content="বাংলাদেশের ট্রেন্ডি অনলাইন শপ।" />
     <meta name="twitter:image" content="https://twinkle-and-trend.vercel.app/og-image.jpg" />
 
-    <!-- Preconnect for performance -->
+    <!-- ✅ FIX 1: Fonts — preconnect only, NO @import in CSS (সেটা render-blocking ছিল)
+         font-display: optional — fonts miss করলে fallback use করবে, layout shift হবে না -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--
+      Non-render-blocking font load:
+      media="print" → onload → media='all'
+      এই pattern টা fonts কে critical path থেকে বের করে দেয়
+    -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600&display=optional"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600&display=optional"
+      />
+    </noscript>
+
+    <!-- ✅ FIX 2: LCP preload — Banner এর first image HTML এ discoverable করা
+         Lighthouse এর "Request is not discoverable in initial document" fix করবে -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1024/v1776204517/banner02_wo7t1v.png"
+      imagesrcset="
+        https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_768/v1776204517/banner02_wo7t1v.png 768w,
+        https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1920/v1776204517/banner02_wo7t1v.png 1920w
+      "
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
+
+    <!-- Firebase DNS prefetch (auth iframe faster করে) -->
     <link rel="dns-prefetch" href="https://firestore.googleapis.com" />
+    <link rel="dns-prefetch" href="https://twinkle-and-trend-8ff25.firebaseapp.com" />
+    <link rel="preconnect" href="https://twinkle-and-trend-8ff25.firebaseapp.com" crossorigin />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
