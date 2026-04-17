@@ -38,7 +38,7 @@ const OfferHome = () => {
     <Container>
       <section className="py-6 sm:py-8" aria-labelledby="special-offers-heading">
         <div className="text-center mb-6 sm:mb-10">
-          <h2 id="special-offers-heading" className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
+          <h2 id="special-offers-heading" className="text-2xl sm:text-4xl font-primary font-bold text-gray-800 mb-2">
             Special Offers
           </h2>
           <p className="text-gray-600 text-xs sm:text-sm md:text-base mt-1">
