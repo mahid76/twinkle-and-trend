@@ -1,27 +1,146 @@
-/* ✅ FIX: @import fonts সরানো হয়েছে — এটা render-blocking ছিল (780ms delay)
-   Fonts এখন index.html এ non-blocking <link> দিয়ে load হচ্ছে */
 @import "tailwindcss";
 
+/*
+=======================================================
+  ✅ LOCAL FONTS SETUP — সম্পূর্ণ গাইড
+=======================================================
+
+STEP 1: Font files download করো
+---------------------------------
+এই ২টা link এ যাও → "Download family" click করো:
+
+  Playfair Display (headings):
+  https://fonts.google.com/specimen/Playfair+Display
+
+  Plus Jakarta Sans (body):
+  https://fonts.google.com/specimen/Plus+Jakarta+Sans
+
+STEP 2: woff2 files বানাও
+---------------------------------
+Download করা .ttf files এই site এ দাও:
+  https://www.fontsquirrel.com/tools/webfont-generator
+
+Settings:
+  ✅ "Optimal" select করো
+  ✅ woff2 format select করো
+  → Download করো
+
+STEP 3: Project এ রাখো
+---------------------------------
+এই folder structure তৈরি করো:
+
+  public/
+  └── fonts/
+      ├── PlayfairDisplay-Regular.woff2
+      ├── PlayfairDisplay-Bold.woff2
+      ├── PlayfairDisplay-SemiBold.woff2
+      ├── PlusJakartaSans-Regular.woff2
+      ├── PlusJakartaSans-Medium.woff2
+      └── PlusJakartaSans-SemiBold.woff2
+
+STEP 4: নিচের CSS টা দেখো — @font-face দিয়ে use করা হচ্ছে
+
+=======================================================
+  ভবিষ্যতে নতুন font যোগ করতে চাইলে:
+=======================================================
+
+1. Font download → woff2 বানাও → public/fonts/ এ রাখো
+2. নিচে নতুন @font-face block লেখো:
+
+   @font-face {
+     font-family: "তোমার ফন্টের নাম";
+     src: url("/fonts/তোমার-ফন্ট.woff2") format("woff2");
+     font-weight: 400;  ← Regular এর জন্য
+     font-style: normal;
+     font-display: swap;
+   }
+
+3. @theme এ variable যোগ করো:
+   --font-custom: "তোমার ফন্টের নাম", fallback-font;
+
+4. Tailwind class এ use করো:
+   className="font-custom"
+
+=======================================================
+*/
+
+/* ─── FONT 1: Playfair Display (Headings) ─── */
+@font-face {
+  font-family: "Playfair Display";
+  src: url("../public/fonts/didot.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap; /* ✅ swap — font load হওয়া পর্যন্ত fallback দেখাবে, flash হবে না */
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("../public/fonts/playfairdisplay-variablefont_wght.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("../public/fonts/playfairdisplay-variablefont_wght.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── FONT 2: Plus Jakarta Sans (Body) ─── */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("../public/fonts/poppins-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("../public/fonts/Poppins-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("../public/fonts/Poppins-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── Tailwind theme variables ─── */
 @theme {
-  --font-primary: "Cormorant Garamond", Georgia, serif;
-  --font-secondary: "Inter", system-ui, sans-serif;
-  --font-teretory: "Poppins", system-ui, sans-serif;
-  --color-primary: #E771A3;
+  /*
+    এখানে font change করতে চাইলে শুধু নামটা পরিবর্তন করো।
+    যেমন: "Playfair Display" → "Cinzel" (যদি Cinzel font use করতে চাও)
+
+    font-primary   → headings (h1, h2 এ font-primary class দিলে এই font দেখাবে)
+    font-secondary → body text, navbar (font-secondary class এ)
+    font-teretory  → buttons, labels (font-teretory class এ)
+
+    System fonts fallback হিসেবে আছে — কোনো কারণে custom font load না হলে এগুলো দেখাবে
+  */
+  --font-primary:   "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-secondary: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-teretory:  "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+
+  --color-primary:   #E771A3;
   --color-secondary: #fafafa;
-  --color-tertiary: #f5f5f5;
+  --color-tertiary:  #f5f5f5;
 }
 
-/* ✅ Font display — fonts load না হওয়া পর্যন্ত system font দেখাবে, flash হবে না */
-@font-face {
-  font-family: "Cormorant Garamond";
-  font-display: optional;
-}
-@font-face {
-  font-family: "Inter";
-  font-display: optional;
+/* ─── Global base styles ─── */
+body {
+  font-family: var(--font-secondary);
 }
 
-/* Swiper */
+/* ─── Swiper ─── */
 .swiper {
   padding-bottom: 30px;
 }
@@ -29,7 +148,7 @@
   bottom: 0px !important;
 }
 
-/* Image protection — pointer-events: none সরানো (button click block করত) */
+/* ─── Image protection ─── */
 img {
   -webkit-user-drag: none;
   user-drag: none;
@@ -38,33 +157,14 @@ img {
   user-select: none;
 }
 
-/* Focus visible — keyboard accessibility */
+/* ─── Keyboard accessibility ─── */
 :focus-visible {
-  outline: 2px solid #E771A3;
+  outline: 1px solid #E771A3;
   outline-offset: 2px;
   border-radius: 2px;
 }
 
-/* Smooth scroll */
+/* ─── Smooth scroll ─── */
 html {
   scroll-behavior: smooth;
-}
-
-/* Custom slider */
-.custom_slider {
-  display: flex !important;
-  justify-content: center;
-  margin-top: 20px;
-  padding-bottom: 80px;
-}
-.custom_slider li { margin: 0 5px; }
-.custom_slider li div {
-  width: 12px; height: 12px;
-  background: #7d8184;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-}
-.custom_slider li.slick-active div {
-  background: #E771A3;
-  width: 16px; height: 16px;
 }
