@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- SEO -->
     <title>Twinkle and Trend | ট্রেন্ডি ফ্যাশন, খেলনা ও ইলেকট্রনিক্স</title>
     <meta name="description" content="Twinkle and Trend — বাংলাদেশের ট্রেন্ডি ফ্যাশন, খেলনা, ইলেকট্রনিক্স ও আরও অনেক কিছুর অনলাইন শপ।" />
     <meta name="robots" content="index, follow" />
@@ -13,7 +12,6 @@
     <link rel="apple-touch-icon" href="/favicon.png" />
     <link rel="canonical" href="https://twinkle-and-trend.vercel.app/" />
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Twinkle and Trend | ট্রেন্ডি ফ্যাশন, খেলনা ও ইলেকট্রনিক্স" />
     <meta property="og:description" content="বাংলাদেশের ট্রেন্ডি ফ্যাশন, খেলনা ও ইলেকট্রনিক্স কিনুন সেরা দামে।" />
@@ -24,29 +22,20 @@
     <meta name="twitter:image" content="https://twinkle-and-trend.vercel.app/og-image.jpg" />
 
     <!--
-      ✅ LOCAL FONTS PRELOAD
-      Google Fonts সরানো হয়েছে — local fonts use হচ্ছে
-      যে fonts সবচেয়ে বেশি দরকার সেগুলো preload করো
-      এতে font "flash" হবে না
+      ✅ LOCAL FONT PRELOAD (Google Fonts সরানো হয়েছে)
+      সবচেয়ে বেশি দরকারি fonts preload করা হচ্ছে
+      → Poppins Regular (body সব জায়গায়)
+      → Playfair Display (headings)
+      crossorigin অবশ্যই লাগবে woff2 preload এ
     -->
-    <link
-      rel="preload"
-      href="/fonts/PlayfairDisplay-Bold.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/PlusJakartaSans-Regular.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
+    <link rel="preload" href="/fonts/poppins-regular.woff2"
+      as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Poppins-SemiBold.woff2"
+      as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/playfairdisplay-variablefont_wght.woff2"
+      as="font" type="font/woff2" crossorigin />
 
-    <!--
-      ✅ LCP Banner preload — HTML থেকে discoverable করা
-    -->
+    <!-- LCP Banner preload -->
     <link
       rel="preload"
       as="image"
@@ -59,14 +48,12 @@
       fetchpriority="high"
     />
 
-    <!-- Firebase DNS prefetch -->
+    <!-- Firebase + Cloudinary preconnect -->
     <link rel="dns-prefetch" href="https://firestore.googleapis.com" />
     <link rel="dns-prefetch" href="https://twinkle-and-trend-8ff25.firebaseapp.com" />
     <link rel="preconnect" href="https://twinkle-and-trend-8ff25.firebaseapp.com" crossorigin />
-    <!-- Cloudinary preconnect -->
     <link rel="preconnect" href="https://res.cloudinary.com" />
 
-    <!-- Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",

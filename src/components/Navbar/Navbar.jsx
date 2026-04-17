@@ -22,13 +22,11 @@ const Navbar = () => {
     const inputRef = useRef(null);
     const { pathname } = useLocation();
 
-    // Close menus on route change
     useEffect(() => {
         setMobileMenuOpen(false);
         setMobileDropdownOpen(false);
     }, [pathname]);
 
-    // Close search suggestions on outside click
     useEffect(() => {
         const handler = (e) => {
             if (searchRef.current && !searchRef.current.contains(e.target)) {
@@ -39,7 +37,6 @@ const Navbar = () => {
         return () => document.removeEventListener("mousedown", handler);
     }, []);
 
-    // Escape closes modal
     useEffect(() => {
         const handleEscape = (e) => {
             if (e.key === "Escape") {
@@ -51,7 +48,6 @@ const Navbar = () => {
         return () => document.removeEventListener("keydown", handleEscape);
     }, [showSearchModal]);
 
-    // Debounce search
     useEffect(() => {
         const timer = setTimeout(() => {
             if (searchQuery.trim()) {
@@ -96,8 +92,13 @@ const Navbar = () => {
 
     return (
         <>
-            {/* Spacer */}
-            <div className="h-[60px]" aria-hidden="true" />
+            {/*
+              ✅ FIX: Mobile gap সমস্যা
+              Mobile navbar আসল height = logo h-8(32px) + py-2(16px) = 48px = h-12
+              Desktop navbar আসল height = logo h-10(40px) + py-2(16px) = 56px ≈ h-[60px]
+              আগে সব জায়গায় h-[60px] ছিল → mobile এ 12px extra gap তৈরি হতো
+            */}
+            <div className="h-12 md:h-[60px]" aria-hidden="true" />
 
             <nav
                 className="w-full fixed top-0 left-0 right-0 z-50 bg-white text-black shadow-md"
