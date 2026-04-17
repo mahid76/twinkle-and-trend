@@ -7,7 +7,7 @@ import { clImg } from "../../utils/cloudinaryImage";
 
 const DELIVERY_CHARGES = {
   inside: 60,
-  outside: 120,
+  outside: 130,
 };
 
 const Cart = () => {
@@ -257,7 +257,7 @@ Please confirm my order!
                       name="phone"
                       value={customerInfo.phone}
                       onChange={handleInputChange}
-                      placeholder="017XXXXXXXX"
+                      placeholder="+880 1XXXXXXXXX"
                       maxLength={11}
                       className={`${inputBase} ${errors.phone ? inputError : inputNormal}`}
                     />
@@ -281,7 +281,7 @@ Please confirm my order!
 
                   <div className="col-span-2">
                     <label className="block text-xs font-medium text-gray-500 mb-1">
-                      Suggestions <span className="text-gray-400 font-normal">(optional)</span>
+                      Note <span className="text-gray-400 font-normal">(optional)</span>
                     </label>
                     <input
                       type="text"
@@ -305,7 +305,7 @@ Please confirm my order!
                 <div className="flex flex-col gap-1.5">
                   {[
                     { zone: "inside", label: "Inside Dhaka", emoji: "🏙️", charge: "+Tk.60" },
-                    { zone: "outside", label: "Outside Dhaka", emoji: "🗺️", charge: "+Tk.120" },
+                    { zone: "outside", label: "Outside Dhaka", emoji: "🗺️", charge: "+Tk.130" },
                   ].map(({ zone, label, emoji, charge }) => (
                     <button
                       key={zone}
