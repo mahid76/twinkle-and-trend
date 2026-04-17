@@ -2,13 +2,16 @@
 
 /* ============================================
    LOCAL FONTS
-   ফাইলগুলো /public/fonts/ এ আছে
+   ✅ FIX: path "../public/fonts/" → "/fonts/"
+   Vite এ src/ folder থেকে public/ এ
+   relative path কাজ করে না।
+   "/" দিয়ে শুরু করলে সবসময় public root থেকে খোঁজে।
    ============================================ */
 
 /* ── Didot (Logo only) ── */
 @font-face {
   font-family: "Didot";
-  src: url("../public/fonts/Didot-Bold.woff2") format("woff2");
+  src: url("/fonts/didot.woff2") format("woff2");
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
@@ -17,15 +20,15 @@
 /* ── Playfair Display (Headings — variable font) ── */
 @font-face {
   font-family: "Playfair Display";
-  src: url("../public/fonts/playfairdisplay-variablefont_wght.woff2") format("woff2");
-  font-weight: 100 900;  /* Variable font — সব weight কভার করে */
+  src: url("/fonts/playfairdisplay-variablefont_wght.woff2") format("woff2");
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Playfair Display";
-  src: url("../public/fonts/playfairDisplay-Italic-VariableFont_wght.woff2") format("woff2");
+  src: url("/fonts/PlayfairDisplay-Italic-VariableFont_wght.woff2") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -34,7 +37,7 @@
 /* ── Poppins (Body, Navbar, Buttons, UI) ── */
 @font-face {
   font-family: "Poppins";
-  src: url("../public/fonts/poppins-regular.woff2") format("woff2");
+  src: url("/fonts/poppins-regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -42,7 +45,7 @@
 
 @font-face {
   font-family: "Poppins";
-  src: url("../public/fonts/Poppins-Medium.woff2") format("woff2");
+  src: url("/fonts/Poppins-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -50,7 +53,7 @@
 
 @font-face {
   font-family: "Poppins";
-  src: url("../public/fonts/Poppins-SemiBold.woff2") format("woff2");
+  src: url("/fonts/Poppins-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -58,7 +61,7 @@
 
 @font-face {
   font-family: "Poppins";
-  src: url("../public/fonts/Poppins-Bold.woff2") format("woff2");
+  src: url("/fonts/Poppins-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -68,38 +71,26 @@
    TAILWIND THEME
    ============================================ */
 @theme {
-  --font-primary:   "Playfair Display", Georgia, serif;   /* h1, h2, headings */
-  --font-secondary: "Poppins", system-ui, sans-serif;     /* navbar, body, UI */
-  --font-teretory:  "Poppins", system-ui, sans-serif;     /* buttons, labels */
-  --font-logo:      "Didot", "Playfair Display", serif;   /* Logo text only */
+  --font-primary:   "Playfair Display", Georgia, serif;
+  --font-secondary: "Poppins", system-ui, sans-serif;
+  --font-teretory:  "Poppins", system-ui, sans-serif;
+  --font-logo:      "Didot", "Playfair Display", serif;
 
   --color-primary:   #E771A3;
   --color-secondary: #fafafa;
   --color-tertiary:  #f5f5f5;
 }
 
-/* ============================================
-   GLOBAL BASE
-   ============================================ */
 body {
   font-family: "Poppins", system-ui, sans-serif;
 }
 
-/* ============================================
-   FIX: Focus outline বাইরে যাওয়ার সমস্যা
-   ----
-   আগে ছিল: outline: 2px solid #E771A3
-   সমস্যা: outline border-radius মানে না → বাইরে যায়
-   Fix: box-shadow দিয়ে replace করা হয়েছে
-   box-shadow সবসময় border-radius follow করে
-   ============================================ */
+/* Focus ring — box-shadow (border-radius মানে) */
 :focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px #E771A3;
-  border-radius: inherit; /* parent এর radius inherit করবে */
+  border-radius: inherit;
 }
-
-/* Input fields এর জন্য আলাদা — outline-none class থাকলেও override */
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
@@ -107,19 +98,11 @@ select:focus-visible {
   box-shadow: 0 0 0 2px #E771A3;
 }
 
-/* ============================================
-   SWIPER
-   ============================================ */
-.swiper {
-  padding-bottom: 30px;
-}
-.swiper-pagination {
-  bottom: 0px !important;
-}
+/* Swiper */
+.swiper { padding-bottom: 30px; }
+.swiper-pagination { bottom: 0px !important; }
 
-/* ============================================
-   IMAGE PROTECTION
-   ============================================ */
+/* Image protection */
 img {
   -webkit-user-drag: none;
   user-drag: none;
@@ -128,9 +111,4 @@ img {
   user-select: none;
 }
 
-/* ============================================
-   SMOOTH SCROLL
-   ============================================ */
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
