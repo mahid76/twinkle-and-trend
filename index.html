@@ -23,30 +23,30 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://twinkle-and-trend.vercel.app/og-image.jpg" />
 
-    <!-- ✅ FIX 1: Fonts — preconnect only, NO @import in CSS (সেটা render-blocking ছিল)
-         font-display: optional — fonts miss করলে fallback use করবে, layout shift হবে না -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!--
-      Non-render-blocking font load:
-      media="print" → onload → media='all'
-      এই pattern টা fonts কে critical path থেকে বের করে দেয়
+      ✅ LOCAL FONTS PRELOAD
+      Google Fonts সরানো হয়েছে — local fonts use হচ্ছে
+      যে fonts সবচেয়ে বেশি দরকার সেগুলো preload করো
+      এতে font "flash" হবে না
     -->
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600&display=optional"
-      media="print"
-      onload="this.media='all'"
+      rel="preload"
+      href="/fonts/PlayfairDisplay-Bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600&display=optional"
-      />
-    </noscript>
+    <link
+      rel="preload"
+      href="/fonts/PlusJakartaSans-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
-    <!-- ✅ FIX 2: LCP preload — Banner এর first image HTML এ discoverable করা
-         Lighthouse এর "Request is not discoverable in initial document" fix করবে -->
+    <!--
+      ✅ LCP Banner preload — HTML থেকে discoverable করা
+    -->
     <link
       rel="preload"
       as="image"
@@ -59,10 +59,12 @@
       fetchpriority="high"
     />
 
-    <!-- Firebase DNS prefetch (auth iframe faster করে) -->
+    <!-- Firebase DNS prefetch -->
     <link rel="dns-prefetch" href="https://firestore.googleapis.com" />
     <link rel="dns-prefetch" href="https://twinkle-and-trend-8ff25.firebaseapp.com" />
     <link rel="preconnect" href="https://twinkle-and-trend-8ff25.firebaseapp.com" crossorigin />
+    <!-- Cloudinary preconnect -->
+    <link rel="preconnect" href="https://res.cloudinary.com" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
