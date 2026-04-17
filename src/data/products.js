@@ -646,3 +646,81 @@ export const getDiscountPercentage = (originalPrice, offerPrice) => {
 	if (!offerPrice || offerPrice >= originalPrice) return 0;
 	return Math.round(((originalPrice - offerPrice) / originalPrice) * 100);
 };
+
+
+
+// {
+//   id: 2,
+//   name: "Premium Cat Bag",         // ← fallback name
+//   price: 4999,
+//   offerPrice: 3499,
+//   category: "catBag",
+//   image: "",            // ← main thumbnail
+//   images: ["", ""],
+//   hdImages: [	"", "",	"",],
+//   rating: 4.6,
+//   stock: 20,
+
+//   variants: [
+//     {
+//       name: "Premium Cat Bag02 — Pink Edition",   // ← এই name দেখাবে
+//       color: "Pink",
+//       colorHex: "#FFB6C1",
+//       price: 4999,
+//       offerPrice: 3499,
+//       stock: 15,
+//       images: ["", ""],
+//       hdImages: [	"", "",	],
+
+//     },
+//     {
+//       name: "Premium Cat Bag02 — Classic White",  // ← এই name দেখাবে
+//       color: "White",
+//       colorHex: "#FFFFFF",
+//       price: 5200,
+//       offerPrice: 3699,
+//       stock: 8,
+//       images: ["", ""],
+// 			hdImages: [	"", "",	],
+
+//     },
+//     {
+//       // name না দিলে product.name দেখাবে
+//       color: "Brown",
+//       colorHex: "#8B4513",
+//       price: 4999,
+//       offerPrice: 3499,
+//       stock: 0,   // ← 0 হলে swatch এ cross দেখাবে
+//       images:["", ""],
+// 			hdImages: [	"", "",],
+
+//     },
+//     {
+//       // name না দিলে product.name দেখাবে
+//       color: "Grey",
+//       colorHex: "#808080",
+//       price: 4999,
+//       offerPrice: 3499,
+//       stock: 0,   // ← 0 হলে swatch এ cross দেখাবে
+//       images:["", ""],
+// 			hdImages: [	"", "",],
+
+//     },
+//   ],
+
+//   // ✅ SIZES যোগ করার উদাহরণ:
+//   // extraPrice = 0 হলে base price ই থাকবে
+//   // extraPrice > 0 হলে সেটা যোগ হবে
+//   sizes: [
+//     { label: "S",  stock: 10, extraPrice: 0    },
+//     { label: "M",  stock: 15, extraPrice: 0    },
+//     { label: "L",  stock: 8,  extraPrice: 200  },   // L size এ +200 টাকা
+//     { label: "XL", stock: 0,  extraPrice: 300  },   // stock:0 হলে disabled
+//   ],
+
+//   features: [
+//     "Premium synthetic leather",
+//     "Adjustable strap",
+//     "Multiple compartments",
+//   ],
+// };
