@@ -8,7 +8,7 @@
 /* ── Didot (Logo only) ── */
 @font-face {
   font-family: "Didot";
-  src: url("/fonts/didot.woff2") format("woff2");
+  src: url("../public/fonts/Didot-Bold.woff2") format("woff2");
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
@@ -17,7 +17,7 @@
 /* ── Playfair Display (Headings — variable font) ── */
 @font-face {
   font-family: "Playfair Display";
-  src: url("/fonts/playfairdisplay-variablefont_wght.woff2") format("woff2");
+  src: url("../public/fonts/playfairdisplay-variablefont_wght.woff2") format("woff2");
   font-weight: 100 900;  /* Variable font — সব weight কভার করে */
   font-style: normal;
   font-display: swap;
@@ -25,7 +25,7 @@
 
 @font-face {
   font-family: "Playfair Display";
-  src: url("/fonts/PlayfairDisplay-Italic-VariableFont_wght.woff2") format("woff2");
+  src: url("../public/fonts/playfairDisplay-Italic-VariableFont_wght.woff2") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -34,7 +34,7 @@
 /* ── Poppins (Body, Navbar, Buttons, UI) ── */
 @font-face {
   font-family: "Poppins";
-  src: url("/fonts/poppins-regular.woff2") format("woff2");
+  src: url("../public/fonts/poppins-regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -42,7 +42,7 @@
 
 @font-face {
   font-family: "Poppins";
-  src: url("/fonts/Poppins-Medium.woff2") format("woff2");
+  src: url("../public/fonts/Poppins-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -50,7 +50,7 @@
 
 @font-face {
   font-family: "Poppins";
-  src: url("/fonts/Poppins-SemiBold.woff2") format("woff2");
+  src: url("../public/fonts/Poppins-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -58,7 +58,7 @@
 
 @font-face {
   font-family: "Poppins";
-  src: url("/fonts/Poppins-Bold.woff2") format("woff2");
+  src: url("../public/fonts/Poppins-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
