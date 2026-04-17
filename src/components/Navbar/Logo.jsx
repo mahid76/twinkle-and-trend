@@ -8,7 +8,6 @@ const Logo = ({ onClick }) => {
         <img
           src="https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_80/v1776204520/logo_bs89oj.png"
           alt="Twinkle and Trend logo"
-          // ✅ FIX: h-8 mobile, h-10 desktop — w-auto দিয়ে ratio ঠিক রাখা
           className="h-8 md:h-10 w-auto flex-shrink-0"
           width="80"
           height="40"
@@ -19,8 +18,8 @@ const Logo = ({ onClick }) => {
           onContextMenu={(e) => e.preventDefault()}
           onDragStart={(e) => e.preventDefault()}
         />
-        {/* ✅ FIX: text-base mobile, text-xl desktop — আগে md:text-2xl ছিল যেটা wrap হতো */}
-        <span className="text-base md:text-xl font-primary font-bold leading-tight">
+        {/* ✅ font-logo → Didot font (index.css এ --font-logo define করা আছে) */}
+        <span className="text-base md:text-xl font-logo font-bold leading-tight">
           Twinkle and Trend
         </span>
       </div>
