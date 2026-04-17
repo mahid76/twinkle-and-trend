@@ -9,15 +9,10 @@ export const CartProvider = ({ children }) => {
     const { user, authLoading } = useAuth();
     const [cartItems, setCartItems] = useState([]);
     const [cartLoaded, setCartLoaded] = useState(false);
-    // ✅ Track whether the current cartItems came from Firestore/localStorage (not user action)
     const isSyncing = useRef(false);
 
-    // ✅ Load cart — user change হলে আগে cartLoaded reset করো
     useEffect(() => {
         if (authLoading) return;
-
-        // ✅ KEY FIX: নতুন user/guest session শুরু হলে cartLoaded false করো
-        // এতে save effect আগে fire করবে না
         setCartLoaded(false);
         isSyncing.current = true;
 
@@ -27,13 +22,11 @@ export const CartProvider = ({ children }) => {
                 if (snap.exists()) {
                     setCartItems(snap.data().items || []);
                 } else {
-                    // localStorage এ guest cart থাকলে migrate করো
                     try {
                         const local = localStorage.getItem("tt_cart");
                         if (local) {
                             const parsed = JSON.parse(local);
                             setCartItems(parsed);
-                            // Firestore এ save করো (migrate)
                             setDoc(ref, { items: parsed });
                             localStorage.removeItem("tt_cart");
                         } else {
@@ -48,7 +41,6 @@ export const CartProvider = ({ children }) => {
             });
             return () => unsubscribe();
         } else {
-            // Guest — localStorage থেকে load
             try {
                 const saved = localStorage.getItem("tt_cart");
                 setCartItems(saved ? JSON.parse(saved) : []);
@@ -60,11 +52,9 @@ export const CartProvider = ({ children }) => {
         }
     }, [user, authLoading]);
 
-    // ✅ Cart save — শুধু cartLoaded হওয়ার পরে এবং syncing না হলে save করো
     useEffect(() => {
         if (!cartLoaded) return;
         if (isSyncing.current) return;
-
         if (user) {
             const ref = doc(db, "users", user.uid, "cart", "items");
             setDoc(ref, { items: cartItems });
@@ -73,44 +63,67 @@ export const CartProvider = ({ children }) => {
         }
     }, [cartItems, user, cartLoaded]);
 
-    const addToCart = (product, variant = null, quantity = 1) => {
-        const cartId = variant ? `${product.id}-${variant.color}` : `${product.id}`;
+    // ✅ size parameter যোগ হয়েছে
+    // cartId এ size.label যোগ হয় → same product different size = আলাদা cart item
+    const addToCart = (product, variant = null, quantity = 1, size = null) => {
+        // cartId এ size include করা হচ্ছে
+        const colorPart  = variant?.color ? `-${variant.color}` : "";
+        const sizePart   = size?.label    ? `-${size.label}`    : "";
+        const cartId     = `${product.id}${colorPart}${sizePart}`;
+
         setCartItems((prev) => {
             const existing = prev.find((item) => item.cartId === cartId);
+
+            // ✅ Size এর stock ব্যবহার করো, না থাকলে variant/product stock
+            const maxStock = size?.stock ?? variant?.stock ?? product.stock;
+
             if (existing) {
                 return prev.map((item) =>
                     item.cartId === cartId
-                        ? { ...item, quantity: Math.min(item.quantity + quantity, variant?.stock ?? product.stock) }
+                        ? { ...item, quantity: Math.min(item.quantity + quantity, maxStock) }
                         : item,
                 );
             }
-            const price =
+
+            // ✅ Base price (variant বা product)
+            const basePrice =
                 variant?.offerPrice && variant.offerPrice < variant.price
                     ? variant.offerPrice
                     : variant?.price ??
                       (product.offerPrice && product.offerPrice < product.price
                           ? product.offerPrice
                           : product.price);
-            const originalPrice =
+
+            const baseOriginalPrice =
                 variant?.offerPrice && variant.offerPrice < variant.price
                     ? variant.price
                     : product.offerPrice && product.offerPrice < product.price
                       ? product.price
                       : null;
+
+            // ✅ Size এর extraPrice যোগ হবে
+            const extraPrice     = size?.extraPrice || 0;
+            const price          = basePrice + extraPrice;
+            const originalPrice  = baseOriginalPrice ? baseOriginalPrice + extraPrice : null;
+
+            // ✅ displayName — variant.name থাকলে সেটা, না হলে product.name
+            const displayName = variant?.name || product.name;
+
             return [
                 ...prev,
                 {
                     cartId,
-                    productId: product.id,
-                    name: product.name,
-                    image: variant?.images?.[0] ?? product.image,
-                    color: variant?.color ?? null,
-                    colorHex: variant?.colorHex ?? null,
+                    productId:     product.id,
+                    name:          displayName,
+                    image:         variant?.images?.[0] ?? product.image,
+                    color:         variant?.color ?? null,
+                    colorHex:      variant?.colorHex ?? null,
+                    size:          size?.label ?? null,       // ✅ size label store
                     price,
                     originalPrice,
-                    stock: variant?.stock ?? product.stock,
+                    stock:         maxStock,
                     quantity,
-                    category: product.category,
+                    category:      product.category,
                 },
             ];
         });
@@ -136,9 +149,7 @@ export const CartProvider = ({ children }) => {
     const cartTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     return (
-        <CartContext.Provider
-            value={{ cartItems, addToCart, updateQuantity, removeFromCart, clearCart, cartCount, cartTotal }}
-        >
+        <CartContext.Provider value={{ cartItems, addToCart, updateQuantity, removeFromCart, clearCart, cartCount, cartTotal }}>
             {children}
         </CartContext.Provider>
     );
