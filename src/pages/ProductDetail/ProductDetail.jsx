@@ -279,7 +279,7 @@ ${originalPrice   ? `*Original Price:* ৳${originalPrice}` : ""}
 *Quantity:* ${quantity}
 *Total:* ৳${totalAmount}
 ${originalPrice   ? `*You Save:* ৳${(originalPrice - displayPrice) * quantity}` : ""}
-*SKU:* T&T-${product.id}${selectedVariant ? `-${selectedVariant.color?.slice(0,3).toUpperCase()}` : ""}${selectedSize ? `-${selectedSize.label}` : ""}
+// *SKU:* T&T-${product.id}${selectedVariant ? `-${selectedVariant.color?.slice(0,3).toUpperCase()}` : ""}${selectedSize ? `-${selectedSize.label}` : ""}
 
 Please confirm my order!
   `.trim();
@@ -493,8 +493,8 @@ Please confirm my order!
           {/* Meta */}
           <div className="mt-6 pt-5 border-t border-gray-100 space-y-2 text-sm text-gray-600">
             <div className="flex gap-2"><span className="font-semibold text-gray-800 w-20">Category:</span><span>{product.category}</span></div>
-            <div className="flex gap-2"><span className="font-semibold text-gray-800 w-20">SKU:</span><span>T&T-{product.id}</span></div>
-            <div className="flex gap-2"><span className="font-semibold text-gray-800 w-20">Brand:</span><span>Twinkle & Trend</span></div>
+            {/* <div className="flex gap-2"><span className="font-semibold text-gray-800 w-20">SKU:</span><span>T&T-{product.id}</span></div> */}
+            <div className="flex gap-2"><span className="font-semibold text-gray-800 w-20">Brand:</span><span>China</span></div>
           </div>
 
           {/* Features */}

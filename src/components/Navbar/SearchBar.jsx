@@ -17,7 +17,7 @@ const SearchBar = ({
 					value={searchQuery}
 					onChange={(e) => setSearchQuery(e.target.value)}
 					onFocus={() => searchQuery && setShowSuggestions(true)}
-					className="px-3 py-1 text-black bg-[#f8e7ef] rounded-l-md outline-none w-full"
+					className="px-3 py-1 text-black bg-[#f8e7ef] rounded-l-md outline-none w-full "
 				/>
 
 				{showSuggestions && (
