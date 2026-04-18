@@ -11,7 +11,7 @@
 /* ── Didot (Logo only) ── */
 @font-face {
   font-family: "Didot";
-  src: url("/fonts/didot.woff2") format("woff2");
+  src: url("/fonts/Didot-Bold.woff2") format("woff2");
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
@@ -34,7 +34,7 @@
   font-display: swap;
 }
 
-/* ── Poppins (Body, Navbar, Buttons, UI) ── */
+/* ── Poppins Regular — preloaded, swap is safe ── */
 @font-face {
   font-family: "Poppins";
   src: url("/fonts/poppins-regular.woff2") format("woff2");
@@ -43,6 +43,7 @@
   font-display: swap;
 }
 
+/* ── Poppins Medium — preloaded, swap is safe ── */
 @font-face {
   font-family: "Poppins";
   src: url("/fonts/Poppins-Medium.woff2") format("woff2");
@@ -51,6 +52,7 @@
   font-display: swap;
 }
 
+/* ── Poppins SemiBold — preloaded, swap is safe ── */
 @font-face {
   font-family: "Poppins";
   src: url("/fonts/Poppins-SemiBold.woff2") format("woff2");
@@ -59,6 +61,7 @@
   font-display: swap;
 }
 
+/* ── Poppins Bold — preloaded, swap is safe ── */
 @font-face {
   font-family: "Poppins";
   src: url("/fonts/Poppins-Bold.woff2") format("woff2");

@@ -25,6 +25,7 @@ const categoryMap = {
   drinkWare: "Drink Ware",
   digitalPrayerTasbih: "Digital Prayer Tasbih",
   
+
 };
 
 const ProductsHome = () => {

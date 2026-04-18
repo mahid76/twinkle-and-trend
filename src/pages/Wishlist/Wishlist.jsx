@@ -9,7 +9,16 @@ import { clImg, clSrcSet } from "../../utils/cloudinaryImage";
 const Wishlist = () => {
   const { wishlistItems, removeFromWishlist } = useWishlist();
   const { addToCart } = useCart();
-  const { user } = useAuth();
+  const { user, authLoading } = useAuth();
+
+  // ✅ auth load হওয়ার আগে redirect/login message দেখাবে না
+  if (authLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]" role="status">
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#E771A3]" />
+      </div>
+    );
+  }
 
   if (!user) {
     return (
