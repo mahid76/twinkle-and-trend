@@ -10,17 +10,17 @@ const cld = (publicPath, width) =>
 const SLIDES = [
   {
     id: 1,
-    path: "v1776204517/banner02_wo7t1v.png",
+    path: "v1776519117/banner01_ij04eq.jpg",
     title: "Twinkle and Trend — ট্রেন্ডি ফ্যাশন ও খেলনার অনলাইন শপ",
   },
   {
     id: 2,
-    path: "v1776204518/banner03_iq555e.png",
+    path: "v1776519117/banner02_ppnje0.jpg",
     title: "Twinkle and Trend — বিশেষ অফার ও নতুন কালেকশন",
   },
   {
     id: 3,
-    path: "v1776204519/banner04_lfljho.png",
+    path: "v1776519117/banner03_obrerl.jpg",
     title: "Twinkle and Trend — সেরা দামে কিনুন",
   },
 ];
