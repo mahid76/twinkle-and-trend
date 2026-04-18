@@ -86,17 +86,17 @@ body {
 }
 
 /* Focus ring — box-shadow (border-radius মানে) */
-:focus-visible {
+/* :focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px #E771A3;
-  border-radius: inherit;
+  border-radius: 10px;
 }
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px #E771A3;
-}
+} */
 
 /* Swiper */
 .swiper { padding-bottom: 30px; }
