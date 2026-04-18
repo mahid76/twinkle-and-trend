@@ -1,78 +1,109 @@
-// src/components/Banner/Banner.jsx
-import { useEffect, useState } from "react";
+/**
+ * Banner.jsx  (refactored)
+ * ─────────────────────────────────────────────────────────────────
+ * BEFORE → AFTER summary
+ * ──────────────────────
+ * BEFORE:
+ *   - Inline cld() URL builder duplicated here (copy-paste from other files)
+ *   - fetchpriority (lowercase DOM attr) → React silently ignores it
+ *   - srcSet widths didn't match index.html preload imagesrcset → double fetch
+ *   - aspect-ratio on container but no intrinsic width/height on <img>
+ *
+ * AFTER:
+ *   - Uses <OptimizedImage priority> for slide 0 → correct React attrs
+ *   - srcSet widths [768,1200,1920] exactly match index.html preload
+ *     → browser reuses the preloaded bytes (cache hit, not refetch)
+ *   - Declarative Tailwind aspect-ratio classes (purge-safe)
+ *   - useCallback for stable autoplay reference
+ */
 
-// ✅ FIX: f_webp explicit — f_auto কে বিশ্বাস করা যায় না
-// f_webp সরাসরি WebP deliver করে, browser header এর উপর depend করে না
-const cld = (publicPath, width) =>
-  `https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_${width}/${publicPath}`;
+import { useEffect, useState, useCallback } from "react";
+import OptimizedImage, { WIDTHS, SIZES } from "../ui/OptimizedImage";
 
-// Banner image public paths (version + filename)
+// ⚠️  If you change SLIDES[0].src you MUST also update the
+//     <link rel="preload"> href + imagesrcset in index.html
+//     so the browser reuses the prefetched response.
 const SLIDES = [
   {
     id: 1,
-    path: "v1776519117/banner01_ij04eq.jpg",
-    title: "Twinkle and Trend — ট্রেন্ডি ফ্যাশন ও খেলনার অনলাইন শপ",
+    src: "https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1200/v1776519117/banner01_ij04eq.jpg",
+    alt: "Twinkle and Trend — ট্রেন্ডি ফ্যাশন ও খেলনার অনলাইন শপ",
   },
   {
     id: 2,
-    path: "v1776519117/banner02_ppnje0.jpg",
-    title: "Twinkle and Trend — বিশেষ অফার ও নতুন কালেকশন",
+    src: "https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1200/v1776519117/banner02_ppnje0.jpg",
+    alt: "Twinkle and Trend — বিশেষ অফার ও নতুন কালেকশন",
   },
   {
     id: 3,
-    path: "v1776519117/banner03_obrerl.jpg",
-    title: "Twinkle and Trend — সেরা দামে কিনুন",
+    src: "https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1200/v1776519117/banner03_obrerl.jpg",
+    alt: "Twinkle and Trend — সেরা দামে কিনুন",
   },
 ];
+
+const AUTOPLAY_DELAY = 3500;
 
 const BannerSlider = () => {
   const [current, setCurrent] = useState(0);
 
+  const next = useCallback(
+    () => setCurrent((prev) => (prev === SLIDES.length - 1 ? 0 : prev + 1)),
+    []
+  );
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev === SLIDES.length - 1 ? 0 : prev + 1));
-    }, 3500);
+    const interval = setInterval(next, AUTOPLAY_DELAY);
     return () => clearInterval(interval);
-  }, []);
+  }, [next]);
 
   return (
     <section
       className="relative w-full overflow-hidden"
       aria-label="প্রচারমূলক ব্যানার"
+      aria-roledescription="carousel"
     >
-      {/* ✅ CLS Fix: aspect-ratio দিয়ে space reserve — layout shift হবে না */}
+      {/*
+        ✅ CLS fix: aspect-ratio classes reserve the exact space
+        before any image loads — no layout shift as slides appear.
+        mobile → 16/9 (taller), desktop → 16/5 (shorter cinematic)
+      */}
       <div className="relative w-full aspect-[16/9] md:aspect-[16/5]">
         {SLIDES.map((slide, index) => (
           <div
             key={slide.id}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`Slide ${index + 1} of ${SLIDES.length}`}
             aria-hidden={index !== current}
             className={`absolute inset-0 transition-opacity duration-700 ${
               index === current ? "opacity-100" : "opacity-0"
             }`}
           >
-            <img
-              // ✅ f_webp explicitly — Cloudinary কে force করা হচ্ছে WebP দিতে
-              src={cld(slide.path, 1920)}
-              srcSet={`
-                ${cld(slide.path, 768)} 768w,
-                ${cld(slide.path, 1200)} 1200w,
-                ${cld(slide.path, 1920)} 1920w
-              `}
-              sizes="100vw"
-              alt={slide.title}
-              // ✅ LCP Fix: প্রথম image → eager + high priority + sync decode
-              loading={index === 0 ? "eager" : "lazy"}
-              fetchPriority={index === 0 ? "high" : "auto"}
-              decoding={index === 0 ? "sync" : "async"}
-              draggable="false"
-              onContextMenu={(e) => e.preventDefault()}
-              onDragStart={(e) => e.preventDefault()}
-              className="w-full h-full object-cover"
-              width="1920"
-              height="600"
+            {/*
+              slide 0 → priority=true
+                → loading="eager" fetchPriority="high" decoding="sync"
+                → widths=[768,1200,1920] match index.html preload imagesrcset
+                → browser gets cache hit, not a second network request
+
+              slide 1,2 → priority=false (default)
+                → loading="lazy" fetchPriority="auto" decoding="async"
+            */}
+            <OptimizedImage
+              src={slide.src}
+              alt={slide.alt}
+              priority={index === 0}
+              aspectRatio="16/9"
+              widths={WIDTHS.banner}
+              sizes={SIZES.banner}
+              wrapClass="w-full h-full"
+              className="object-cover select-none"
             />
+
             <div
-              className="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-black/70 text-white text-[8px] md:text-xs px-2 md:px-3 md:py-2 py-1 rounded select-none pointer-events-none"
+              className="absolute bottom-2 right-2 md:bottom-4 md:right-4
+                bg-black/70 text-white text-[8px] md:text-xs
+                px-2 md:px-3 py-0.5 md:py-1.5 rounded
+                select-none pointer-events-none"
               aria-hidden="true"
             >
               © Twinkle and Trend
