@@ -62,7 +62,7 @@ const BannerSlider = () => {
               alt={slide.title}
               // ✅ LCP Fix: প্রথম image → eager + high priority + sync decode
               loading={index === 0 ? "eager" : "lazy"}
-              fetchpriority={index === 0 ? "high" : "auto"}
+              fetchPriority={index === 0 ? "high" : "auto"}
               decoding={index === 0 ? "sync" : "async"}
               draggable="false"
               onContextMenu={(e) => e.preventDefault()}

@@ -320,7 +320,7 @@ Please confirm my order!
             <HoverZoomImage image={currentHdImage}>
               <div className="relative overflow-hidden rounded-lg" style={{ width: 450, aspectRatio: "4/5" }} onContextMenu={(e) => e.preventDefault()}>
                 <img src={cldWebp(currentImage, 900)} srcSet={`${cldWebp(currentImage, 500)} 500w, ${cldWebp(currentImage, 900)} 900w`} sizes="450px"
-                  alt={displayName} loading="eager" fetchpriority="high" decoding="sync" draggable={false} onContextMenu={(e) => e.preventDefault()}
+                  alt={displayName} loading="eager" fetchPriority="high" decoding="sync" draggable={false} onContextMenu={(e) => e.preventDefault()}
                   className="w-full h-full object-cover" width="450" height="562" />
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
                   <p className="text-[#D15F93] text-xl font-bold opacity-30 rotate-[-20deg]">Twinkle and trend</p>
@@ -345,7 +345,7 @@ Please confirm my order!
           {/* Mobile */}
           <div className="md:hidden">
             <div className="relative overflow-hidden rounded-lg mx-auto" style={{ maxWidth: "75%", aspectRatio: "4/5" }} onContextMenu={(e) => e.preventDefault()}>
-              <img src={cldWebp(currentImage, 600)} alt={displayName} loading="eager" fetchpriority="high" draggable={false} className="w-full h-full object-cover" width="300" height="375" />
+              <img src={cldWebp(currentImage, 600)} alt={displayName} loading="eager" fetchPriority="high" draggable={false} className="w-full h-full object-cover" width="300" height="375" />
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
                 <p className="text-[#D15F93] text-xl font-bold opacity-30 rotate-[-20deg]">Twinkle and trend</p>
               </div>

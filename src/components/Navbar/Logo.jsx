@@ -9,10 +9,11 @@ const Logo = ({ onClick }) => {
           src="https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_80/v1776204520/logo_bs89oj.png"
           alt="Twinkle and Trend logo"
           className="h-8 md:h-10 w-auto flex-shrink-0"
-          width="80"
-          height="40"
+          width="64"
+          height="32"
+          style={{ aspectRatio: "1/1" }}
           loading="eager"
-          fetchpriority="high"
+          fetchPriority="high"
           decoding="sync"
           draggable="false"
           onContextMenu={(e) => e.preventDefault()}
