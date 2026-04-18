@@ -12,6 +12,8 @@ import { auth, googleProvider } from "../config/firebase";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+    // ✅ FIX: null = "not yet known", false = "confirmed logged out"
+    // authLoading শুধু auth-dependent UI এর জন্য — পুরো app block করবে না
     const [user, setUser] = useState(null);
     const [authLoading, setAuthLoading] = useState(true);
 
@@ -39,7 +41,12 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{ user, authLoading, register, login, loginWithGoogle, logout }}>
-            {!authLoading && children}
+            {/* ✅ KEY FIX: আগে {!authLoading && children} ছিল
+                এতে Firebase onAuthStateChanged resolve না হওয়া পর্যন্ত
+                (~1-3 সেকেন্ড) পুরো app blank থাকত → LCP 3040ms render delay
+                এখন children সবসময় render হয়, authLoading শুধু
+                Cart/Wishlist/Login এ locally handle করা হবে */}
+            {children}
         </AuthContext.Provider>
     );
 };

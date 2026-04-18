@@ -118,7 +118,7 @@ const BestSellingProducts = () => {
 														sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, (max-width: 1280px) 30vw, 22vw"
 														alt={product.name}
 														loading="eager"
-														fetchpriority="high"
+														fetchPriority="high"
 														decoding="sync"
 														draggable="false"
 														onContextMenu={(e) => e.preventDefault()}

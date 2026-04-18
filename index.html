@@ -30,19 +30,24 @@
     -->
     <link rel="preload" href="/fonts/poppins-regular.woff2"
       as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Poppins-Medium.woff2"
+      as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Poppins-SemiBold.woff2"
+      as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Poppins-Bold.woff2"
       as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/playfairdisplay-variablefont_wght.woff2"
       as="font" type="font/woff2" crossorigin />
 
-    <!-- LCP Banner preload -->
+    <!-- LCP Banner preload — banner01 (প্রথম slide, আসল LCP element) -->
     <link
       rel="preload"
       as="image"
-      href="https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1024/v1776204517/banner02_wo7t1v.png"
+      href="https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1200/v1776519117/banner01_ij04eq.jpg"
       imagesrcset="
-        https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_768/v1776204517/banner02_wo7t1v.png 768w,
-        https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1920/v1776204517/banner02_wo7t1v.png 1920w
+        https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_768/v1776519117/banner01_ij04eq.jpg 768w,
+        https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1200/v1776519117/banner01_ij04eq.jpg 1200w,
+        https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1920/v1776519117/banner01_ij04eq.jpg 1920w
       "
       imagesizes="100vw"
       fetchpriority="high"
@@ -50,9 +55,10 @@
 
     <!-- Firebase + Cloudinary preconnect -->
     <link rel="dns-prefetch" href="https://firestore.googleapis.com" />
-    <link rel="dns-prefetch" href="https://twinkle-and-trend-8ff25.firebaseapp.com" />
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+    <link rel="preconnect" href="https://identitytoolkit.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://apis.google.com" crossorigin />
     <link rel="preconnect" href="https://twinkle-and-trend-8ff25.firebaseapp.com" crossorigin />
-    <link rel="preconnect" href="https://res.cloudinary.com" />
 
     <script type="application/ld+json">
     {

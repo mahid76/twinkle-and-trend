@@ -242,7 +242,7 @@ const Products = () => {
 				) : currentProducts.length > 0 ? (
 					<>
 						<div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-							{currentProducts.map((product) => {
+							{currentProducts.map((product, idx) => {
 								const hasOffer =
 									product.offerPrice && product.offerPrice < product.price;
 								const discount = hasOffer
@@ -267,8 +267,9 @@ const Products = () => {
 													srcSet={clSrcSet(product.image, [400, 700])}
 													sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
 													alt={product.name}
-													loading="lazy"
-													decoding="async"
+													loading={idx < 4 ? "eager" : "lazy"}
+													fetchPriority={idx === 0 ? "high" : "auto"}
+													decoding={idx < 4 ? "sync" : "async"}
 													draggable="false"
 													onDragStart={(e) => e.preventDefault()}
 													width="400"
