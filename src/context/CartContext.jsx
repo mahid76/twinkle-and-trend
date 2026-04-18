@@ -1,158 +1,176 @@
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { db } from "../config/firebase";
-import { doc, setDoc, onSnapshot } from "firebase/firestore";
 import { useAuth } from "./AuthContext";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-    const { user, authLoading } = useAuth();
-    const [cartItems, setCartItems] = useState([]);
-    const [cartLoaded, setCartLoaded] = useState(false);
-    const isSyncing = useRef(false);
+	const { user, authLoading } = useAuth();
+	const [cartItems, setCartItems] = useState([]);
+	const [cartLoaded, setCartLoaded] = useState(false);
+	const isSyncing = useRef(false);
 
-    useEffect(() => {
-        if (authLoading) return;
-        setCartLoaded(false);
-        isSyncing.current = true;
+	useEffect(() => {
+		if (authLoading) return;
+		setCartLoaded(false);
+		isSyncing.current = true;
 
-        if (user) {
-            const ref = doc(db, "users", user.uid, "cart", "items");
-            const unsubscribe = onSnapshot(ref, (snap) => {
-                if (snap.exists()) {
-                    setCartItems(snap.data().items || []);
-                } else {
-                    try {
-                        const local = localStorage.getItem("tt_cart");
-                        if (local) {
-                            const parsed = JSON.parse(local);
-                            setCartItems(parsed);
-                            setDoc(ref, { items: parsed });
-                            localStorage.removeItem("tt_cart");
-                        } else {
-                            setCartItems([]);
-                        }
-                    } catch {
-                        setCartItems([]);
-                    }
-                }
-                isSyncing.current = false;
-                setCartLoaded(true);
-            });
-            return () => unsubscribe();
-        } else {
-            try {
-                const saved = localStorage.getItem("tt_cart");
-                setCartItems(saved ? JSON.parse(saved) : []);
-            } catch {
-                setCartItems([]);
-            }
-            isSyncing.current = false;
-            setCartLoaded(true);
-        }
-    }, [user, authLoading]);
+		if (user) {
+			const ref = doc(db, "users", user.uid, "cart", "items");
+			const unsubscribe = onSnapshot(ref, (snap) => {
+				if (snap.exists()) {
+					setCartItems(snap.data().items || []);
+				} else {
+					try {
+						const local = localStorage.getItem("tt_cart");
+						if (local) {
+							const parsed = JSON.parse(local);
+							setCartItems(parsed);
+							setDoc(ref, { items: parsed });
+							localStorage.removeItem("tt_cart");
+						} else {
+							setCartItems([]);
+						}
+					} catch {
+						setCartItems([]);
+					}
+				}
+				isSyncing.current = false;
+				setCartLoaded(true);
+			});
+			return () => unsubscribe();
+		} else {
+			try {
+				const saved = localStorage.getItem("tt_cart");
+				setCartItems(saved ? JSON.parse(saved) : []);
+			} catch {
+				setCartItems([]);
+			}
+			isSyncing.current = false;
+			setCartLoaded(true);
+		}
+	}, [user, authLoading]);
 
-    useEffect(() => {
-        if (!cartLoaded) return;
-        if (isSyncing.current) return;
-        if (user) {
-            const ref = doc(db, "users", user.uid, "cart", "items");
-            setDoc(ref, { items: cartItems });
-        } else {
-            localStorage.setItem("tt_cart", JSON.stringify(cartItems));
-        }
-    }, [cartItems, user, cartLoaded]);
+	useEffect(() => {
+		if (!cartLoaded) return;
+		if (isSyncing.current) return;
+		if (user) {
+			const ref = doc(db, "users", user.uid, "cart", "items");
+			setDoc(ref, { items: cartItems });
+		} else {
+			localStorage.setItem("tt_cart", JSON.stringify(cartItems));
+		}
+	}, [cartItems, user, cartLoaded]);
 
-    // ✅ size parameter যোগ হয়েছে
-    // cartId এ size.label যোগ হয় → same product different size = আলাদা cart item
-    const addToCart = (product, variant = null, quantity = 1, size = null) => {
-        // cartId এ size include করা হচ্ছে
-        const colorPart  = variant?.color ? `-${variant.color}` : "";
-        const sizePart   = size?.label    ? `-${size.label}`    : "";
-        const cartId     = `${product.id}${colorPart}${sizePart}`;
+	// ✅ size parameter যোগ হয়েছে
+	// cartId এ size.label যোগ হয় → same product different size = আলাদা cart item
+	const addToCart = (product, variant = null, quantity = 1, size = null) => {
+		// cartId এ size include করা হচ্ছে
+		const colorPart = variant?.color ? `-${variant.color}` : "";
+		const sizePart = size?.label ? `-${size.label}` : "";
+		const cartId = `${product.id}${colorPart}${sizePart}`;
 
-        setCartItems((prev) => {
-            const existing = prev.find((item) => item.cartId === cartId);
+		setCartItems((prev) => {
+			const existing = prev.find((item) => item.cartId === cartId);
 
-            // ✅ Size এর stock ব্যবহার করো, না থাকলে variant/product stock
-            const maxStock = size?.stock ?? variant?.stock ?? product.stock;
+			// ✅ Size এর stock ব্যবহার করো, না থাকলে variant/product stock
+			const maxStock = size?.stock ?? variant?.stock ?? product.stock;
 
-            if (existing) {
-                return prev.map((item) =>
-                    item.cartId === cartId
-                        ? { ...item, quantity: Math.min(item.quantity + quantity, maxStock) }
-                        : item,
-                );
-            }
+			if (existing) {
+				return prev.map((item) =>
+					item.cartId === cartId
+						? {
+								...item,
+								quantity: Math.min(item.quantity + quantity, maxStock),
+							}
+						: item,
+				);
+			}
 
-            // ✅ Base price (variant বা product)
-            const basePrice =
-                variant?.offerPrice && variant.offerPrice < variant.price
-                    ? variant.offerPrice
-                    : variant?.price ??
-                      (product.offerPrice && product.offerPrice < product.price
-                          ? product.offerPrice
-                          : product.price);
+			// ✅ Base price (variant বা product)
+			const basePrice =
+				variant?.offerPrice && variant.offerPrice < variant.price
+					? variant.offerPrice
+					: (variant?.price ??
+						(product.offerPrice && product.offerPrice < product.price
+							? product.offerPrice
+							: product.price));
 
-            const baseOriginalPrice =
-                variant?.offerPrice && variant.offerPrice < variant.price
-                    ? variant.price
-                    : product.offerPrice && product.offerPrice < product.price
-                      ? product.price
-                      : null;
+			const baseOriginalPrice =
+				variant?.offerPrice && variant.offerPrice < variant.price
+					? variant.price
+					: product.offerPrice && product.offerPrice < product.price
+						? product.price
+						: null;
 
-            // ✅ Size এর extraPrice যোগ হবে
-            const extraPrice     = size?.extraPrice || 0;
-            const price          = basePrice + extraPrice;
-            const originalPrice  = baseOriginalPrice ? baseOriginalPrice + extraPrice : null;
+			// ✅ Size এর extraPrice যোগ হবে
+			const extraPrice = size?.extraPrice || 0;
+			const price = basePrice + extraPrice;
+			const originalPrice = baseOriginalPrice
+				? baseOriginalPrice + extraPrice
+				: null;
 
-            // ✅ displayName — variant.name থাকলে সেটা, না হলে product.name
-            const displayName = variant?.name || product.name;
+			// ✅ displayName — variant.name থাকলে সেটা, না হলে product.name
+			const displayName = variant?.name || product.name;
 
-            return [
-                ...prev,
-                {
-                    cartId,
-                    productId:     product.id,
-                    name:          displayName,
-                    image:         variant?.images?.[0] ?? product.image,
-                    color:         variant?.color ?? null,
-                    colorHex:      variant?.colorHex ?? null,
-                    size:          size?.label ?? null,       // ✅ size label store
-                    price,
-                    originalPrice,
-                    stock:         maxStock,
-                    quantity,
-                    category:      product.category,
-                },
-            ];
-        });
-    };
+			return [
+				...prev,
+				{
+					cartId,
+					productId: product.id,
+					name: displayName,
+					image: variant?.images?.[0] ?? product.image,
+					color: variant?.color ?? null,
+					colorHex: variant?.colorHex ?? null,
+					size: size?.label ?? null, // ✅ size label store
+					price,
+					originalPrice,
+					stock: maxStock,
+					quantity,
+					category: product.category,
+				},
+			];
+		});
+	};
 
-    const updateQuantity = (cartId, newQuantity) => {
-        if (newQuantity < 1) return removeFromCart(cartId);
-        setCartItems((prev) =>
-            prev.map((item) =>
-                item.cartId === cartId
-                    ? { ...item, quantity: Math.min(newQuantity, item.stock) }
-                    : item,
-            ),
-        );
-    };
+	const updateQuantity = (cartId, newQuantity) => {
+		if (newQuantity < 1) return removeFromCart(cartId);
+		setCartItems((prev) =>
+			prev.map((item) =>
+				item.cartId === cartId
+					? { ...item, quantity: Math.min(newQuantity, item.stock) }
+					: item,
+			),
+		);
+	};
 
-    const removeFromCart = (cartId) =>
-        setCartItems((prev) => prev.filter((item) => item.cartId !== cartId));
+	const removeFromCart = (cartId) =>
+		setCartItems((prev) => prev.filter((item) => item.cartId !== cartId));
 
-    const clearCart = () => setCartItems([]);
+	const clearCart = () => setCartItems([]);
 
-    const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-    const cartTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+	const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+	const cartTotal = cartItems.reduce(
+		(sum, item) => sum + item.price * item.quantity,
+		0,
+	);
 
-    return (
-        <CartContext.Provider value={{ cartItems, addToCart, updateQuantity, removeFromCart, clearCart, cartCount, cartTotal }}>
-            {children}
-        </CartContext.Provider>
-    );
+	return (
+		<CartContext.Provider
+			value={{
+				cartItems,
+				addToCart,
+				updateQuantity,
+				removeFromCart,
+				clearCart,
+				cartCount,
+				cartTotal,
+			}}
+		>
+			{children}
+		</CartContext.Provider>
+	);
 };
 
 export const useCart = () => useContext(CartContext);

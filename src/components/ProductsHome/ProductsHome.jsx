@@ -24,11 +24,7 @@ const categoryMap = {
   toys: "Toys",
   drinkWare: "Drink Ware",
   digitalPrayerTasbih: "Digital Prayer Tasbih",
-  fashion: "Fashion",
-  "home-kitchen": "Home & Kitchen",
-  religious: "Religious",
-  electronics: "Electronics",
-  sports: "Sports",
+  
 };
 
 const ProductsHome = () => {
