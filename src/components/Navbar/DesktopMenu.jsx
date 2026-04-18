@@ -5,7 +5,6 @@ import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../context/AuthContext";
 import { useWishlist } from "../../context/WishlistContext";
 
-// ✅ Logout Confirmation Modal
 const LogoutModal = ({ onConfirm, onCancel }) => (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm px-4">
         <div className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm">
@@ -19,12 +18,8 @@ const LogoutModal = ({ onConfirm, onCancel }) => (
                 <p className="text-gray-500 text-sm mt-1">আপনি কি সত্যিই logout করতে চান?</p>
             </div>
             <div className="flex gap-3">
-                <button onClick={onCancel} className="flex-1 py-2.5 border border-gray-200 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-colors text-sm">
-                    Cancel
-                </button>
-                <button onClick={onConfirm} className="flex-1 py-2.5 bg-red-500 text-white rounded-xl font-medium hover:bg-red-600 transition-colors text-sm">
-                    Logout
-                </button>
+                <button onClick={onCancel} className="flex-1 py-2.5 border border-gray-200 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-colors text-sm">Cancel</button>
+                <button onClick={onConfirm} className="flex-1 py-2.5 bg-red-500 text-white rounded-xl font-medium hover:bg-red-600 transition-colors text-sm">Logout</button>
             </div>
         </div>
     </div>
@@ -36,6 +31,7 @@ const DesktopMenu = ({ onLinkClick }) => {
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const dropdownRef = useRef(null);
     const userMenuRef = useRef(null);
+    const hoverTimeout = useRef(null); // ✅ hover delay এর জন্য
     const { cartCount } = useCart();
     const { user, logout } = useAuth();
     const { wishlistCount } = useWishlist();
@@ -55,6 +51,20 @@ const DesktopMenu = ({ onLinkClick }) => {
         setUserMenuOpen(false);
     };
 
+    // ✅ Hover handlers — 150ms delay দিয়ে accidental trigger এড়ানো হচ্ছে
+    const handleMouseEnter = () => {
+        clearTimeout(hoverTimeout.current);
+        hoverTimeout.current = setTimeout(() => setOpen(true), 100);
+    };
+
+    const handleMouseLeave = () => {
+        clearTimeout(hoverTimeout.current);
+        hoverTimeout.current = setTimeout(() => setOpen(false), 200);
+    };
+
+    // Cleanup on unmount
+    useEffect(() => () => clearTimeout(hoverTimeout.current), []);
+
     return (
         <>
             {showLogoutModal && <LogoutModal onConfirm={handleLogoutConfirm} onCancel={() => setShowLogoutModal(false)} />}
@@ -63,18 +73,40 @@ const DesktopMenu = ({ onLinkClick }) => {
                 <Link to="/" onClick={onLinkClick} className="px-4 py-3 hover:text-[#E771A3] transition-colors">Home</Link>
                 <Link to="/products" onClick={onLinkClick} className="px-4 py-3 hover:text-[#E771A3] transition-colors">Product</Link>
 
-                <li ref={dropdownRef} className="relative group">
-                    <button onClick={() => setOpen(!open)} className="px-4 py-3 hover:text-[#E771A3] flex items-center gap-1 transition-colors">
+                {/* ✅ Categories — hover + click দুটোতেই খোলে */}
+                <li
+                    ref={dropdownRef}
+                    className="relative"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                >
+                    <button
+                        onClick={() => setOpen((prev) => !prev)}
+                        aria-expanded={open}
+                        aria-haspopup="true"
+                        className="px-4 py-3 hover:text-[#E771A3] flex items-center gap-1 transition-colors"
+                    >
                         Categories
-                        <svg className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className={`w-4 h-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <ul className={`absolute top-12 left-0 bg-white text-black w-48 rounded-xl border border-[#FAD0E4] shadow-xl transition-all duration-200 overflow-hidden ${open ? "opacity-100 visible" : "opacity-0 invisible"}`}>
+
+                    {/* Dropdown — open state দিয়ে control হচ্ছে */}
+                    <ul
+                        role="menu"
+                        className={`absolute top-full left-0 bg-white text-black w-52 rounded-xl border border-[#FAD0E4] shadow-xl transition-all duration-200 overflow-hidden z-50 ${
+                            open ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-1"
+                        }`}
+                    >
                         {categories.map((cat) => (
-                            <Link key={cat.slug} to={`/products?category=${cat.slug}`}
+                            <Link
+                                key={cat.slug}
+                                to={`/products?category=${cat.slug}`}
+                                role="menuitem"
                                 onClick={() => { setOpen(false); onLinkClick?.(); }}
-                                className="block px-4 py-3 hover:bg-[#FCE4EC] hover:text-[#E771A3] transition-colors text-sm">
+                                className="block px-4 py-3 hover:bg-[#FCE4EC] hover:text-[#E771A3] transition-colors text-sm"
+                            >
                                 {cat.name}
                             </Link>
                         ))}
@@ -85,7 +117,7 @@ const DesktopMenu = ({ onLinkClick }) => {
                 <Link to="/ContactUs" onClick={onLinkClick} className="px-4 py-3 hover:text-[#E771A3] transition-colors">Contact Us</Link>
 
                 {/* Wishlist */}
-                <Link to="/wishlist" onClick={onLinkClick} className="relative p-2.5 hover:text-[#E771A3] hover:bg-[#FCE4EC] rounded-full transition-all">
+                <Link to="/wishlist" onClick={onLinkClick} aria-label={`Wishlist — ${wishlistCount} items`} className="relative p-2.5 hover:text-[#E771A3] hover:bg-[#FCE4EC] rounded-full transition-all">
                     <svg className="w-5 h-5" fill={wishlistCount > 0 ? "#E771A3" : "none"} stroke="#E771A3" strokeWidth={2} viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
@@ -97,7 +129,7 @@ const DesktopMenu = ({ onLinkClick }) => {
                 </Link>
 
                 {/* Cart */}
-                <Link to="/cart" onClick={onLinkClick} className="relative p-2.5 hover:text-[#E771A3] hover:bg-[#FCE4EC] rounded-full transition-all">
+                <Link to="/cart" onClick={onLinkClick} aria-label={`Cart — ${cartCount} items`} className="relative p-2.5 hover:text-[#E771A3] hover:bg-[#FCE4EC] rounded-full transition-all">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
