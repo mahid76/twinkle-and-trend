@@ -26,17 +26,17 @@ import OptimizedImage, { WIDTHS, SIZES } from "../ui/OptimizedImage";
 const SLIDES = [
   {
     id: 1,
-    src: "https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1200/v1776519117/banner01_ij04eq.jpg",
+    src: "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776624340/banner01_zmtlth.jpg",
     alt: "Twinkle and Trend — ট্রেন্ডি ফ্যাশন ও খেলনার অনলাইন শপ",
   },
   {
     id: 2,
-    src: "https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1200/v1776519117/banner02_ppnje0.jpg",
+    src: "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776624339/banner02_dwqbyt.jpg",
     alt: "Twinkle and Trend — বিশেষ অফার ও নতুন কালেকশন",
   },
   {
     id: 3,
-    src: "https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1200/v1776519117/banner03_obrerl.jpg",
+    src: "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776624340/banner03_fro9sz.jpg",
     alt: "Twinkle and Trend — সেরা দামে কিনুন",
   },
 ];
