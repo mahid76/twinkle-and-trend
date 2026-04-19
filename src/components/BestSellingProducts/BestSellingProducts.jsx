@@ -113,8 +113,8 @@ const BestSellingProducts = () => {
 													onContextMenu={(e) => e.preventDefault()}
 												>
 													<img
-														src={clImg(product.image, 400)}
-														srcSet={clSrcSet(product.image, [400, 700])}
+														src={clImg(product.image, { width: 400, quality: 'auto:eco' })}
+														srcSet={clSrcSet(product.image, [300, 500, 700], 'auto:eco')}
 														sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, (max-width: 1280px) 30vw, 22vw"
 														alt={product.name}
 														loading="eager"

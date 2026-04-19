@@ -88,6 +88,7 @@ const OptimizedImage = memo(({
   aspectRatio = "4/5",
   widths = WIDTHS.product,
   sizes = SIZES.productGrid,
+  quality = "auto",
   className = "",
   wrapClass = "",
   fill = true,
@@ -104,9 +105,9 @@ const OptimizedImage = memo(({
 
   // ── Cloudinary srcSet ────────────────────────────────────────────
   // clSrcSet builds "…/w_300/… 300w, …/w_500/… 500w" automatically
-  const srcSet = clSrcSet(src, widths);
+  const srcSet = clSrcSet(src, widths, quality);
   // clImg picks the middle width as the default src (good for no-JS fallback)
-  const defaultSrc = clImg(src, { width: widths[Math.floor(widths.length / 2)] });
+  const defaultSrc = clImg(src, { width: widths[Math.floor(widths.length / 2)], quality });
 
   // ── Loading strategy ─────────────────────────────────────────────
   // LCP images: eager + high → browser fetches immediately

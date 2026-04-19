@@ -1,18 +1,19 @@
 /**
- * cloudinaryImage.js  (refactored)
+ * cloudinaryImage.js
  * ─────────────────────────────────────────────────────────────────
  * Central Cloudinary URL utility.
  *
- * BEFORE → AFTER
- * ──────────────
- * BEFORE: clImg(url, width) — width was a plain number positional arg,
- *   easy to pass the wrong thing, no quality control.
+ * ROOT CAUSE of "575 kB oversized images":
+ * ─────────────────────────────────────────
+ * clImg(url) was called without a width in some places.
+ * Without w_N, Cloudinary serves the ORIGINAL upload resolution
+ * (sometimes 3000×4000px, 1–5 MB).
+ * f_webp + q_auto alone can't fix oversized images — width is required.
  *
- * AFTER:  clImg(url, { width, quality }) — named options, safer.
- *   Old positional call clImg(url, 400) still works via compat shim.
- *
- * All URL building is centralised here. No component should ever
- * construct a Cloudinary URL by hand.
+ * FIX:
+ * - DEFAULT width of 800 so no call can accidentally serve a giant image
+ * - q_auto:eco for thumbnails (better compression, imperceptible quality loss)
+ * - Dedicated helpers for common use-cases
  */
 
 const CLOUD_NAME = "dltlnoi9z";
@@ -20,28 +21,28 @@ const BASE       = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload`;
 
 /**
  * Build a single Cloudinary WebP URL.
+ * ✅ ALWAYS applies a width — no call can accidentally serve full-size
  *
- * @param {string}         url     Original Cloudinary URL (any transform)
- * @param {object|number}  opts    Options object OR legacy numeric width
- * @param {number}  [opts.width]   Pixel width (omit for auto)
- * @param {string}  [opts.quality] 'auto' | 'auto:good' | 'auto:best' (default 'auto')
- * @returns {string}
+ * @param {string}        url     Original Cloudinary URL (any transform)
+ * @param {object|number} opts    Options OR legacy numeric width
+ * @param {number}  [opts.width=800]    Pixel width (default: 800)
+ * @param {string}  [opts.quality='auto'] 'auto'|'auto:eco'|'auto:good'|'auto:best'
  */
 export const clImg = (url, opts = {}) => {
   if (!url || !url.includes("cloudinary.com")) return url;
 
-  // ── Legacy compat: clImg(url, 400) → clImg(url, { width: 400 }) ──
+  // Legacy compat: clImg(url, 400) → clImg(url, { width: 400 })
   if (typeof opts === "number") opts = { width: opts };
 
-  const { width, quality = "auto" } = opts;
+  // ✅ DEFAULT width = 800 → prevents accidental full-size delivery
+  const { width = 800, quality = "auto" } = opts;
 
-  // Strip any existing transform params, keep version + filename
+  // Strip existing transforms, keep version + filename
   const afterUpload = url.split("/upload/")[1];
   if (!afterUpload) return url;
   const cleanPath = afterUpload.replace(/^(?:(?!v\d+\/)[^/]+\/)*/, "");
 
-  const transforms = [`f_webp`, `q_${quality}`];
-  if (width) transforms.push(`w_${width}`);
+  const transforms = [`f_webp`, `q_${quality}`, `w_${width}`];
 
   return `${BASE}/${transforms.join(",")}/${cleanPath}`;
 };
@@ -50,24 +51,29 @@ export const clImg = (url, opts = {}) => {
  * Build a responsive srcSet string.
  *
  * @param {string}   url     Original Cloudinary URL
- * @param {number[]} widths  Array of pixel widths, e.g. [300, 600, 1200]
+ * @param {number[]} widths  e.g. [300, 500, 800]
  * @param {string}   quality Cloudinary quality string
- * @returns {string}  "…/w_300/… 300w, …/w_600/… 600w, …"
  */
-export const clSrcSet = (url, widths = [400, 800, 1200], quality = "auto") =>
+export const clSrcSet = (url, widths = [300, 600, 900], quality = "auto") =>
   widths.map((w) => `${clImg(url, { width: w, quality })} ${w}w`).join(", ");
 
-// ─── Standard sizes hints ────────────────────────────────────────
-// Import these in components — don't hardcode sizes strings inline.
+// ─── Preset helpers ──────────────────────────────────────────────
+// Use these instead of raw clImg() — they enforce the right size.
 
-/** 2-col mobile → 3-col tablet → 4-col desktop (standard product grid) */
-export const PRODUCT_SIZES = "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw";
+/** Product card thumbnail — max 500px, eco quality */
+export const clThumb = (url) => clImg(url, { width: 500, quality: "auto:eco" });
 
-/** 1-col mobile → 2-col tablet → 3-col desktop (wider cards / swiper) */
+/** Product detail main image — max 900px */
+export const clDetail = (url) => clImg(url, { width: 900, quality: "auto" });
+
+/** Full-width banner — responsive via srcSet */
+export const clBanner = (url, width = 1200) => clImg(url, { width, quality: "auto:good" });
+
+/** Tiny thumbnail (cart icon, swatches) — max 120px */
+export const clMicro = (url) => clImg(url, { width: 120, quality: "auto:eco" });
+
+// ─── sizes hints ─────────────────────────────────────────────────
+export const PRODUCT_SIZES      = "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw";
 export const PRODUCT_WIDE_SIZES = "(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw";
-
-/** Full-width banner */
-export const BANNER_SIZES = "100vw";
-
-/** Product detail main image */
-export const DETAIL_SIZES = "(max-width: 768px) 100vw, 450px";
+export const BANNER_SIZES       = "100vw";
+export const DETAIL_SIZES       = "(max-width: 768px) 100vw, 450px";
