@@ -75,8 +75,9 @@ const ProductCard = memo(({
 
   // ── Image config: compact cards are narrower → different sizes hint ──
   const imgSizes = compact ? SIZES.productWide : SIZES.productGrid;
-  const imgWidths = compact ? [300, 500, 700] : WIDTHS.product;
-  // eco quality for cards — imperceptible difference, ~40% smaller
+const imgWidths = compact
+  ? [200, 300, 400]
+  : [300, 400, 500];  // eco quality for cards — imperceptible difference, ~40% smaller
 
   return (
     <Link
@@ -100,7 +101,7 @@ const ProductCard = memo(({
   <OptimizedImage
     src={product.image}
     alt={product.name}
-    priority={priority}
+    priority={false}
     aspectRatio="4/5"
     widths={imgWidths}
     sizes={imgSizes}
