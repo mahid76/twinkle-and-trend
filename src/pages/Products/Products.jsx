@@ -263,8 +263,8 @@ const Products = () => {
 												onContextMenu={(e) => e.preventDefault()}
 											>
 												<img
-													src={clImg(product.image, 400)}
-													srcSet={clSrcSet(product.image, [400, 700])}
+													src={clImg(product.image, { width: 400, quality: 'auto:eco' })}
+													srcSet={clSrcSet(product.image, [300, 500, 700], 'auto:eco')}
 													sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
 													alt={product.name}
 													loading={idx < 4 ? "eager" : "lazy"}
