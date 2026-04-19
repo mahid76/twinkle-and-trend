@@ -35,7 +35,7 @@ export const clImg = (url, opts = {}) => {
   if (typeof opts === "number") opts = { width: opts };
 
   // ✅ DEFAULT width = 800 → prevents accidental full-size delivery
-  const { width = 800, quality = "auto" } = opts;
+  const { width = 320, quality = "auto" } = opts;
 
   // Strip existing transforms, keep version + filename
   const afterUpload = url.split("/upload/")[1];
