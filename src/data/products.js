@@ -652,7 +652,7 @@ export const products = [
 		offerPrice: 1500,
 		category: "digitalPrayerTasbih",
 		image:
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776623885/Tashbih_qjvbrr.jpg", // ← main thumbnail
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776625126/Tashbih_ywsppi.webp", // ← main thumbnail
 		images: [
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg", 
 		],
