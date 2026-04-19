@@ -83,7 +83,7 @@ const MobileMenu = ({
                     {user && (
                         <div className="flex items-center gap-3 px-4 py-3 bg-[#FFF7FB] rounded-xl mb-3">
                             {user.photoURL
-                                ? <img src={user.photoURL} alt="avatar" className="w-10 h-10 rounded-full object-cover" />
+                                ? <img src={user.photoURL?.replace('=s96-c', '') + '=s80-c'} alt="avatar" width={40} height={40} loading="lazy" decoding="async" className="w-10 h-10 rounded-full object-cover" />
                                 : <div className="w-10 h-10 rounded-full bg-[#E771A3] text-white flex items-center justify-center font-bold">{user.displayName?.[0]?.toUpperCase() || user.email?.[0]?.toUpperCase()}</div>
                             }
                             <div>

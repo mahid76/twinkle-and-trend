@@ -146,7 +146,7 @@ const DesktopMenu = ({ onLinkClick }) => {
                         <button onClick={() => setUserMenuOpen(!userMenuOpen)}
                             className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded-full hover:bg-[#FCE4EC] transition-colors">
                             {user.photoURL
-                                ? <img src={user.photoURL} alt="avatar" className="w-8 h-8 rounded-full object-cover" />
+                                ? <img src={user.photoURL?.replace('=s96-c', '') + '=s64-c'} alt="avatar" width={32} height={32} loading="lazy" decoding="async" className="w-8 h-8 rounded-full object-cover" />
                                 : <div className="w-8 h-8 rounded-full bg-[#E771A3] text-white flex items-center justify-center text-sm font-bold">
                                     {user.displayName?.[0]?.toUpperCase() || user.email?.[0]?.toUpperCase()}
                                   </div>
