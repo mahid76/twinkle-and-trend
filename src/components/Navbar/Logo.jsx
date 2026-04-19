@@ -22,7 +22,7 @@ const Logo = ({ onClick }) => (
         alt="Twinkle and Trend logo"
         width={80}
         height={40}
-        style={{ aspectRatio: "2/1" }}
+        style={{ aspectRatio: "1/1" }}
         className="h-8 md:h-10 w-auto flex-shrink-0"
         loading="eager"
         fetchPriority="high"
