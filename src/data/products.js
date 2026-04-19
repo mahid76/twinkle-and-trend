@@ -270,12 +270,12 @@ export const products = [
 		// offerPrice: 3499,
 		category: "bags",
 		image:
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776524056/labubu-bag01_lv258g.jpg", // ← main thumbnail
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776624401/labubu-bag01_txmfyi.jpg", // ← main thumbnail
 		images: [
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776524056/labubu-bag01_lv258g.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776624401/labubu-bag01_txmfyi.jpg",
 		],
 		hdImages: [
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776524056/labubu-bag01_lv258g.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776624401/labubu-bag01_txmfyi.jpg",
 		],
 		rating: 4.0,
 		stock: 20,
@@ -290,10 +290,10 @@ export const products = [
 				// offerPrice: 3499,
 				stock: 15,
 				images: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776524056/labubu-bag01_lv258g.jpg",
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776624401/labubu-bag01_txmfyi.jpg",
 				],
 				hdImages: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776524056/labubu-bag01_lv258g.jpg",
+					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776624401/labubu-bag01_txmfyi.jpg",
 				],
 			},
 			{
@@ -652,7 +652,7 @@ export const products = [
 		offerPrice: 1500,
 		category: "digitalPrayerTasbih",
 		image:
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_xqluhy.jpg", // ← main thumbnail
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776623885/Tashbih_qjvbrr.jpg", // ← main thumbnail
 		images: [
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg", 
 		],
