@@ -95,39 +95,25 @@
 			crossorigin
 		/>
 
-		<!-- LCP Banner preload — banner01 (প্রথম slide, আসল LCP element) -->
+		<!-- ✅ LCP Banner preload — URLs EXACTLY match clImg(SLIDES[0].src, {width:N, quality:"auto"})
+		     clImg strips existing transforms (q_auto/f_auto) then rebuilds: f_webp,q_auto,w_{N}
+		     href = clImg(src, {width:1200}) = middle width (OptimizedImage default src)
+		     imagesrcset = clSrcSet(src, [768,1200,1920], "auto") exact output
+		     imagesizes = SIZES.banner = "100vw"
+		     All 3 must match img tag exactly → browser gets cache hit = "discoverable" ✅ -->
 		<link
 			rel="preload"
 			as="image"
-			href="https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776624340/banner01_zmtlth.jpg"
+			href="https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1200/v1776624340/banner01_zmtlth.jpg"
 			imagesrcset="
-        https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_768/v1776519117/banner01_ij04eq.jpg 768w,
-        https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776624340/banner01_zmtlth.jpg 1200w,
-        https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1920/v1776519117/banner01_ij04eq.jpg 1920w
-      "
+				https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_768/v1776624340/banner01_zmtlth.jpg 768w,
+				https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1200/v1776624340/banner01_zmtlth.jpg 1200w,
+				https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1920/v1776624340/banner01_zmtlth.jpg 1920w
+			"
 			imagesizes="100vw"
 			fetchpriority="high"
 		/>
 
-		<!-- ✅ LCP image preload — Premium Cat Bag (first OfferHome slide)
-		     LCP is OfferHome's first product, NOT the banner.
-		     URLs must EXACTLY match clImg(product.image, {width:500, quality:"auto"})
-		     and clSrcSet(product.image, [300,500,800], "auto") output.
-		     clImg strips existing transforms (q_auto/f_auto) then inserts new ones,
-		     producing: /upload/f_webp,q_auto,w_{N}/v.../filename — no f_auto leftover.
-		     imagesizes matches OfferHome sizes attr exactly → correct srcset entry preloaded. -->
-		<link
-			rel="preload"
-			as="image"
-			href="https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_500/v1776520252/premium-cat-bag01_a4j8q4.jpg"
-			imagesrcset="
-        https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_300/v1776520252/premium-cat-bag01_a4j8q4.jpg 300w,
-        https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_500/v1776520252/premium-cat-bag01_a4j8q4.jpg 500w,
-        https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_800/v1776520252/premium-cat-bag01_a4j8q4.jpg 800w
-      "
-			imagesizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
-			fetchpriority="high"
-		/>
 
 		<!-- Firebase + Cloudinary preconnect -->
 		<link rel="dns-prefetch" href="https://firestore.googleapis.com" />
