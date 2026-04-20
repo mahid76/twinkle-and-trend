@@ -83,20 +83,21 @@
 		<link
 			rel="preload"
 			as="image"
-			href="https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1200/v1776624340/banner01_zmtlth.jpg"
+			href="https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776624340/banner01_zmtlth.jpg"
 			imagesrcset="
-    https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_768/v1776624340/banner01_zmtlth.jpg 768w,
-    https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1200/v1776624340/banner01_zmtlth.jpg 1200w,
-    https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1920/v1776624340/banner01_zmtlth.jpg 1920w
-  "
+        https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_768/v1776519117/banner01_ij04eq.jpg 768w,
+        https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776624340/banner01_zmtlth.jpg 1200w,
+        https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_1920/v1776519117/banner01_ij04eq.jpg 1920w
+      "
 			imagesizes="100vw"
+			fetchpriority="high"
 		/>
 
 		<!-- ✅ LCP Product Card preload -->
 		<!-- Premium Cat Bag = first product, first card in grid → LCP on mobile -->
 		<!-- These URLs must match EXACTLY what OptimizedImage generates         -->
 		<!-- (f_webp,q_auto,w_{N} + same version + public ID)                   -->
-		<!-- <link
+		<link
 			rel="preload"
 			as="image"
 			href="https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_500/v1776520252/premium-cat-bag01_a4j8q4.jpg"
@@ -107,7 +108,7 @@
       "
 			imagesizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
 			fetchpriority="high"
-		/> -->
+		/>
 
 		<!-- Firebase + Cloudinary preconnect -->
 		<link rel="dns-prefetch" href="https://firestore.googleapis.com" />

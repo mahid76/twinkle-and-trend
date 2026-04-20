@@ -67,7 +67,7 @@ const BannerSlider = () => {
         before any image loads — no layout shift as slides appear.
         mobile → 16/9 (taller), desktop → 16/5 (shorter cinematic)
       */}
-      <div className="relative w-full aspect-[16/5]">
+      <div className="relative w-full aspect-[16/9] md:aspect-[16/5]">
         {SLIDES.map((slide, index) => (
           <div
             key={slide.id}
@@ -92,7 +92,7 @@ const BannerSlider = () => {
               src={slide.src}
               alt={slide.alt}
               priority={index === 0}
-              aspectRatio="16/5"
+              aspectRatio="16/9"
               widths={WIDTHS.banner}
               sizes={SIZES.banner}
               wrapClass="w-full h-full"

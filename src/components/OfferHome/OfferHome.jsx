@@ -106,10 +106,10 @@ const OfferHome = () => {
 													<img
 														src={cldWebp(product.image, 500)}
 														srcSet={`
-															${cldWebp(product.image, 300)} 300w,
-															${cldWebp(product.image, 500)} 500w,
-															${cldWebp(product.image, 800)} 800w
-														`}
+                              ${cldWebp(product.image, 300)} 300w,
+                              ${cldWebp(product.image, 500)} 500w,
+                              ${cldWebp(product.image, 800)} 800w
+                            `}
 														sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
 														alt={product.name}
 														loading={idx < 2 ? "eager" : "lazy"}
@@ -215,9 +215,9 @@ const OfferHome = () => {
 			</section>
 
 			<style>{`
-				.offers-pagination .swiper-pagination-bullet { width:8px; height:8px; background:#F6D6DF; opacity:1; transition:all .3s ease; }
-				.offers-pagination .swiper-pagination-bullet-active { background:#E771A3; width:24px; border-radius:5px; }
-			`}</style>
+        .offers-pagination .swiper-pagination-bullet { width:8px; height:8px; background:#F6D6DF; opacity:1; transition:all .3s ease; }
+        .offers-pagination .swiper-pagination-bullet-active { background:#E771A3; width:24px; border-radius:5px; }
+      `}</style>
 		</Container>
 	);
 };
