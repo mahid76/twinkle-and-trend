@@ -75,9 +75,8 @@ const ProductCard = memo(({
 
   // ── Image config: compact cards are narrower → different sizes hint ──
   const imgSizes = compact ? SIZES.productWide : SIZES.productGrid;
-const imgWidths = compact
-  ? [200, 300, 400]
-  : [300, 400, 500];  // eco quality for cards — imperceptible difference, ~40% smaller
+  const imgWidths = compact ? [300, 500, 700] : WIDTHS.product;
+  // eco quality for cards — imperceptible difference, ~40% smaller
 
   return (
     <Link
@@ -97,76 +96,74 @@ const imgWidths = compact
         Previously this container had no defined height, causing a
         visible jump as each image loaded.
       */}
-   <div className="relative overflow-hidden">
-  <OptimizedImage
-    src={product.image}
-    alt={product.name}
-    priority={false}
-    aspectRatio="4/5"
-    widths={imgWidths}
-    sizes={imgSizes}
-    quality="auto:eco"
-    wrapClass="w-full h-full"
-    className="transition-transform duration-500 group-hover:scale-105 select-none"
-  />
+      <div className="relative">
+        <OptimizedImage
+          src={product.image}
+          alt={product.name}
+          priority={priority}
+          aspectRatio="4/5"
+          widths={imgWidths}
+          sizes={imgSizes}
+          quality="auto:eco"
+          wrapClass="w-full"
+          className="transition-transform duration-500 group-hover:scale-105 select-none"
+        />
 
-  {/* Watermark */}
-  <div
-    className="absolute inset-0 flex items-center justify-center pointer-events-none"
-    aria-hidden="true"
-  >
-    <p className="text-[#D15F93] text-xl font-bold opacity-20 rotate-[-20deg] select-none">
-      Twinkle and trend
-    </p>
-  </div>
+        {/* Watermark */}
+        <div
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          aria-hidden="true"
+        >
+          <p className="text-[#D15F93] text-xl font-bold opacity-20 rotate-[-20deg] select-none">
+            Twinkle and trend
+          </p>
+        </div>
 
-  {/* Wishlist button */}
-  {onWishlist && (
-    <button
-      onClick={(e) => {
-        e.preventDefault();
-        onWishlist(product);
-      }}
-      aria-label={
-        wishlisted
-          ? `${product.name} wishlist থেকে সরান`
-          : `${product.name} wishlist এ যোগ করুন`
-      }
-      aria-pressed={wishlisted}
-      className="absolute top-2 right-2 z-10
-        w-7 h-7 flex items-center justify-center
-        rounded-full bg-white/90 shadow-sm
-        transition-transform hover:scale-110"
-    >
-      <HeartIcon filled={wishlisted} />
-    </button>
-  )}
+        {/* Wishlist button (optional) */}
+        {onWishlist && (
+          <button
+            onClick={(e) => { e.preventDefault(); onWishlist(product); }}
+            aria-label={wishlisted
+              ? `${product.name} wishlist থেকে সরান`
+              : `${product.name} wishlist এ যোগ করুন`}
+            aria-pressed={wishlisted}
+            className="
+              absolute top-2 right-2
+              bg-white/90 backdrop-blur-sm rounded-full
+              w-7 h-7 flex items-center justify-center
+              shadow-sm hover:scale-110 transition-transform z-10
+            "
+          >
+            <HeartIcon filled={wishlisted} />
+          </button>
+        )}
 
-  {/* Badges */}
-  {product.stock === 0 && (
-    <span className="absolute top-2 left-2 bg-red-500 text-white px-2 py-0.5 text-[10px] md:text-xs rounded-full font-medium">
-      Out of Stock
-    </span>
-  )}
-
-  {product.stock > 0 && product.stock < 10 && (
-    <span className="absolute top-2 left-2 bg-[#E771A3] text-white px-2 py-0.5 text-[10px] md:text-xs rounded-full font-medium">
-      Only {product.stock} left!
-    </span>
-  )}
-
-  {product.isBestSeller && product.stock >= 10 && (
-    <span className="absolute top-2 left-2 bg-[#F6D6DF] text-[#E771A3] px-2 py-0.5 text-[10px] md:text-xs rounded-full font-bold">
-      ⭐ Best Seller
-    </span>
-  )}
-
-  {hasOffer && (
-    <span className="absolute bottom-2 left-2 bg-[#E771A3] text-white px-2 py-0.5 text-[10px] md:text-xs rounded-full font-bold">
-      {discount}% OFF
-    </span>
-  )}
-</div>
+        {/* Badges */}
+        {product.stock === 0 && (
+          <span role="status"
+            className="absolute top-2 left-2 bg-red-500 text-white px-2 py-0.5 text-[10px] md:text-xs rounded-full font-medium">
+            Out of Stock
+          </span>
+        )}
+        {product.stock > 0 && product.stock < 10 && (
+          <span role="status"
+            className="absolute top-2 left-2 bg-[#E771A3] text-white px-2 py-0.5 text-[10px] md:text-xs rounded-full font-medium">
+            Only {product.stock} left!
+          </span>
+        )}
+        {product.isBestSeller && product.stock >= 10 && (
+          <span
+            className="absolute top-2 left-2 bg-[#F6D6DF] text-[#E771A3] px-2 py-0.5 text-[10px] md:text-xs rounded-full font-bold">
+            ⭐ Best Seller
+          </span>
+        )}
+        {hasOffer && (
+          <span
+            className="absolute bottom-2 left-2 bg-[#E771A3] text-white px-2 py-0.5 text-[10px] md:text-xs rounded-full font-bold">
+            {discount}% OFF
+          </span>
+        )}
+      </div>
 
       {/* ── Info area ─────────────────────────────────────────────── */}
       <div className={`flex flex-col flex-1 ${compact ? "p-2 md:p-3" : "px-2 py-2 md:p-4"}`}>
