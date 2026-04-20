@@ -9,7 +9,12 @@ import { WishlistProvider } from "./context/WishlistContext";
 import DisableRightClick from "./components/layout/DisableRightClick";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 
-const Home          = lazy(() => import("./pages/Home/Home"));
+// ✅ PERFORMANCE FIX #1: Home is EAGERLY imported (not lazy).
+// Home contains the LCP image (Premium Cat Bag product card).
+// Lazy loading adds an extra waterfall step that delays LCP by ~1-2s.
+import Home from "./pages/Home/Home";
+
+// All other routes remain lazy — they don't affect homepage LCP
 const Products      = lazy(() => import("./pages/Products/Products"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail/ProductDetail"));
 const OffersPage    = lazy(() => import("./pages/OffersPage/OffersPage"));
@@ -25,10 +30,6 @@ const PageLoader = () => (
   </div>
 );
 
-// ✅ KEY FIX: elements OUTSIDE createBrowserRouter
-// আগে withFallback(Component) ছিল router config এর ভেতরে inline
-// এতে প্রতিবার navigate হলে নতুন element তৈরি হতো → Suspense বারবার trigger হতো
-// এখন একবার define করা → lazy chunk cache হয় → আর skeleton দেখায় না
 const routes = [
   {
     path: "/",
@@ -36,7 +37,8 @@ const routes = [
     children: [
       {
         index: true,
-        element: <ErrorBoundary><Suspense fallback={<PageLoader />}><Home /></Suspense></ErrorBoundary>,
+        // ✅ No Suspense wrapper for Home — it's eagerly loaded, no chunk to wait for
+        element: <ErrorBoundary><Home /></ErrorBoundary>,
       },
       {
         path: "/products",
