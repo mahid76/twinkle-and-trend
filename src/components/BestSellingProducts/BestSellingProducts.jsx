@@ -22,8 +22,10 @@ const getSlidesPerView = () => {
 };
 
 const BestSellingProducts = () => {
-	const [products, setProducts] = useState([]);
-	const [loading, setLoading] = useState(true);
+	// ✅ CLS FIX: getBestSellers() is synchronous — lazy useState init
+	// avoids useEffect 2-render cycle (loading spinner→carousel height shift = CLS)
+	const [products] = useState(() => getBestSellers());
+
 	const [addedMap, setAddedMap] = useState({});
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [slidesPerView, setSlidesPerView] = useState(getSlidesPerView);
@@ -37,12 +39,6 @@ const BestSellingProducts = () => {
 	const { toggleWishlist, isInWishlist } = useWishlist();
 	const { user } = useAuth();
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		setLoading(true);
-		setProducts(getBestSellers());
-		setLoading(false);
-	}, []);
 
 	useEffect(() => {
 		const mqs = [
@@ -117,19 +113,6 @@ const BestSellingProducts = () => {
 		if (!user) { navigate("/login"); return; }
 		toggleWishlist(product);
 	};
-
-	if (loading) {
-		return (
-			<div className="max-w-7xl mx-auto py-12 px-4">
-				<h2 className="text-2xl sm:text-4xl font-primary font-bold text-gray-800 mb-2">
-					Best Selling Products
-				</h2>
-				<div className="flex items-center justify-center min-h-[400px]">
-					<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500" role="status" />
-				</div>
-			</div>
-		);
-	}
 
 	// Double the slides for seamless infinite loop
 	const extendedProducts = [...products, ...products];
