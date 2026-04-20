@@ -113,7 +113,7 @@ export const products = [
 		],
 		rating: 4.6,
 		stock: 20,
-		isBestSeller: false,
+		isBestSeller: true,
 
 		// variants: [
 		// 	{
@@ -197,7 +197,7 @@ export const products = [
 		],
 		rating: 4.6,
 		stock: 20,
-		isBestSeller: false,
+		isBestSeller: true,
 
 		// variants: [
 		// 	{
@@ -481,7 +481,7 @@ export const products = [
 		],
 		rating: 4.0,
 		stock: 20,
-		isBestSeller: false,
+		isBestSeller: true,
 
 		// variants: [
 		// 	{
@@ -576,7 +576,7 @@ export const products = [
 		],
 		rating: 4.0,
 		stock: 20,
-		isBestSeller: false,
+		isBestSeller: true,
 
 		variants: [
 			{
