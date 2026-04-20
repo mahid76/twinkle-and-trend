@@ -1,21 +1,3 @@
-/**
- * Banner.jsx  (refactored)
- * ─────────────────────────────────────────────────────────────────
- * BEFORE → AFTER summary
- * ──────────────────────
- * BEFORE:
- *   - Inline cld() URL builder duplicated here (copy-paste from other files)
- *   - fetchpriority (lowercase DOM attr) → React silently ignores it
- *   - srcSet widths didn't match index.html preload imagesrcset → double fetch
- *   - aspect-ratio on container but no intrinsic width/height on <img>
- *
- * AFTER:
- *   - Uses <OptimizedImage priority> for slide 0 → correct React attrs
- *   - srcSet widths [768,1200,1920] exactly match index.html preload
- *     → browser reuses the preloaded bytes (cache hit, not refetch)
- *   - Declarative Tailwind aspect-ratio classes (purge-safe)
- *   - useCallback for stable autoplay reference
- */
 
 import { useEffect, useState, useCallback } from "react";
 import OptimizedImage, { WIDTHS, SIZES } from "../ui/OptimizedImage";
@@ -79,15 +61,7 @@ const BannerSlider = () => {
               index === current ? "opacity-100" : "opacity-0"
             }`}
           >
-            {/*
-              slide 0 → priority=true
-                → loading="eager" fetchPriority="high" decoding="sync"
-                → widths=[768,1200,1920] match index.html preload imagesrcset
-                → browser gets cache hit, not a second network request
-
-              slide 1,2 → priority=false (default)
-                → loading="lazy" fetchPriority="auto" decoding="async"
-            */}
+       
             <OptimizedImage
               src={slide.src}
               alt={slide.alt}

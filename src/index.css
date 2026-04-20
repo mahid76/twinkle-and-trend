@@ -103,9 +103,7 @@ body {
   font-family: "Poppins", system-ui, sans-serif;
 }
 
-/* Swiper */
-.swiper { padding-bottom: 30px; }
-.swiper-pagination { bottom: 0px !important; }
+
 
 /* Image protection */
 img {
