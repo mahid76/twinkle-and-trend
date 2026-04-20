@@ -557,10 +557,11 @@ export const products = [
 	},
 	// drinkWare Category (1 Products)
 
-	{
+		{
 		id: 7,
 		name: "Bunny Bottle Bag", // ← fallback name
-		description: `🐰✨ কিউট Bunny Bottle Bag – স্টাইল আর ইউটিলিটির পারফেক্ট কম্বো! 
+		description:
+				`🐰✨ কিউট Bunny Bottle Bag – স্টাইল আর ইউটিলিটির পারফেক্ট কম্বো! 
 		✨🐻এটা শুধু একটি পানির বোতল নয়, বরং একটি ফ্যাশন স্টেটমেন্ট!`,
 		price: 1250,
 		// offerPrice: 1250,
@@ -568,7 +569,7 @@ export const products = [
 		image:
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529991/BunnyBottle_gido9t.jpg", // ← main thumbnail
 		images: [
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529990/BunnyBottle01_pd9bar.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529990/BunnyBottle01_pd9bar.jpg", 
 		],
 		hdImages: [
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529990/BunnyBottle01_pd9bar.jpg",
@@ -585,12 +586,8 @@ export const products = [
 				price: 1250,
 				// offerPrice: 3499,
 				stock: 15,
-				images: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529990/BunnyBottle01_pd9bar.jpg",
-				],
-				hdImages: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529990/BunnyBottle01_pd9bar.jpg",
-				],
+				images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529990/BunnyBottle01_pd9bar.jpg"],
+				hdImages: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529990/BunnyBottle01_pd9bar.jpg"],
 			},
 			{
 				name: "Bunny Bottle Bag White", // ← এই name দেখাবে
@@ -599,12 +596,8 @@ export const products = [
 				price: 1250,
 				// offerPrice: 3699,
 				stock: 8,
-				images: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529991/BunnyBottle02_wd9whp.jpg",
-				],
-				hdImages: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529991/BunnyBottle02_wd9whp.jpg",
-				],
+				images: [ "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529991/BunnyBottle02_wd9whp.jpg"],
+				hdImages: [ "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529991/BunnyBottle02_wd9whp.jpg"],
 			},
 			{
 				name: "Bunny Bottle Bag Green ",
@@ -613,12 +606,8 @@ export const products = [
 				price: 1250,
 				// offerPrice: 3499,
 				stock: 0, // ← 0 হলে swatch এ cross দেখাবে
-				images: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529992/BunnyBottle04_jjedpz.jpg",
-				],
-				hdImages: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529992/BunnyBottle04_jjedpz.jpg",
-				],
+				images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529992/BunnyBottle04_jjedpz.jpg"],
+				hdImages: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529992/BunnyBottle04_jjedpz.jpg"],
 			},
 			{
 				name: "Cat Hand Bag Black ",
@@ -627,13 +616,10 @@ export const products = [
 				price: 1250,
 				// offerPrice: 3499,
 				stock: 20, // ← 0 হলে swatch এ cross দেখাবে
-				images: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529991/BunnyBottle03_kl1msd.jpg",
-				],
-				hdImages: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529991/BunnyBottle03_kl1msd.jpg",
-				],
+				images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529991/BunnyBottle03_kl1msd.jpg"],
+				hdImages: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776529991/BunnyBottle03_kl1msd.jpg"],
 			},
+		
 		],
 
 		// ✅ SIZES যোগ করার উদাহরণ:
@@ -660,14 +646,15 @@ export const products = [
 	{
 		id: 8,
 		name: "Tashbih", // ← fallback name
-		description: `🐰✨ কিউট Tashbih `,
+		description:
+				 `🐰✨ কিউট Tashbih `,
 		price: 1999,
 		offerPrice: 1500,
 		category: "digitalPrayerTasbih",
 		image:
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776623885/Tashbih_qjvbrr.jpg", // ← main thumbnail
 		images: [
-			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg",
+			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg", 
 		],
 		hdImages: [
 			"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg",
@@ -684,12 +671,8 @@ export const products = [
 				price: 1999,
 				offerPrice: 1500,
 				stock: 15,
-				images: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg",
-				],
-				hdImages: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg",
-				],
+				images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg"],
+				hdImages: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg"],
 			},
 			{
 				name: "Tashbih Black & White", // ← এই name দেখাবে
@@ -698,12 +681,8 @@ export const products = [
 				price: 1999,
 				offerPrice: 1500,
 				stock: 8,
-				images: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_4_dxuxxm.jpg",
-				],
-				hdImages: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_4_dxuxxm.jpg",
-				],
+				images: [ "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_4_dxuxxm.jpg"],
+				hdImages: [ "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_4_dxuxxm.jpg"],
 			},
 			{
 				name: "Tashbih Red & Grey",
@@ -712,12 +691,8 @@ export const products = [
 				price: 1999,
 				offerPrice: 1500,
 				stock: 20, // ← 0 হলে swatch এ cross দেখাবে
-				images: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_5_oivhi8.jpg",
-				],
-				hdImages: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_5_oivhi8.jpg",
-				],
+				images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_5_oivhi8.jpg"],
+				hdImages: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_5_oivhi8.jpg"],
 			},
 			{
 				name: "Tashbih Yellow & Orange",
@@ -726,12 +701,8 @@ export const products = [
 				price: 1999,
 				offerPrice: 1500,
 				stock: 20, // ← 0 হলে swatch এ cross দেখাবে
-				images: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534317/Tashbih_3_lqves0.jpg",
-				],
-				hdImages: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534317/Tashbih_3_lqves0.jpg",
-				],
+				images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534317/Tashbih_3_lqves0.jpg"],
+				hdImages: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534317/Tashbih_3_lqves0.jpg"],
 			},
 			{
 				name: "Tashbih Blue ",
@@ -740,12 +711,8 @@ export const products = [
 				price: 1999,
 				offerPrice: 1500,
 				stock: 20, // ← 0 হলে swatch এ cross দেখাবে
-				images: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_1_xk5xu9.jpg",
-				],
-				hdImages: [
-					"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_1_xk5xu9.jpg",
-				],
+				images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_1_xk5xu9.jpg"],
+				hdImages: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_1_xk5xu9.jpg"],
 			},
 		],
 
@@ -844,95 +811,96 @@ export const getDiscountPercentage = (originalPrice, offerPrice) => {
 	return Math.round(((originalPrice - offerPrice) / originalPrice) * 100);
 };
 
-// {
-// 	id: 8,
-// 	name: "Tashbih", // ← fallback name
-// 	description:
-// 			 `🐰✨ কিউট Tashbih `,
-// 	price: 1999,
-// 	offerPrice: 1500,
-// 	category: "digitalPrayerTasbih",
-// 	image:
-// 		"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_xqluhy.jpg", // ← main thumbnail
-// 	images: [
-// 		"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg",
-// 	],
-// 	hdImages: [
-// 		"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg",
-// 	],
-// 	rating: 4.0,
-// 	stock: 20,
-// 	isBestSeller: false,
 
-// 	// variants: [
-// 	// 	{
-// 	// 		name: "Tashbih Pink & Purple", // ← এই name দেখাবে
-// 	// 		color: "Pink",
-// 	// 		colorHex: "#FFC0CB",
-// 	// 		price: 1999,
-// 	// 		offerPrice: 1500,
-// 	// 		stock: 15,
-// 	// 		images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg"],
-// 	// 		hdImages: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg"],
-// 	// 	},
-// 	// 	{
-// 	// 		name: "Tashbih Black & White", // ← এই name দেখাবে
-// 	// 		color: "White",
-// 	// 		colorHex: "#FFFFFF",
-// 	// 		price: 1999,
-// 	// 		offerPrice: 1500,
-// 	// 		stock: 8,
-// 	// 		images: [ "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_4_dxuxxm.jpg"],
-// 	// 		hdImages: [ "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_4_dxuxxm.jpg"],
-// 	// 	},
-// 	// 	{
-// 	// 		name: "Tashbih Red & Grey",
-// 	// 		color: "Red & Grey",
-// 	// 		colorHex: "#FF0000",
-// 	// 		price: 1999,
-// 	// 		offerPrice: 1500,
-// 	// 		stock: 0, // ← 0 হলে swatch এ cross দেখাবে
-// 	// 		images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_5_oivhi8.jpg"],
-// 	// 		hdImages: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_5_oivhi8.jpg"],
-// 	// 	},
-// 	// 	{
-// 	// 		name: "Tashbih Yellow & Orange",
-// 	// 		color: "Yellow & Orange",
-// 	// 		colorHex: "#FFFF00",
-// 	// 		price: 1999,
-// 	// 		offerPrice: 1500,
-// 	// 		stock: 20, // ← 0 হলে swatch এ cross দেখাবে
-// 	// 		images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534317/Tashbih_3_lqves0.jpg"],
-// 	// 		hdImages: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534317/Tashbih_3_lqves0.jpg"],
-// 	// 	},
-// 	// 	{
-// 	// 		name: "Tashbih Blue ",
-// 	// 		color: "Blue",
-// 	// 		colorHex: "#4169E1",
-// 	// 		price: 1999,
-// 	// 		offerPrice: 1500,
-// 	// 		stock: 20, // ← 0 হলে swatch এ cross দেখাবে
-// 	// 		images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_1_xk5xu9.jpg"],
-// 	// 		hdImages: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_1_xk5xu9.jpg"],
-// 	// 	},
-// 	// ],
+	// {
+	// 	id: 8,
+	// 	name: "Tashbih", // ← fallback name
+	// 	description:
+	// 			 `🐰✨ কিউট Tashbih `,
+	// 	price: 1999,
+	// 	offerPrice: 1500,
+	// 	category: "digitalPrayerTasbih",
+	// 	image:
+	// 		"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_xqluhy.jpg", // ← main thumbnail
+	// 	images: [
+	// 		"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg", 
+	// 	],
+	// 	hdImages: [
+	// 		"https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg",
+	// 	],
+	// 	rating: 4.0,
+	// 	stock: 20,
+	// 	isBestSeller: false,
 
-// 	// ✅ SIZES যোগ করার উদাহরণ:
-// 	// extraPrice = 0 হলে base price ই থাকবে
-// 	// extraPrice > 0 হলে সেটা যোগ হবে
-// 	// sizes: [
-// 	// 	{ label: "S", stock: 10, extraPrice: 0 },
-// 	// 	{ label: "M", stock: 15, extraPrice: 0 },
-// 	// 	{ label: "L", stock: 8, extraPrice: 200 }, // L size এ +200 টাকা
-// 	// 	{ label: "XL", stock: 0, extraPrice: 300 }, // stock:0 হলে disabled
-// 	// ],
+	// 	// variants: [
+	// 	// 	{
+	// 	// 		name: "Tashbih Pink & Purple", // ← এই name দেখাবে
+	// 	// 		color: "Pink",
+	// 	// 		colorHex: "#FFC0CB",
+	// 	// 		price: 1999,
+	// 	// 		offerPrice: 1500,
+	// 	// 		stock: 15,
+	// 	// 		images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg"],
+	// 	// 		hdImages: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_2_vhsrlt.jpg"],
+	// 	// 	},
+	// 	// 	{
+	// 	// 		name: "Tashbih Black & White", // ← এই name দেখাবে
+	// 	// 		color: "White",
+	// 	// 		colorHex: "#FFFFFF",
+	// 	// 		price: 1999,
+	// 	// 		offerPrice: 1500,
+	// 	// 		stock: 8,
+	// 	// 		images: [ "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_4_dxuxxm.jpg"],
+	// 	// 		hdImages: [ "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_4_dxuxxm.jpg"],
+	// 	// 	},
+	// 	// 	{
+	// 	// 		name: "Tashbih Red & Grey",
+	// 	// 		color: "Red & Grey",
+	// 	// 		colorHex: "#FF0000",
+	// 	// 		price: 1999,
+	// 	// 		offerPrice: 1500,
+	// 	// 		stock: 0, // ← 0 হলে swatch এ cross দেখাবে
+	// 	// 		images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_5_oivhi8.jpg"],
+	// 	// 		hdImages: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534315/Tashbih_5_oivhi8.jpg"],
+	// 	// 	},
+	// 	// 	{
+	// 	// 		name: "Tashbih Yellow & Orange",
+	// 	// 		color: "Yellow & Orange",
+	// 	// 		colorHex: "#FFFF00",
+	// 	// 		price: 1999,
+	// 	// 		offerPrice: 1500,
+	// 	// 		stock: 20, // ← 0 হলে swatch এ cross দেখাবে
+	// 	// 		images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534317/Tashbih_3_lqves0.jpg"],
+	// 	// 		hdImages: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534317/Tashbih_3_lqves0.jpg"],
+	// 	// 	},
+	// 	// 	{
+	// 	// 		name: "Tashbih Blue ",
+	// 	// 		color: "Blue",
+	// 	// 		colorHex: "#4169E1",
+	// 	// 		price: 1999,
+	// 	// 		offerPrice: 1500,
+	// 	// 		stock: 20, // ← 0 হলে swatch এ cross দেখাবে
+	// 	// 		images: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_1_xk5xu9.jpg"],
+	// 	// 		hdImages: ["https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776534316/Tashbih_1_xk5xu9.jpg"],
+	// 	// 	},
+	// 	// ],
 
-// 	features: [
-// 		"	✔️ প্রিমিয়াম কোয়ালিটি ট্রান্সপারেন্ট বোতল",
-// 		"✔️ কিউট Bunny & Bear ডেকোরেশন 🐰🐻",
-// 		"✔️ স্টাইলিশ পার্ল ও চেইন স্ট্র্যাপ – ক্যারি করা সহজ",
-// 		"✔️ লিক-প্রুফ ডিজাইন 💧",
-// 		"✔️ লাইটওয়েট ও ডিউরেবল",
-// 		"🎨 কালার :- গোলাপি, সাদা, সবুজ, কালো",
-// 	],
-// },
+	// 	// ✅ SIZES যোগ করার উদাহরণ:
+	// 	// extraPrice = 0 হলে base price ই থাকবে
+	// 	// extraPrice > 0 হলে সেটা যোগ হবে
+	// 	// sizes: [
+	// 	// 	{ label: "S", stock: 10, extraPrice: 0 },
+	// 	// 	{ label: "M", stock: 15, extraPrice: 0 },
+	// 	// 	{ label: "L", stock: 8, extraPrice: 200 }, // L size এ +200 টাকা
+	// 	// 	{ label: "XL", stock: 0, extraPrice: 300 }, // stock:0 হলে disabled
+	// 	// ],
+
+	// 	features: [
+	// 		"	✔️ প্রিমিয়াম কোয়ালিটি ট্রান্সপারেন্ট বোতল",
+	// 		"✔️ কিউট Bunny & Bear ডেকোরেশন 🐰🐻",
+	// 		"✔️ স্টাইলিশ পার্ল ও চেইন স্ট্র্যাপ – ক্যারি করা সহজ",
+	// 		"✔️ লিক-প্রুফ ডিজাইন 💧",
+	// 		"✔️ লাইটওয়েট ও ডিউরেবল",
+	// 		"🎨 কালার :- গোলাপি, সাদা, সবুজ, কালো",
+	// 	],
+	// },

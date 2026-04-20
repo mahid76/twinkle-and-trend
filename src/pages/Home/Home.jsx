@@ -1,8 +1,11 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense } from "react";
 import Banner from "../../components/Banner/Banner";
 
-const OfferHome = lazy(() => import("../../components/OfferHome/OfferHome"));
-const ProductsHome = lazy(() => import("../../components/ProductsHome/ProductsHome"));
+// ✅ Below-fold components lazy load করা হচ্ছে
+// Banner সবসময় eager — এটাই LCP element
+// বাকিগুলো viewport-এ আসলে load হবে → initial JS parse কম → LCP দ্রুত
+const OfferHome          = lazy(() => import("../../components/OfferHome/OfferHome"));
+const ProductsHome       = lazy(() => import("../../components/ProductsHome/ProductsHome"));
 const BestSellingProducts = lazy(() => import("../../components/BestSellingProducts/BestSellingProducts"));
 
 const SectionLoader = () => (
@@ -12,38 +15,18 @@ const SectionLoader = () => (
 );
 
 const Home = () => {
-  const [showSections, setShowSections] = useState(false);
-
-  // ⛳️ load below-fold ONLY after page is idle
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSections(true);
-    }, 1500); // ⬅️ delay to protect LCP
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <>
-      {/* ✅ LCP element */}
       <Banner />
-
-      {/* ✅ Delay loading → LCP faster */}
-      {showSections && (
-        <>
-          <Suspense fallback={<SectionLoader />}>
-            <OfferHome />
-          </Suspense>
-
-          <Suspense fallback={<SectionLoader />}>
-            <ProductsHome />
-          </Suspense>
-
-          <Suspense fallback={<SectionLoader />}>
-            <BestSellingProducts />
-          </Suspense>
-        </>
-      )}
+      <Suspense fallback={<SectionLoader />}>
+        <OfferHome />
+      </Suspense>
+      <Suspense fallback={<SectionLoader />}>
+        <ProductsHome />
+      </Suspense>
+      <Suspense fallback={<SectionLoader />}>
+        <BestSellingProducts />
+      </Suspense>
     </>
   );
 };
