@@ -202,7 +202,7 @@ const BestSellingProducts = () => {
 												</div>
 											)}
 											{product.stock < 10 && product.stock > 0 && (
-												<div className="absolute top-7 left-1.5 bg-[#E771A3] text-white px-1.5 py-0.5 text-[9px] sm:text-xs rounded-full font-medium" role="status">
+												<div className="absolute top-7 left-1.5 bg-[#BE3F7A] text-white px-1.5 py-0.5 text-[9px] sm:text-xs rounded-full font-medium" role="status">
 													Only {product.stock} left!
 												</div>
 											)}
@@ -225,7 +225,7 @@ const BestSellingProducts = () => {
 												disabled={product.stock === 0}
 												aria-label={isAdded ? `${product.name} cart এ যোগ হয়েছে` : `${product.name} cart এ যোগ করুন`}
 												className={`mt-1.5 sm:mt-3 w-full py-1.5 sm:py-2.5 rounded-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 text-[11px] sm:text-sm ${
-													isAdded ? "bg-green-500 text-white" : "bg-[#E771A3] text-white hover:bg-[#d15f93]"
+													isAdded ? "bg-green-500 text-white" : "bg-[#BE3F7A] text-white hover:bg-[#9B2F62]"
 												}`}
 											>
 												{isAdded ? (

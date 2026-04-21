@@ -64,7 +64,7 @@ const ProductsHome = () => {
         <div className="flex justify-center mt-5 md:mt-10">
           {visibleCount < products.length ? (
             <button onClick={() => setVisibleCount((prev) => prev + 4)} aria-label="আরো পণ্য দেখুন"
-              className="bg-[#E771A3] text-white px-6 py-3 rounded-md hover:bg-[#d15f93] transition-all duration-300 hover:scale-105">
+              className="bg-[#BE3F7A] text-white px-6 py-3 rounded-md hover:bg-[#9B2F62] transition-all duration-300 hover:scale-105">
               View More
             </button>
           ) : (

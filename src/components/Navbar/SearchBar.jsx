@@ -36,7 +36,7 @@ const SearchBar = ({
 									/>
 									<div>
 										<p className="text-sm font-medium">{p.name}</p>
-										<p className="text-xs text-[#E771A3]">৳{p.price}</p>
+										<p className="text-xs text-[#BE3F7A]">৳{p.price}</p>
 									</div>
 								</button>
 							))
@@ -48,7 +48,7 @@ const SearchBar = ({
 
 				<button
 					type="submit"
-					className="bg-[#ec7dac] cursor-pointer px-4 py-1 rounded-r-md hover:bg-[#d15f93] text-white"
+					className="bg-[#BE3F7A] cursor-pointer px-4 py-1 rounded-r-md hover:bg-[#9B2F62] text-white"
 				>
 					Search
 				</button>
