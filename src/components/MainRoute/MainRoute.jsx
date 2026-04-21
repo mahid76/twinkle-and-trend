@@ -8,7 +8,9 @@ const MainRoute = () => {
 		<>
 		<ScrollToTop />
 			<Navbar />
-			<Outlet />
+			<main id="main-content">
+				<Outlet />
+			</main>
 			<Footer />
 		</>
 	);

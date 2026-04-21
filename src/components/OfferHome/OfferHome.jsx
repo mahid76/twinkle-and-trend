@@ -226,16 +226,28 @@ const OfferHome = () => {
 								aria-label={`Slide ${i + 1}`}
 								onClick={() => goToIndex(i)}
 								style={{
-									height: "8px",
-									borderRadius: "4px",
-									background: i === dotIndex ? "#E771A3" : "#F6D6DF",
-									width: i === dotIndex ? "22px" : "8px",
-									transition: "all 0.3s ease",
+									padding: "8px 4px",
+									background: "transparent",
 									border: "none",
 									cursor: "pointer",
-									padding: 0,
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
+									minWidth: "24px",
+									minHeight: "24px",
 								}}
-							/>
+							>
+								<span
+									style={{
+										display: "block",
+										height: "8px",
+										borderRadius: "4px",
+										background: i === dotIndex ? "#E771A3" : "#F6D6DF",
+										width: i === dotIndex ? "22px" : "8px",
+										transition: "all 0.3s ease",
+									}}
+								/>
+							</button>
 						))}
 					</div>
 				</div>
