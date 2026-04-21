@@ -48,16 +48,16 @@ const Footer = () => {
 								<h3 className="font-semibold text-base sm:text-lg mb-3 sm:mb-4">
 									Quick Links
 								</h3>
-								<ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
+								<ul className="space-y-0 text-xs sm:text-sm">
 									<li>
-										<Link to="/" className="hover:text-[#385686] transition">
+										<Link to="/" className="hover:text-[#385686] transition block py-2">
 											Home
 										</Link>
 									</li>
 									<li>
 										<Link
 											to="/products"
-											className="hover:text-[#385686] transition"
+											className="hover:text-[#385686] transition block py-2"
 										>
 											Products
 										</Link>
@@ -65,7 +65,7 @@ const Footer = () => {
 									<li>
 										<Link
 											to="/ContactUs"
-											className="hover:text-[#385686] transition"
+											className="hover:text-[#385686] transition block py-2"
 										>
 											Contact Us
 										</Link>
@@ -73,7 +73,7 @@ const Footer = () => {
 									<li>
 										<Link
 											to="/offers"
-											className="hover:text-[#385686] transition"
+											className="hover:text-[#385686] transition block py-2"
 										>
 											Offers
 										</Link>
