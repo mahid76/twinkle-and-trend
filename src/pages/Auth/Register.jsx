@@ -45,7 +45,7 @@ const Register = () => {
             <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md border border-[#FAD0E4]/50">
                 <div className="text-center mb-8">
                     <div className="w-14 h-14 bg-[#FCE4EC] rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg className="w-7 h-7 text-[#E771A3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-7 h-7 text-[#C2185B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                         </svg>
                     </div>
@@ -83,18 +83,18 @@ const Register = () => {
                     <div>
                         <label className="text-sm font-medium text-gray-700 mb-1.5 block">আপনার নাম</label>
                         <input type="text" value={name} onChange={(e) => setName(e.target.value)} required placeholder="আপনার পুরো নাম"
-                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#E771A3] text-sm bg-gray-50" />
+                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C2185B] text-sm bg-gray-50" />
                     </div>
                     <div>
                         <label className="text-sm font-medium text-gray-700 mb-1.5 block">Email</label>
                         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="your@email.com"
-                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#E771A3] text-sm bg-gray-50" />
+                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C2185B] text-sm bg-gray-50" />
                     </div>
                     <div>
                         <label className="text-sm font-medium text-gray-700 mb-1.5 block">Password</label>
                         <div className="relative">
                             <input type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="কমপক্ষে ৬ character"
-                                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#E771A3] text-sm bg-gray-50 pr-12" />
+                                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C2185B] text-sm bg-gray-50 pr-12" />
                             <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
                             </button>
@@ -103,16 +103,16 @@ const Register = () => {
                     <div>
                         <label className="text-sm font-medium text-gray-700 mb-1.5 block">Confirm Password</label>
                         <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required placeholder="Password আবার দিন"
-                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#E771A3] text-sm bg-gray-50" />
+                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C2185B] text-sm bg-gray-50" />
                     </div>
                     <button type="submit" disabled={loading}
-                        className="w-full bg-[#E771A3] text-white py-3 rounded-xl font-semibold hover:bg-[#d15f93] transition-colors disabled:opacity-60 flex items-center justify-center gap-2">
+                        className="w-full bg-[#C2185B] text-white py-3 rounded-xl font-semibold hover:bg-[#A01645] transition-colors disabled:opacity-60 flex items-center justify-center gap-2">
                         {loading ? <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />Creating...</> : "Create Account"}
                     </button>
                 </form>
                 <p className="text-center text-sm text-gray-500 mt-6">
                     Already account আছে?{" "}
-                    <Link to="/login" className="text-[#E771A3] font-semibold hover:underline">Login করুন</Link>
+                    <Link to="/login" className="text-[#C2185B] font-semibold hover:underline">Login করুন</Link>
                 </p>
             </div>
         </div>

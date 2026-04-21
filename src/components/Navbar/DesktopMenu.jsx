@@ -70,8 +70,8 @@ const DesktopMenu = ({ onLinkClick }) => {
             {showLogoutModal && <LogoutModal onConfirm={handleLogoutConfirm} onCancel={() => setShowLogoutModal(false)} />}
 
             <ul className="hidden md:flex font-secondary space-x-1 text-sm items-center text-[#1F2937]">
-                <Link to="/" onClick={onLinkClick} className="px-4 py-3 hover:text-[#E771A3] transition-colors">Home</Link>
-                <Link to="/products" onClick={onLinkClick} className="px-4 py-3 hover:text-[#E771A3] transition-colors">Product</Link>
+                <Link to="/" onClick={onLinkClick} className="px-4 py-3 hover:text-[#C2185B] transition-colors">Home</Link>
+                <Link to="/products" onClick={onLinkClick} className="px-4 py-3 hover:text-[#C2185B] transition-colors">Product</Link>
 
                 {/* ✅ Categories — hover + click দুটোতেই খোলে */}
                 <li
@@ -84,7 +84,7 @@ const DesktopMenu = ({ onLinkClick }) => {
                         onClick={() => setOpen((prev) => !prev)}
                         aria-expanded={open}
                         aria-haspopup="true"
-                        className="px-4 py-3 hover:text-[#E771A3] flex items-center gap-1 transition-colors"
+                        className="px-4 py-3 hover:text-[#C2185B] flex items-center gap-1 transition-colors"
                     >
                         Categories
                         <svg className={`w-4 h-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -105,7 +105,7 @@ const DesktopMenu = ({ onLinkClick }) => {
                                 to={`/products?category=${cat.slug}`}
                                 role="menuitem"
                                 onClick={() => { setOpen(false); onLinkClick?.(); }}
-                                className="block px-4 py-3 hover:bg-[#FCE4EC] hover:text-[#E771A3] transition-colors text-sm"
+                                className="block px-4 py-3 hover:bg-[#FCE4EC] hover:text-[#C2185B] transition-colors text-sm"
                             >
                                 {cat.name}
                             </Link>
@@ -113,11 +113,11 @@ const DesktopMenu = ({ onLinkClick }) => {
                     </ul>
                 </li>
 
-                <Link to="/offers" onClick={onLinkClick} className="px-4 py-3 hover:text-[#E771A3] transition-colors">Offers</Link>
-                <Link to="/ContactUs" onClick={onLinkClick} className="px-4 py-3 hover:text-[#E771A3] transition-colors">Contact Us</Link>
+                <Link to="/offers" onClick={onLinkClick} className="px-4 py-3 hover:text-[#C2185B] transition-colors">Offers</Link>
+                <Link to="/ContactUs" onClick={onLinkClick} className="px-4 py-3 hover:text-[#C2185B] transition-colors">Contact Us</Link>
 
                 {/* Wishlist */}
-                <Link to="/wishlist" onClick={onLinkClick} aria-label={`Wishlist — ${wishlistCount} items`} className="relative p-2.5 hover:text-[#E771A3] hover:bg-[#FCE4EC] rounded-full transition-all">
+                <Link to="/wishlist" onClick={onLinkClick} aria-label={`Wishlist — ${wishlistCount} items`} className="relative p-2.5 hover:text-[#C2185B] hover:bg-[#FCE4EC] rounded-full transition-all">
                     <svg className="w-5 h-5" fill={wishlistCount > 0 ? "#E771A3" : "none"} stroke="#E771A3" strokeWidth={2} viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>

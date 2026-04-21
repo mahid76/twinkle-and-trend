@@ -59,7 +59,7 @@ const SearchModal = ({
 						role="search"
 					>
 						<svg
-							className="w-5 h-5 text-[#E771A3] flex-shrink-0 ml-1"
+							className="w-5 h-5 text-[#C2185B] flex-shrink-0 ml-1"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
@@ -116,7 +116,7 @@ const SearchModal = ({
 								setSearchQuery("");
 							}}
 							aria-label="search বন্ধ করুন"
-							className="flex-shrink-0 bg-[#FCE4EC] hover:bg-[#F7B3D3] text-[#E771A3] rounded-full w-8 h-8 flex items-center justify-center transition-colors"
+							className="flex-shrink-0 bg-[#FCE4EC] hover:bg-[#F7B3D3] text-[#C2185B] rounded-full w-8 h-8 flex items-center justify-center transition-colors"
 						>
 							<svg
 								className="w-4 h-4"
@@ -162,7 +162,7 @@ const SearchModal = ({
 											<p className="text-sm font-medium text-gray-800 truncate">
 												{p.name}
 											</p>
-											<p className="text-xs text-[#E771A3] font-semibold mt-0.5">
+												<p className="text-xs text-[#C2185B] font-semibold mt-0.5">
 												৳{p.price}
 											</p>
 										</div>
