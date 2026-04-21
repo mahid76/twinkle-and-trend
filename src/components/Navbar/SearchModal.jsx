@@ -162,7 +162,7 @@ const SearchModal = ({
 											<p className="text-sm font-medium text-gray-800 truncate">
 												{p.name}
 											</p>
-												<p className="text-xs text-[#C2185B] font-semibold mt-0.5">
+											<p className="text-xs text-[#C2185B] font-semibold mt-0.5">
 												৳{p.price}
 											</p>
 										</div>
