@@ -288,7 +288,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="w-full min-h-screen py-10 sm:py-16 px-4 sm:px-8 bg-[#E771A3]/10">
+    <div className="w-full min-h-screen py-10 sm:py-16 px-4 sm:px-8 bg-[#C2185B]/10">
       <div className="max-w-7xl mx-auto">
         
         {/* Page Header */}
@@ -318,7 +318,7 @@ const ContactPage = () => {
                   { icon: '📞', title: 'Phone', value: '+880 1614-326888' },
                 ].map((item) => (
                   <div key={item.title} className="flex gap-4 items-center">
-                    <div className="text-2xl sm:text-3xl text-[#E771A3]">{item.icon}</div>
+                    <div className="text-2xl sm:text-3xl text-[#C2185B]">{item.icon}</div>
                     <div>
                       <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider">{item.title}</h4>
                       <p className="text-base sm:text-lg text-gray-700 font-medium">{item.value}</p>
@@ -340,7 +340,7 @@ const ContactPage = () => {
                 {['Facebook', 'Instagram', 'Twitter'].map(social => (
                   <button 
                     key={social} 
-                    className="bg-[#E771A3]/10 px-4 py-2 rounded-full text-sm sm:text-base text-[#E771A3] hover:bg-[#E771A3] hover:text-white transition-all font-semibold"
+                    className="bg-[#C2185B]/10 px-4 py-2 rounded-full text-sm sm:text-base text-[#C2185B] hover:bg-[#C2185B] hover:text-white transition-all font-semibold"
                   >
                     {social}
                   </button>

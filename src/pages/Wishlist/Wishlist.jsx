@@ -15,7 +15,7 @@ const Wishlist = () => {
   if (authLoading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]" role="status">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#E771A3]" />
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#C2185B]" />
       </div>
     );
   }
@@ -33,7 +33,7 @@ const Wishlist = () => {
           </p>
           <Link
             to="/login"
-            className="bg-[#E771A3] text-white px-6 py-3 rounded-xl hover:bg-[#d15f93] transition-colors inline-block font-semibold"
+            className="bg-[#C2185B] text-white px-6 py-3 rounded-xl hover:bg-[#A01645] transition-colors inline-block font-semibold"
           >
             Login করুন
           </Link>
@@ -53,7 +53,7 @@ const Wishlist = () => {
           </p>
           <Link
             to="/products"
-            className="bg-[#E771A3] text-white px-6 py-3 rounded-xl hover:bg-[#d15f93] transition-colors inline-block font-semibold"
+            className="bg-[#C2185B] text-white px-6 py-3 rounded-xl hover:bg-[#A01645] transition-colors inline-block font-semibold"
           >
             Shop Now
           </Link>
@@ -99,19 +99,19 @@ const Wishlist = () => {
                   onClick={() => removeFromWishlist(item.productId)}
                   className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full w-8 h-8 flex items-center justify-center shadow-sm hover:bg-red-50 transition-colors"
                 >
-                  <svg className="w-4 h-4 text-[#E771A3]" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-[#C2185B]" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                   </svg>
                 </button>
               </div>
               <div className="p-3">
                 <Link to={`/products/${item.productId}`}>
-                  <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-[#E771A3] transition-colors mb-1">
+                  <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-[#C2185B] transition-colors mb-1">
                     {item.name}
                   </h3>
                 </Link>
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="text-[#E771A3] font-bold text-sm">Tk.{item.price}</span>
+                  <span className="text-[#C2185B] font-bold text-sm">Tk.{item.price}</span>
                   {item.originalPrice && (
                     <span className="text-gray-400 text-xs line-through">
                       Tk.{item.originalPrice}
@@ -133,7 +133,7 @@ const Wishlist = () => {
                       1
                     )
                   }
-                  className="w-full bg-[#E771A3] text-white py-2 rounded-lg text-sm font-medium hover:bg-[#d15f93] transition-colors"
+                  className="w-full bg-[#C2185B] text-white py-2 rounded-lg text-sm font-medium hover:bg-[#A01645] transition-colors"
                 >
                   Add to Cart
                 </button>

@@ -27,7 +27,7 @@ class ErrorBoundary extends Component {
           <p className="text-gray-500 mb-6 text-sm">Page টি load হতে সমস্যা হয়েছে।</p>
           <button
             onClick={() => window.location.reload()}
-            className="bg-[#E771A3] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#d15f93] transition-colors"
+            className="bg-[#C2185B] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#A01645] transition-colors"
           >
             Reload করুন
           </button>
