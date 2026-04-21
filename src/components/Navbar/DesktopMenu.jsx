@@ -99,20 +99,25 @@ const DesktopMenu = ({ onLinkClick }) => {
 			)}
 
 			<ul className="hidden md:flex font-secondary space-x-1 text-sm items-center text-[#1F2937]">
-				<Link
-					to="/"
-					onClick={onLinkClick}
-					className="px-4 py-3 hover:text-[#C2185B] transition-colors"
-				>
-					Home
-				</Link>
-				<Link
-					to="/products"
-					onClick={onLinkClick}
-					className="px-4 py-3 hover:text-[#C2185B] transition-colors"
-				>
-					Product
-				</Link>
+				{/* ✅ A11Y FIX: Direct <Link> inside <ul> wrapped in <li> for valid list structure */}
+				<li>
+					<Link
+						to="/"
+						onClick={onLinkClick}
+						className="px-4 py-3 hover:text-[#C2185B] transition-colors"
+					>
+						Home
+					</Link>
+				</li>
+				<li>
+					<Link
+						to="/products"
+						onClick={onLinkClick}
+						className="px-4 py-3 hover:text-[#C2185B] transition-colors"
+					>
+						Product
+					</Link>
+				</li>
 
 				{/* ✅ Categories — hover + click দুটোতেই খোলে */}
 				<li
@@ -122,7 +127,7 @@ const DesktopMenu = ({ onLinkClick }) => {
 					onMouseLeave={handleMouseLeave}
 				>
 					<button
-						onClick={() => setOpen((prev) => !prev)}
+						onClick={() => setOpen(true)}
 						aria-expanded={open}
 						aria-haspopup="true"
 						className="px-4 py-3 hover:text-[#C2185B] flex items-center gap-1 transition-colors"
@@ -169,27 +174,32 @@ const DesktopMenu = ({ onLinkClick }) => {
 					</ul>
 				</li>
 
-				<Link
-					to="/offers"
-					onClick={onLinkClick}
-					className="px-4 py-3 hover:text-[#C2185B] transition-colors"
-				>
-					Offers
-				</Link>
-				<Link
-					to="/ContactUs"
-					onClick={onLinkClick}
-					className="px-4 py-3 hover:text-[#C2185B] transition-colors"
-				>
-					Contact Us
-				</Link>
+				<li>
+					<Link
+						to="/offers"
+						onClick={onLinkClick}
+						className="px-4 py-3 hover:text-[#C2185B] transition-colors"
+					>
+						Offers
+					</Link>
+				</li>
+				<li>
+					<Link
+						to="/ContactUs"
+						onClick={onLinkClick}
+						className="px-4 py-3 hover:text-[#C2185B] transition-colors"
+					>
+						Contact Us
+					</Link>
+				</li>
 
 				{/* Wishlist */}
+				<li className="relative">
 				<Link
 					to="/wishlist"
 					onClick={onLinkClick}
 					aria-label={`Wishlist — ${wishlistCount} items`}
-					className="relative p-2.5 hover:text-[#C2185B] hover:bg-[#FCE4EC] rounded-full transition-all"
+					className="relative flex p-2.5 hover:text-[#C2185B] hover:bg-[#FCE4EC] rounded-full transition-all"
 				>
 					<svg
 						className="w-5 h-5"
@@ -210,13 +220,15 @@ const DesktopMenu = ({ onLinkClick }) => {
 						</span>
 					)}
 				</Link>
+				</li>
 
 				{/* Cart */}
+				<li className="relative">
 				<Link
 					to="/cart"
 					onClick={onLinkClick}
 					aria-label={`Cart — ${cartCount} items`}
-					className="relative p-2.5 hover:text-[#E771A3] hover:bg-[#FCE4EC] rounded-full transition-all"
+					className="relative flex p-2.5 hover:text-[#E771A3] hover:bg-[#FCE4EC] rounded-full transition-all"
 				>
 					<svg
 						className="w-5 h-5"
@@ -237,6 +249,7 @@ const DesktopMenu = ({ onLinkClick }) => {
 						</span>
 					)}
 				</Link>
+				</li>
 
 				{/* User */}
 				{user ? (
@@ -371,7 +384,7 @@ const DesktopMenu = ({ onLinkClick }) => {
 					<Link
 						to="/login"
 						onClick={onLinkClick}
-						className="ml-1 bg-[#E771A3] text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-[#d15f93] transition-colors"
+						className="ml-1 bg-[#BE3F7A] text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-[#9B2F62] transition-colors"
 					>
 						Login
 					</Link>
