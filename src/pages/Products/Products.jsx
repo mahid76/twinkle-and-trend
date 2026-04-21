@@ -223,7 +223,7 @@ const Products = () => {
 								className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
 									(cat === "All" && selectedCategory === "") ||
 									selectedCategory === label
-										? "bg-[#E771A3] text-white"
+										? "bg-[#BE3F7A] text-white"
 										: "bg-gray-100 text-gray-700 hover:bg-gray-200"
 								}`}
 							>
@@ -307,17 +307,17 @@ const Products = () => {
 												</div>
 											)}
 											{product.stock < 10 && product.stock > 0 && (
-												<div className="absolute top-10 left-2 bg-[#E771A3] text-white px-2 md:px-3 py-1 text-[10px] md:text-sm rounded-full font-medium">
+												<div className="absolute top-10 left-2 bg-[#BE3F7A] text-white px-2 md:px-3 py-1 text-[10px] md:text-sm rounded-full font-medium">
 													Only {product.stock} left!
 												</div>
 											)}
 											{hasOffer && (
-												<div className="absolute bottom-2 left-2 bg-[#E771A3] text-white px-2 md:px-3 py-1 text-[10px] md:text-sm rounded-full font-bold">
+												<div className="absolute bottom-2 left-2 bg-[#BE3F7A] text-white px-2 md:px-3 py-1 text-[10px] md:text-sm rounded-full font-bold">
 													{discount}% OFF
 												</div>
 											)}
 											{product.isBestSeller && (
-												<div className="absolute top-2 left-2 bg-[#F6D6DF] text-[#E771A3] px-2 md:px-3 py-1 rounded-full text-[10px] md:text-sm font-bold">
+												<div className="absolute top-2 left-2 bg-[#FCE4EC] text-[#7D1A44] px-2 md:px-3 py-1 rounded-full text-[10px] md:text-sm font-bold">
 													⭐ Best Seller
 												</div>
 											)}
@@ -325,7 +325,7 @@ const Products = () => {
 
 										<div className="px-2 py-2 md:p-4 flex flex-col flex-1">
 											<div className="flex items-center justify-between mb-2">
-												<span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+												<span className="text-xs text-gray-700 bg-gray-100 px-2 py-1 rounded">
 													{categoryMap[product.category] || product.category}
 												</span>
 												<div className="flex items-center">
@@ -341,7 +341,7 @@ const Products = () => {
 											<div className="mb-2 md:mb-3">
 												{hasOffer ? (
 													<div className="flex items-center gap-2">
-														<span className="text-[#E771A3] font-bold text-lg md:text-xl">
+														<span className="text-[#BE3F7A] font-bold text-lg md:text-xl">
 															৳{product.offerPrice}
 														</span>
 														<span className="text-gray-400 text-sm line-through">
@@ -349,7 +349,7 @@ const Products = () => {
 														</span>
 													</div>
 												) : (
-													<p className="text-[#E771A3] font-bold text-lg md:text-xl">
+													<p className="text-[#BE3F7A] font-bold text-lg md:text-xl">
 														৳{product.price}
 													</p>
 												)}
@@ -360,7 +360,7 @@ const Products = () => {
 												className={`mt-auto w-full px-4 py-2 rounded-md transition-all duration-300 font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ${
 													isAdded
 														? "bg-green-500 text-white"
-														: "bg-[#E771A3] text-white hover:bg-[#d15f93]"
+														: "bg-[#BE3F7A] text-white hover:bg-[#9B2F62]"
 												}`}
 											>
 												{isAdded ? (
@@ -415,7 +415,7 @@ const Products = () => {
 											}
 											className={`px-2 md:px-4 py-1 md:py-2 rounded-md transition-colors ${
 												page === currentPage
-													? "bg-[#E771A3] text-white"
+													? "bg-[#BE3F7A] text-white"
 													: page === "..."
 														? "cursor-default"
 														: "bg-white border border-gray-300 hover:bg-gray-50"
@@ -457,7 +457,7 @@ const Products = () => {
 								setSortBy("default");
 								handleFilterChange();
 							}}
-							className="bg-[#E771A3] text-white px-6 py-2 rounded-md hover:bg-[#F6D6DF] transition-colors"
+							className="bg-[#BE3F7A] text-white px-6 py-2 rounded-md hover:bg-[#F6D6DF] transition-colors"
 						>
 							Clear Filters
 						</button>
