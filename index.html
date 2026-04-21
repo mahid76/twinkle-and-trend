@@ -115,20 +115,20 @@
 		/>
 
 
-		<!--
-		  ✅ PERF FIX: Unused preconnects REMOVED (identitytoolkit, apis.google, firebaseapp.com)
-		  After switching to indexedDBLocalPersistence, Firebase no longer loads an
-		  auth iframe at startup → those origins are NEVER requested on page load.
-		  Unused preconnects waste TCP + TLS handshake time for nothing.
-
-		  Kept:
-		  - res.cloudinary.com  → every page loads product images immediately
-		  - firestore.googleapis.com → CartContext + WishlistContext open onSnapshot
-		    listeners on EVERY page load (upgraded from dns-prefetch → preconnect
-		    so the TLS handshake starts immediately, not just DNS)
-		-->
+		<!-- Firebase + Cloudinary preconnect -->
+		<link rel="dns-prefetch" href="https://firestore.googleapis.com" />
 		<link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
-		<link rel="preconnect" href="https://firestore.googleapis.com" crossorigin />
+		<link
+			rel="preconnect"
+			href="https://identitytoolkit.googleapis.com"
+			crossorigin
+		/>
+		<link rel="preconnect" href="https://apis.google.com" crossorigin />
+		<link
+			rel="preconnect"
+			href="https://twinkle-and-trend-8ff25.firebaseapp.com"
+			crossorigin
+		/>
 
 		<script type="application/ld+json">
 			{
@@ -142,7 +142,6 @@
 				"sameAs": ["https://www.facebook.com/profile.php?id=61574753113504"]
 			}
 		</script>
-	
 	</head>
 	<body>
 		<div id="root"></div>
