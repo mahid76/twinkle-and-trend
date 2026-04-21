@@ -52,7 +52,7 @@ const Login = () => {
             <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md border border-[#FAD0E4]/50">
                 <div className="text-center mb-8">
                     <div className="w-14 h-14 bg-[#FCE4EC] rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg className="w-7 h-7 text-[#E771A3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-7 h-7 text-[#C2185B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                     </div>
@@ -94,14 +94,14 @@ const Login = () => {
                         <label className="text-sm font-medium text-gray-700 mb-1.5 block">Email</label>
                         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required
                             placeholder="your@email.com"
-                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#E771A3] text-sm bg-gray-50" />
+                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C2185B] text-sm bg-gray-50" />
                     </div>
                     <div>
                         <label className="text-sm font-medium text-gray-700 mb-1.5 block">Password</label>
                         <div className="relative">
                             <input type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} required
                                 placeholder="••••••••"
-                                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#E771A3] text-sm bg-gray-50 pr-12" />
+                                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C2185B] text-sm bg-gray-50 pr-12" />
                             <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
                                 {showPassword
                                     ? <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
@@ -111,14 +111,14 @@ const Login = () => {
                         </div>
                     </div>
                     <button type="submit" disabled={loading}
-                        className="w-full bg-[#E771A3] text-white py-3 rounded-xl font-semibold hover:bg-[#d15f93] transition-colors disabled:opacity-60 flex items-center justify-center gap-2">
+                        className="w-full bg-[#C2185B] text-white py-3 rounded-xl font-semibold hover:bg-[#A01645] transition-colors disabled:opacity-60 flex items-center justify-center gap-2">
                         {loading ? <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />Signing in...</> : "Sign In"}
                     </button>
                 </form>
 
                 <p className="text-center text-sm text-gray-500 mt-6">
                     Account নেই?{" "}
-                    <Link to="/register" className="text-[#E771A3] font-semibold hover:underline">Register করুন</Link>
+                    <Link to="/register" className="text-[#C2185B] font-semibold hover:underline">Register করুন</Link>
                 </p>
             </div>
         </div>
