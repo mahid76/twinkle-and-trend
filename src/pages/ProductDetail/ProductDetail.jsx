@@ -398,7 +398,7 @@ Please confirm my order!
             {wishlisted ? "Wishlisted" : "Add to Wishlist"}
           </button>
 
-          <p className="text-gray-600 leading-relaxed text-sm md:text-base mb-5">{selectedVariant?.description || product.description}</p>
+          <p className="text-gray-600 leading-relaxed whitespace-pre-line text-sm md:text-base mb-5">{selectedVariant?.description || product.description}</p>
 
           {/* Color variants */}
           {product.variants?.length > 0 && (
