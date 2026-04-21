@@ -381,13 +381,15 @@ const DesktopMenu = ({ onLinkClick }) => {
 						)}
 					</li>
 				) : (
-					<Link
-						to="/login"
-						onClick={onLinkClick}
-						className="ml-1 bg-[#BE3F7A] text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-[#9B2F62] transition-colors"
-					>
-						Login
-					</Link>
+					<li>
+						<Link
+							to="/login"
+							onClick={onLinkClick}
+							className="ml-1 bg-[#BE3F7A] text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-[#9B2F62] transition-colors"
+						>
+							Login
+						</Link>
+					</li>
 				)}
 			</ul>
 		</>
