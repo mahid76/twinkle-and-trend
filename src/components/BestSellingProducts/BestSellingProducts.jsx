@@ -4,7 +4,7 @@
 // ✅ Hover pause
 // ✅ Mobile: 2 cards per view
 
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
@@ -67,7 +67,7 @@ const BestSellingProducts = () => {
 					setAnimating(false);
 					setActiveIndex(0);
 					requestAnimationFrame(() =>
-						requestAnimationFrame(() => setAnimating(true))
+						requestAnimationFrame(() => setAnimating(true)),
 					);
 				}, 460); // just after the 0.45s transition
 			}
@@ -110,7 +110,10 @@ const BestSellingProducts = () => {
 
 	const handleWishlist = (e, product) => {
 		e.preventDefault();
-		if (!user) { navigate("/login"); return; }
+		if (!user) {
+			navigate("/login");
+			return;
+		}
 		toggleWishlist(product);
 	};
 
@@ -122,7 +125,8 @@ const BestSellingProducts = () => {
 
 	// Dot count = real slides only (capped at maxIndex + 1)
 	const maxIndex = Math.max(0, products.length - slidesPerView);
-	const dotIndex = activeIndex >= products.length ? 0 : Math.min(activeIndex, maxIndex);
+	const dotIndex =
+		activeIndex >= products.length ? 0 : Math.min(activeIndex, maxIndex);
 
 	return (
 		<section
@@ -158,13 +162,26 @@ const BestSellingProducts = () => {
 								style={{ flex: `0 0 ${slideWidth}%`, padding: "0 6px" }}
 								aria-hidden={i >= products.length}
 							>
-								<Link to={`/products/${product.id}`} aria-label={`${product.name} — ৳${product.price}`}>
+								<Link
+									to={`/products/${product.id}`}
+									aria-label={`${product.name} — ৳${product.price}`}
+								>
 									<div className="bg-white rounded-xl shadow p-2 border border-slate-100 hover:shadow-lg transition-all duration-300 h-full flex flex-col">
 										<div className="relative overflow-hidden rounded-lg w-full">
-											<div className="relative overflow-hidden" onContextMenu={(e) => e.preventDefault()}>
+											<div
+												className="relative overflow-hidden"
+												onContextMenu={(e) => e.preventDefault()}
+											>
 												<img
-													src={clImg(product.image, { width: 400, quality: "auto:eco" })}
-													srcSet={clSrcSet(product.image, [300, 500, 700], "auto:eco")}
+													src={clImg(product.image, {
+														width: 400,
+														quality: "auto:eco",
+													})}
+													srcSet={clSrcSet(
+														product.image,
+														[300, 500, 700],
+														"auto:eco",
+													)}
 													sizes="(max-width: 640px) 45vw, (max-width: 1024px) 45vw, (max-width: 1280px) 30vw, 22vw"
 													alt={product.name}
 													loading="eager"
@@ -177,7 +194,10 @@ const BestSellingProducts = () => {
 													height="500"
 													className="aspect-[4/5] object-cover w-full select-none transition-transform duration-500 hover:scale-105"
 												/>
-												<div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+												<div
+													className="absolute inset-0 flex items-center justify-center pointer-events-none"
+													aria-hidden="true"
+												>
 													<p className="text-[#D15F93] text-sm sm:text-xl font-bold opacity-30 rotate-[-20deg]">
 														Twinkle and trend
 													</p>
@@ -187,22 +207,43 @@ const BestSellingProducts = () => {
 											{/* Wishlist */}
 											<button
 												onClick={(e) => handleWishlist(e, product)}
-												aria-label={wishlisted ? `${product.name} wishlist থেকে সরান` : `${product.name} wishlist এ যোগ করুন`}
+												aria-label={
+													wishlisted
+														? `${product.name} wishlist থেকে সরান`
+														: `${product.name} wishlist এ যোগ করুন`
+												}
 												aria-pressed={wishlisted}
 												className="absolute top-1.5 right-1.5 bg-white/90 backdrop-blur-sm rounded-full w-6 h-6 flex items-center justify-center shadow-sm hover:scale-110 transition-transform z-10"
 											>
-												<svg className="w-3.5 h-3.5" fill={wishlisted ? "#C2185B" : "none"} stroke="#C2185B" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
-													<path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+												<svg
+													className="w-3.5 h-3.5"
+													fill={wishlisted ? "#C2185B" : "none"}
+													stroke="#C2185B"
+													strokeWidth={2}
+													viewBox="0 0 24 24"
+													aria-hidden="true"
+												>
+													<path
+														strokeLinecap="round"
+														strokeLinejoin="round"
+														d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+													/>
 												</svg>
 											</button>
 
 											{product.stock === 0 && (
-												<div className="absolute top-1.5 left-1.5 bg-red-500 text-white px-1.5 py-0.5 text-[9px] sm:text-xs rounded-full font-medium" role="status">
+												<div
+													className="absolute top-1.5 left-1.5 bg-red-500 text-white px-1.5 py-0.5 text-[9px] sm:text-xs rounded-full font-medium"
+													role="status"
+												>
 													Out of Stock
 												</div>
 											)}
 											{product.stock < 10 && product.stock > 0 && (
-												<div className="absolute top-7 left-1.5 bg-[#BE3F7A] text-white px-1.5 py-0.5 text-[9px] sm:text-xs rounded-full font-medium" role="status">
+												<div
+													className="absolute top-7 left-1.5 bg-[#BE3F7A] text-white px-1.5 py-0.5 text-[9px] sm:text-xs rounded-full font-medium"
+													role="status"
+												>
 													Only {product.stock} left!
 												</div>
 											)}
@@ -212,33 +253,70 @@ const BestSellingProducts = () => {
 											<h3 className="text-xs sm:text-base font-semibold text-gray-800 line-clamp-2 leading-tight">
 												{product.name}
 											</h3>
-										<p className="text-green-700 font-bold text-sm sm:text-xl mt-1">
+											<p className="text-green-700 font-bold text-sm sm:text-xl mt-1">
 												৳{product.price}
 											</p>
 											<div className="flex items-center mt-0.5">
-												<span className="text-yellow-500 text-xs" aria-hidden="true">★</span>
-												<span className="text-gray-600 text-xs ml-1">{product.rating}</span>
-												<span className="sr-only">Rating: {product.rating} out of 5</span>
+												<span
+													className="text-yellow-500 text-xs"
+													aria-hidden="true"
+												>
+													★
+												</span>
+												<span className="text-gray-600 text-xs ml-1">
+													{product.rating}
+												</span>
+												<span className="sr-only">
+													Rating: {product.rating} out of 5
+												</span>
 											</div>
 											<button
 												onClick={(e) => handleAddToCart(e, product)}
 												disabled={product.stock === 0}
-												aria-label={isAdded ? `${product.name} cart এ যোগ হয়েছে` : `${product.name} cart এ যোগ করুন`}
+												aria-label={
+													isAdded
+														? `${product.name} cart এ যোগ হয়েছে`
+														: `${product.name} cart এ যোগ করুন`
+												}
 												className={`mt-1.5 sm:mt-3 w-full py-1.5 sm:py-2.5 rounded-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 text-[11px] sm:text-sm ${
-													isAdded ? "bg-green-500 text-white" : "bg-[#BE3F7A] text-white hover:bg-[#9B2F62]"
+													isAdded
+														? "bg-green-500 text-white"
+														: "bg-[#BE3F7A] text-white hover:bg-[#9B2F62]"
 												}`}
 											>
 												{isAdded ? (
 													<>
-														<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true">
-															<path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+														<svg
+															className="w-3.5 h-3.5"
+															fill="none"
+															stroke="currentColor"
+															strokeWidth={2.5}
+															viewBox="0 0 24 24"
+															aria-hidden="true"
+														>
+															<path
+																d="M5 13l4 4L19 7"
+																strokeLinecap="round"
+																strokeLinejoin="round"
+															/>
 														</svg>
 														Added!
 													</>
 												) : (
 													<>
-														<svg className="w-3.5 h-3.5 hidden sm:block" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
-															<path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+														<svg
+															className="w-3.5 h-3.5 hidden sm:block"
+															fill="none"
+															stroke="currentColor"
+															strokeWidth={2}
+															viewBox="0 0 24 24"
+															aria-hidden="true"
+														>
+															<path
+																strokeLinecap="round"
+																strokeLinejoin="round"
+																d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+															/>
 														</svg>
 														Add to Cart
 													</>
@@ -254,7 +332,11 @@ const BestSellingProducts = () => {
 			</div>
 
 			{/* Pagination dots */}
-			<div className="flex justify-center gap-2 mt-6" role="tablist" aria-label="Slide navigation">
+			<div
+				className="flex justify-center gap-2 mt-6"
+				role="tablist"
+				aria-label="Slide navigation"
+			>
 				{Array.from({ length: maxIndex + 1 }).map((_, i) => (
 					<button
 						key={i}
