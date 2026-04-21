@@ -140,7 +140,8 @@ const OfferHome = () => {
 									<div
 										key={`${product.id}-${i}`}
 										style={{ flex: `0 0 ${slideWidth}%`, padding: "0 5px" }}
-										aria-hidden={i >= filteredProducts.length}
+										aria-hidden={i >= filteredProducts.length || undefined}
+								{...(i >= filteredProducts.length ? { inert: "" } : {})}
 									>
 										<div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 h-full">
 											<div className="relative overflow-hidden rounded-t-xl aspect-square sm:aspect-[4/5]">

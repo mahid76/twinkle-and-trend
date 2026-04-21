@@ -160,7 +160,8 @@ const BestSellingProducts = () => {
 							<div
 								key={`${product.id}-${i}`}
 								style={{ flex: `0 0 ${slideWidth}%`, padding: "0 6px" }}
-								aria-hidden={i >= products.length}
+								aria-hidden={i >= products.length || undefined}
+								{...(i >= products.length ? { inert: "" } : {})}
 							>
 								<Link
 									to={`/products/${product.id}`}
