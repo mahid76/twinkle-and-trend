@@ -162,7 +162,7 @@ const OfferHome = () => {
 													/>
 												</Link>
 												<div
-													className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 bg-[#E771A3] text-white px-1.5 py-0.5 text-[9px] sm:text-xs rounded-full font-bold"
+													className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 bg-[#BE3F7A] text-white px-1.5 py-0.5 text-[9px] sm:text-xs rounded-full font-bold"
 													aria-label={`${discount}% ছাড়`}
 												>
 													{discount}% OFF
@@ -171,15 +171,15 @@ const OfferHome = () => {
 
 											<div className="p-1.5 sm:p-4">
 												<Link to={`/products/${product.id}`}>
-													<h3 className="text-[10px] sm:text-base font-semibold text-gray-800 hover:text-[#E771A3] truncate leading-tight">
+													<h3 className="text-[10px] sm:text-base font-semibold text-gray-800 hover:text-[#BE3F7A] truncate leading-tight">
 														{product.name}
 													</h3>
 												</Link>
 												<div className="flex items-center gap-1 sm:gap-2 mt-1 sm:mt-2">
-													<span className="text-sm sm:text-xl font-bold text-[#E771A3]">
+													<span className="text-sm sm:text-xl font-bold text-[#BE3F7A]">
 														৳{product.offerPrice}
 													</span>
-													<span className="text-gray-400 line-through text-[9px] sm:text-sm">
+													<span className="text-gray-500 line-through text-[9px] sm:text-sm">
 														৳{product.price}
 													</span>
 												</div>
@@ -188,7 +188,7 @@ const OfferHome = () => {
 													disabled={product.stock === 0}
 													aria-label={isAdded ? "Cart এ যোগ হয়েছে" : `${product.name} cart এ যোগ করুন`}
 													className={`mt-1.5 sm:mt-2 w-full py-1 sm:py-1.5 rounded-lg font-semibold text-[10px] sm:text-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1 sm:gap-1.5 ${
-														isAdded ? "bg-green-500 text-white" : "bg-[#E771A3] text-white hover:bg-[#d15f93]"
+														isAdded ? "bg-green-500 text-white" : "bg-[#BE3F7A] text-white hover:bg-[#9B2F62]"
 													}`}
 												>
 													{isAdded ? (

@@ -147,19 +147,19 @@ const ProductCard = memo(({
         )}
         {product.stock > 0 && product.stock < 10 && (
           <span role="status"
-            className="absolute top-2 left-2 bg-[#E771A3] text-white px-2 py-0.5 text-[10px] md:text-xs rounded-full font-medium">
+            className="absolute top-2 left-2 bg-[#BE3F7A] text-white px-2 py-0.5 text-[10px] md:text-xs rounded-full font-medium">
             Only {product.stock} left!
           </span>
         )}
         {product.isBestSeller && product.stock >= 10 && (
           <span
-            className="absolute top-2 left-2 bg-[#F6D6DF] text-[#E771A3] px-2 py-0.5 text-[10px] md:text-xs rounded-full font-bold">
+            className="absolute top-2 left-2 bg-[#FCE4EC] text-[#7D1A44] px-2 py-0.5 text-[10px] md:text-xs rounded-full font-bold">
             ⭐ Best Seller
           </span>
         )}
         {hasOffer && (
           <span
-            className="absolute bottom-2 left-2 bg-[#E771A3] text-white px-2 py-0.5 text-[10px] md:text-xs rounded-full font-bold">
+            className="absolute bottom-2 left-2 bg-[#BE3F7A] text-white px-2 py-0.5 text-[10px] md:text-xs rounded-full font-bold">
             {discount}% OFF
           </span>
         )}
@@ -171,7 +171,7 @@ const ProductCard = memo(({
         {/* Category + Rating row */}
         {!compact && categoryLabel && (
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-[10px] text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded truncate max-w-[60%]">
+            <span className="text-[10px] text-gray-700 bg-gray-100 px-1.5 py-0.5 rounded truncate max-w-[60%]">
               {categoryLabel}
             </span>
             <div className="flex items-center" aria-label={`Rating: ${product.rating} out of 5`}>
@@ -193,13 +193,13 @@ const ProductCard = memo(({
         <div className="mb-2">
           {hasOffer ? (
             <div className="flex items-center gap-1.5">
-              <span className="text-[#E771A3] font-bold text-base md:text-xl">
+              <span className="text-[#BE3F7A] font-bold text-base md:text-xl">
                 ৳{displayPrice}
               </span>
-              <span className="text-gray-400 text-xs line-through">৳{originalPrice}</span>
+              <span className="text-gray-500 text-xs line-through">৳{originalPrice}</span>
             </div>
           ) : (
-            <p className="text-[#E771A3] font-bold text-base md:text-xl">৳{displayPrice}</p>
+            <p className="text-[#BE3F7A] font-bold text-base md:text-xl">৳{displayPrice}</p>
           )}
         </div>
 
@@ -216,7 +216,7 @@ const ProductCard = memo(({
               disabled:opacity-50 disabled:cursor-not-allowed
               ${isAdded
                 ? "bg-green-500 text-white"
-                : "bg-[#E771A3] text-white hover:bg-[#d15f93]"
+                : "bg-[#BE3F7A] text-white hover:bg-[#9B2F62]"
               }
             `}
           >
