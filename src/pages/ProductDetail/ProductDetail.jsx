@@ -99,7 +99,7 @@ const ZoomPanel = ({ src, zoomPos, containerRef, panelSize = 380, zoom = 3 }) =>
     setStyle({ left, top, width: panelSize, height: panelSize });
   }, [containerRef, panelSize]);
   return (
-    <div className="hidden md:block fixed z-40 rounded-xl overflow-hidden shadow-2xl border border-gray-200" style={style}>
+    <div className="hidden lg:block fixed z-40 rounded-xl overflow-hidden shadow-2xl border border-gray-200" style={style}>
       <div className="w-full h-full" style={{ backgroundImage: `url(${src})`, backgroundRepeat: "no-repeat", backgroundSize: `${zoom * 50}%`, backgroundPosition: `${zoomPos.x}% ${zoomPos.y}%` }} />
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
         <p className="text-[#D15F93] text-lg font-bold opacity-25 rotate-[-20deg] whitespace-nowrap">Twinkle and trend</p>
@@ -156,7 +156,7 @@ const VariantSwatch = ({ variant, isSelected, onClick }) => {
         </div>
       </div>
       {hovered && variant.images?.[0] && (
-        <div className="hidden md:block fixed z-50 rounded-xl overflow-hidden shadow-2xl border-2 border-[#E771A3] pointer-events-none" style={pStyle}>
+        <div className="hidden lg:block fixed z-50 rounded-xl overflow-hidden shadow-2xl border-2 border-[#E771A3] pointer-events-none" style={pStyle}>
           <img src={variant.images[0]} alt={variant.color} draggable={false} className="w-full h-full object-cover" />
           <div className="absolute bottom-0 left-0 right-0 bg-black/55 text-white text-xs text-center py-2 font-medium">
             {variant.color} — ৳{variant.offerPrice && variant.offerPrice < variant.price ? variant.offerPrice : variant.price}
@@ -311,15 +311,15 @@ Please confirm my order!
         <span className="text-gray-800 line-clamp-1">{displayName}</span>
       </nav>
 
-      <div className="block md:flex md:items-start mb-8 md:mb-12 md:gap-10">
+      <div className="block md:flex md:items-start mb-8 md:mb-12 md:gap-5 lg:gap-10">
 
         {/* IMAGE COLUMN */}
         <div className="flex-shrink-0">
           {/* Desktop */}
           <div className="hidden md:flex items-start gap-3">
             <HoverZoomImage image={currentHdImage}>
-              <div className="relative overflow-hidden rounded-lg" style={{ width: 450, aspectRatio: "4/5" }} onContextMenu={(e) => e.preventDefault()}>
-                <img src={cldWebp(currentImage, 900)} srcSet={`${cldWebp(currentImage, 500)} 500w, ${cldWebp(currentImage, 900)} 900w`} sizes="450px"
+              <div className="relative overflow-hidden rounded-lg w-full md:w-[280px] lg:w-[380px] xl:w-[450px] aspect-[4/5]" onContextMenu={(e) => e.preventDefault()}>
+                <img src={cldWebp(currentImage, 900)} srcSet={`${cldWebp(currentImage, 500)} 500w, ${cldWebp(currentImage, 900)} 900w`} sizes="(max-width: 768px) 280px, (max-width: 1024px) 380px, 450px"
                   alt={displayName} loading="eager" fetchPriority="high" decoding="sync" draggable={false} onContextMenu={(e) => e.preventDefault()}
                   className="w-full h-full object-cover" width="450" height="562" />
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
@@ -335,7 +335,7 @@ Please confirm my order!
               {activeImages.map((img, i) => (
                 <button key={i} onClick={() => setActiveImage(i)} aria-label={`Image ${i+1}`}
                   className={`border-2 rounded-lg overflow-hidden transition-all ${activeImage === i ? "border-[#E771A3] ring-2 ring-[#E771A3]/50" : "border-gray-200 hover:border-gray-300"}`}>
-                  <div className="w-[100px] aspect-[4/5]" onContextMenu={(e) => e.preventDefault()}>
+                  <div className="w-[75px] lg:w-[100px] aspect-[4/5]" onContextMenu={(e) => e.preventDefault()}>
                     <img src={cldWebp(img, 200)} alt={`${displayName} ${i+1}`} draggable={false} loading="lazy" decoding="async" className="w-full h-full object-cover" width="100" height="125" />
                   </div>
                 </button>
@@ -344,7 +344,7 @@ Please confirm my order!
           </div>
           {/* Mobile */}
           <div className="md:hidden">
-            <div className="relative overflow-hidden rounded-lg mx-auto" style={{ maxWidth: "75%", aspectRatio: "4/5" }} onContextMenu={(e) => e.preventDefault()}>
+            <div className="relative overflow-hidden rounded-lg mx-auto" style={{ maxWidth: "85%", aspectRatio: "4/5" }} onContextMenu={(e) => e.preventDefault()}>
               <img src={cldWebp(currentImage, 600)} alt={displayName} loading="eager" fetchPriority="high" draggable={false} className="w-full h-full object-cover" width="300" height="375" />
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
                 <p className="text-[#D15F93] text-xl font-bold opacity-30 rotate-[-20deg]">Twinkle and trend</p>
@@ -382,7 +382,7 @@ Please confirm my order!
 
           {/* Price */}
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-3xl md:text-4xl font-bold text-[#E771A3]">৳{displayPrice}</span>
+            <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#E771A3]">৳{displayPrice}</span>
             {originalPrice && (
               <><span className="text-lg text-gray-400 line-through">৳{originalPrice}</span>
               <span className="text-xs font-bold bg-green-100 text-green-700 px-2 py-1 rounded">{discount}% OFF</span></>

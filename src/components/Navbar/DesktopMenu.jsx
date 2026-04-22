@@ -98,7 +98,7 @@ const DesktopMenu = ({ onLinkClick }) => {
 				/>
 			)}
 
-			<ul className="hidden md:flex font-secondary space-x-1 text-sm items-center text-[#1F2937]">
+			<ul className="hidden lg:flex font-secondary space-x-1 text-sm items-center text-[#1F2937]">
 				{/* ✅ A11Y FIX: Direct <Link> inside <ul> wrapped in <li> for valid list structure */}
 				<li>
 					<Link
