@@ -227,7 +227,7 @@ Please confirm my order!
           </div>
 
           {/* ── RIGHT: Order Form ── */}
-          <div className="lg:w-80 xl:w-96 space-y-4">
+          <div className="lg:w-80 xl:w-96 space-y-4 lg:sticky lg:top-20 lg:self-start">
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 space-y-4">
               {/* Customer Info */}
               <div>

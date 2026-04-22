@@ -159,7 +159,7 @@ const BestSellingProducts = () => {
 						return (
 							<div
 								key={`${product.id}-${i}`}
-								style={{ flex: `0 0 ${slideWidth}%`, padding: "0 6px" }}
+								style={{ flex: `0 0 ${slideWidth}%`, padding: "0 4px" }}
 								aria-hidden={i >= products.length || undefined}
 								{...(i >= products.length ? { inert: "" } : {})}
 							>

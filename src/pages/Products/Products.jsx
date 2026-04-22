@@ -152,7 +152,7 @@ const Products = () => {
 					</p>
 				</div>
 
-				<div className="bg-red rounded-md md:rounded-lg shadow-sm md:shadow-lg p-3 md:p-6 mb-4 md:mb-8">
+				<div className="bg-white rounded-md md:rounded-lg shadow-sm md:shadow-lg p-3 md:p-6 mb-4 md:mb-8">
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4">
 						<div className="relative">
 							<input
@@ -234,14 +234,14 @@ const Products = () => {
 				</div>
 
 				{loading ? (
-					<div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+					<div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
 						{Array.from({ length: 12 }).map((_, i) => (
 							<SkeletonCard key={i} />
 						))}
 					</div>
 				) : currentProducts.length > 0 ? (
 					<>
-						<div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+						<div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
 							{currentProducts.map((product, idx) => {
 								const hasOffer =
 									product.offerPrice && product.offerPrice < product.price;
