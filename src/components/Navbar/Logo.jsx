@@ -31,7 +31,7 @@ const Logo = ({ onClick }) => (
         onContextMenu={(e) => e.preventDefault()}
         onDragStart={(e) => e.preventDefault()}
       />
-      <span className="text-base md:text-xl font-logo font-bold leading-tight whitespace-nowrap">
+      <span className="text-base text-[#9b2f62] md:text-xl font-logo font-bold leading-tight whitespace-nowrap">
         Twinkle and Trend
       </span>
     </div>

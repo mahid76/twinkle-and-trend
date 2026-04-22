@@ -25,8 +25,8 @@
 
 /* ── Didot (Logo only) ── */
 @font-face {
-  font-family: "Didot";
-  src: url("/fonts/Didot-Bold.woff2") format("woff2");
+  font-family: "Proxima-Nova";
+  src: url("/fonts/Proxima-Nova-Bold.woff2") format("woff2");
   font-weight: 400 700;
   font-style: normal;
   font-display: optional;
@@ -92,7 +92,7 @@
   --font-primary:   "Playfair Display", Georgia, serif;
   --font-secondary: "Poppins", system-ui, sans-serif;
   --font-teretory:  "Poppins", system-ui, sans-serif;
-  --font-logo:      "Didot", "Playfair Display", serif;
+  --font-logo:      "Proxima-Nova", "Playfair Display", serif;
 
   --color-primary:   #E771A3;
   --color-secondary: #fafafa;
