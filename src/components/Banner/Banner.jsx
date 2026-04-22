@@ -8,7 +8,7 @@ import OptimizedImage, { WIDTHS, SIZES } from "../ui/OptimizedImage";
 const SLIDES = [
   {
     id: 1,
-    src: "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776624340/banner01_zmtlth.jpg",
+    src: "https://res.cloudinary.com/dltlnoi9z/image/upload/q_auto/f_auto/v1776882223/banner01_jxboem.jpg",
     alt: "Twinkle and Trend — ট্রেন্ডি ফ্যাশন ও খেলনার অনলাইন শপ",
   },
   {
