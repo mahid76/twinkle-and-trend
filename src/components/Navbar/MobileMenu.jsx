@@ -86,6 +86,7 @@ const MobileMenu = ({
 						onCancel={() => setShowLogoutModal(false)}
 					/>
 				)}
+				
 				<div className="lg:hidden flex items-center  md:gap-1">
 					{/* ✅ FIX: aria-label added — was missing */}
 					<button
