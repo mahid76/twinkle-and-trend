@@ -237,7 +237,7 @@ const ProductCard = memo(
 					<div className="mb-2">
 						{hasOffer ? (
 							<div className="flex items-center gap-1.5">
-								<span className="text-[#BE3F7A] font-bold text-base md:text-xl">
+								<span className="text-[#BE3F7A] font-bold text-sm sm:text-base md:text-xl">
 									৳{displayPrice}
 								</span>
 								<span className="text-gray-500 text-xs line-through">
@@ -245,7 +245,7 @@ const ProductCard = memo(
 								</span>
 							</div>
 						) : (
-							<p className="text-[#BE3F7A] font-bold text-base md:text-xl">
+							<p className="text-[#BE3F7A] font-bold text-sm sm:text-base md:text-xl">
 								৳{displayPrice}
 							</p>
 						)}

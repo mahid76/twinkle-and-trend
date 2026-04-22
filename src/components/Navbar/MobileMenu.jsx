@@ -86,7 +86,7 @@ const MobileMenu = ({
 						onCancel={() => setShowLogoutModal(false)}
 					/>
 				)}
-				<div className="md:hidden flex items-center gap-1">
+				<div className="lg:hidden flex items-center  md:gap-1">
 					{/* ✅ FIX: aria-label added — was missing */}
 					<button
 						onClick={toggleSearchModal}
@@ -222,12 +222,12 @@ const MobileMenu = ({
 			)}
 			{mobileMenuOpen && (
 				<div
-					className="fixed inset-0 z-40 bg-black/50 md:hidden"
+					className="fixed inset-0 z-40 bg-black/50 lg:hidden"
 					onClick={() => setMobileMenuOpen(false)}
 				/>
 			)}
 			<div
-				className={`md:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#FAD0E4] shadow-xl transition-all duration-300 ${mobileMenuOpen ? "translate-y-0" : "-translate-y-full"}`}
+				className={`lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#FAD0E4] shadow-xl transition-all duration-300 ${mobileMenuOpen ? "translate-y-0" : "-translate-y-full"}`}
 			>
 				<div className="p-4 max-h-[90vh] overflow-y-auto">
 					{user && (

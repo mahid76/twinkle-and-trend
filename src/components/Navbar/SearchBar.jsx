@@ -9,7 +9,7 @@ const SearchBar = ({
 	searchRef,
 }) => {
 	return (
-		<div className="hidden md:flex items-center w-64 relative" ref={searchRef}>
+		<div className="hidden lg:flex items-center w-44 xl:w-64 relative" ref={searchRef}>
 			<form onSubmit={handleSearch} className="relative flex w-full">
 				<input
 					type="text"
