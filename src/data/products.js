@@ -894,8 +894,7 @@ export const products = [
 	{
 		id: 10,
 		name: "Mini Fluffy Cat Bag", // ← fallback name
-		description: `🐱💖 Mini Fluffy Cat Bag – কিউটনেসের নতুন লেভেল! 💖🐱
-`,
+		description: `🐱💖 Mini Fluffy Cat Bag – কিউটনেসের নতুন লেভেল! 💖🐱`,
 		price: 3250,
 		// offerPrice: 1500,
 		category: "catBag",
