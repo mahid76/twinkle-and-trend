@@ -285,7 +285,7 @@ const Products = () => {
 												/>
 												<div className="absolute inset-0 flex items-center justify-center pointer-events-none">
 													<p className="text-[#D15F93] text-xl font-bold opacity-30 rotate-[-20deg]">
-														Twinkle and trend
+														Twinkle and Trend BD
 													</p>
 												</div>
 											</div>
