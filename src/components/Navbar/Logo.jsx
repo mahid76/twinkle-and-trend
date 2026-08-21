@@ -15,28 +15,27 @@ import { Link } from "react-router-dom";
  *   This prevents any layout shift.
  */
 const Logo = ({ onClick }) => (
-  <Link to="/" onClick={onClick} aria-label="Twinkle and Trend BD — হোম পেজ">
-    <div className="flex items-center gap-2">
-      <img
-        src="https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_80/v1776204520/logo_bs89oj.png"
-        alt="Twinkle and Trend BD logo"
-        width={80}
-        height={40}
-        style={{ aspectRatio: "1/1" }}
-        className="h-8 md:h-10 w-auto flex-shrink-0"
-        loading="eager"
-        fetchPriority="high"
-        decoding="sync"
-        draggable="false"
-        onContextMenu={(e) => e.preventDefault()}
-        onDragStart={(e) => e.preventDefault()}
-      />
-      <span className="text-base text-[#9b2f62] md:text-xl font-logo font-bold leading-tight whitespace-nowrap">
-        Twinkle & Trend BD
-      </span>
-    </div>
-  </Link>
+	<Link to="/" onClick={onClick} aria-label="Twinkle and Trend BD — হোম পেজ">
+		<div className="flex items-center gap-2">
+			<img
+				src="https://res.cloudinary.com/dltlnoi9z/image/upload/f_webp,q_auto,w_80/v1776204520/logo_bs89oj.png"
+				alt="Twinkle and Trend BD logo"
+				width={80}
+				height={40}
+				style={{ aspectRatio: "1/1" }}
+				className="h-8 md:h-10 w-auto flex-shrink-0"
+				loading="eager"
+				fetchPriority="high"
+				decoding="sync"
+				draggable="false"
+				onContextMenu={(e) => e.preventDefault()}
+				onDragStart={(e) => e.preventDefault()}
+			/>
+			<span className="text-base text-[#9b2f62] md:text-xl font-logo font-bold leading-tight whitespace-nowrap">
+				Twinkle & Trend BD
+			</span>
+		</div>
+	</Link>
 );
-
 
 export default Logo;

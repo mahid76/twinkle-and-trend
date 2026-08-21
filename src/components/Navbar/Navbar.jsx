@@ -98,7 +98,7 @@ const Navbar = () => {
               Desktop navbar আসল height = logo h-10(40px) + py-2(16px) = 56px ≈ h-[60px]
               আগে সব জায়গায় h-[60px] ছিল → mobile এ 12px extra gap তৈরি হতো
             */}
-            <div className="h-12 md:h-[60px]" aria-hidden="true" />
+            <div className="h-12 lg:h-[60px]" aria-hidden="true" />
 
             <nav
                 className="w-full fixed top-0 left-0 right-0 z-50 bg-white text-black shadow-md"

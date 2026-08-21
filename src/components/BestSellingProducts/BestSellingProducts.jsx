@@ -159,7 +159,7 @@ const BestSellingProducts = () => {
 						return (
 							<div
 								key={`${product.id}-${i}`}
-								style={{ flex: `0 0 ${slideWidth}%`, padding: "0 6px" }}
+								style={{ flex: `0 0 ${slideWidth}%`, padding: "0 4px" }}
 								aria-hidden={i >= products.length || undefined}
 								{...(i >= products.length ? { inert: "" } : {})}
 							>
@@ -200,7 +200,7 @@ const BestSellingProducts = () => {
 													aria-hidden="true"
 												>
 													<p className="text-[#D15F93] text-sm sm:text-xl font-bold opacity-30 rotate-[-20deg]">
-														Twinkle and trend
+														Twinkle and Trend BD
 													</p>
 												</div>
 											</div>

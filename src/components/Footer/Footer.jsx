@@ -6,7 +6,7 @@ const Footer = () => {
 	return (
 		<footer className="bg-[#d0e5f3] text-[#0f1a2a]">
 			<div className="max-w-7xl mx-auto px-4 p-10">
-				<div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8 md:gap-10">
+				<div className="flex flex-col md:flex-row md:justify-between md:items-start lg:items-center gap-8 md:gap-10">
 					{/* Brand */}
 					<div className="flex-1 min-w-0">
 						<h2 className="text-2xl font-bold mb-3">Twinkle & Trend</h2>

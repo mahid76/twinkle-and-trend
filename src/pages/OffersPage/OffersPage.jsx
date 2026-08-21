@@ -80,7 +80,7 @@ const OffersPage = () => {
 					</div>
 				)}
 
-				<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-12">
+				<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 md:gap-6 mb-12">
 					{currentProducts.map((product) => {
 						const discount = getDiscountPercentage(
 							product.price,
