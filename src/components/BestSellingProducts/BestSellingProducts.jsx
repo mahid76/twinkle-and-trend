@@ -160,7 +160,8 @@ const BestSellingProducts = () => {
 							<div
 								key={`${product.id}-${i}`}
 								style={{ flex: `0 0 ${slideWidth}%`, padding: "0 6px" }}
-								aria-hidden={i >= products.length}
+								aria-hidden={i >= products.length || undefined}
+								{...(i >= products.length ? { inert: "" } : {})}
 							>
 								<Link
 									to={`/products/${product.id}`}
@@ -345,16 +346,28 @@ const BestSellingProducts = () => {
 						aria-label={`Slide ${i + 1}`}
 						onClick={() => goToIndex(i)}
 						style={{
-							height: "10px",
-							borderRadius: "5px",
-							background: i === dotIndex ? "#0f172a" : "#cbd5e1",
-							width: i === dotIndex ? "28px" : "10px",
-							transition: "all 0.3s",
+							padding: "8px 4px",
+							background: "transparent",
 							border: "none",
 							cursor: "pointer",
-							padding: 0,
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							minWidth: "24px",
+							minHeight: "24px",
 						}}
-					/>
+					>
+						<span
+							style={{
+								display: "block",
+								height: "10px",
+								borderRadius: "5px",
+								background: i === dotIndex ? "#0f172a" : "#cbd5e1",
+								width: i === dotIndex ? "28px" : "10px",
+								transition: "all 0.3s",
+							}}
+						/>
+					</button>
 				))}
 			</div>
 		</section>

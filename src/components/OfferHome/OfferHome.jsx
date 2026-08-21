@@ -140,7 +140,8 @@ const OfferHome = () => {
 									<div
 										key={`${product.id}-${i}`}
 										style={{ flex: `0 0 ${slideWidth}%`, padding: "0 5px" }}
-										aria-hidden={i >= filteredProducts.length}
+										aria-hidden={i >= filteredProducts.length || undefined}
+								{...(i >= filteredProducts.length ? { inert: "" } : {})}
 									>
 										<div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 h-full">
 											<div className="relative overflow-hidden rounded-t-xl aspect-square sm:aspect-[4/5]">
@@ -225,16 +226,28 @@ const OfferHome = () => {
 								aria-label={`Slide ${i + 1}`}
 								onClick={() => goToIndex(i)}
 								style={{
-									height: "8px",
-									borderRadius: "4px",
-									background: i === dotIndex ? "#E771A3" : "#F6D6DF",
-									width: i === dotIndex ? "22px" : "8px",
-									transition: "all 0.3s ease",
+									padding: "8px 4px",
+									background: "transparent",
 									border: "none",
 									cursor: "pointer",
-									padding: 0,
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
+									minWidth: "24px",
+									minHeight: "24px",
 								}}
-							/>
+							>
+								<span
+									style={{
+										display: "block",
+										height: "8px",
+										borderRadius: "4px",
+										background: i === dotIndex ? "#E771A3" : "#F6D6DF",
+										width: i === dotIndex ? "22px" : "8px",
+										transition: "all 0.3s ease",
+									}}
+								/>
+							</button>
 						))}
 					</div>
 				</div>
