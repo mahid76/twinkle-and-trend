@@ -142,7 +142,7 @@ const ProductCard = memo(
 						aria-hidden="true"
 					>
 						<p className="text-[#D15F93] text-xl font-bold opacity-20 rotate-[-20deg] select-none">
-							Twinkle and trend
+							Twinkle and Trend BD
 						</p>
 					</div>
 
