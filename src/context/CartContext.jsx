@@ -1,45 +1,58 @@
-import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { db } from "../config/firebase";
+import { getDb } from "../config/firebase";
 import { useAuth } from "./AuthContext";
 
 const CartContext = createContext();
 
+// ✅ PERF FIX: "firebase/firestore" is imported dynamically (not at
+// module top level) so guests never download that ~53KB gzip chunk —
+// it's fetched only inside the `if (user)` branches below, i.e. only
+// for signed-in users who actually need cart sync.
 export const CartProvider = ({ children }) => {
 	const { user, authLoading } = useAuth();
 	const [cartItems, setCartItems] = useState([]);
 	const [cartLoaded, setCartLoaded] = useState(false);
 	const isSyncing = useRef(false);
+	const unsubscribeRef = useRef(null);
 
 	useEffect(() => {
 		if (authLoading) return;
 		setCartLoaded(false);
 		isSyncing.current = true;
+		let cancelled = false;
 
 		if (user) {
-			const ref = doc(db, "users", user.uid, "cart", "items");
-			const unsubscribe = onSnapshot(ref, (snap) => {
-				if (snap.exists()) {
-					setCartItems(snap.data().items || []);
-				} else {
-					try {
-						const local = localStorage.getItem("tt_cart");
-						if (local) {
-							const parsed = JSON.parse(local);
-							setCartItems(parsed);
-							setDoc(ref, { items: parsed });
-							localStorage.removeItem("tt_cart");
-						} else {
+			(async () => {
+				const [{ doc, onSnapshot, setDoc }, db] = await Promise.all([
+					import("firebase/firestore"),
+					getDb(),
+				]);
+				if (cancelled) return;
+
+				const ref = doc(db, "users", user.uid, "cart", "items");
+				const unsubscribe = onSnapshot(ref, (snap) => {
+					if (snap.exists()) {
+						setCartItems(snap.data().items || []);
+					} else {
+						try {
+							const local = localStorage.getItem("tt_cart");
+							if (local) {
+								const parsed = JSON.parse(local);
+								setCartItems(parsed);
+								setDoc(ref, { items: parsed });
+								localStorage.removeItem("tt_cart");
+							} else {
+								setCartItems([]);
+							}
+						} catch {
 							setCartItems([]);
 						}
-					} catch {
-						setCartItems([]);
 					}
-				}
-				isSyncing.current = false;
-				setCartLoaded(true);
-			});
-			return () => unsubscribe();
+					isSyncing.current = false;
+					setCartLoaded(true);
+				});
+				unsubscribeRef.current = unsubscribe;
+			})();
 		} else {
 			try {
 				const saved = localStorage.getItem("tt_cart");
@@ -50,14 +63,26 @@ export const CartProvider = ({ children }) => {
 			isSyncing.current = false;
 			setCartLoaded(true);
 		}
+
+		return () => {
+			cancelled = true;
+			unsubscribeRef.current?.();
+			unsubscribeRef.current = null;
+		};
 	}, [user, authLoading]);
 
 	useEffect(() => {
 		if (!cartLoaded) return;
 		if (isSyncing.current) return;
 		if (user) {
-			const ref = doc(db, "users", user.uid, "cart", "items");
-			setDoc(ref, { items: cartItems });
+			(async () => {
+				const [{ doc, setDoc }, db] = await Promise.all([
+					import("firebase/firestore"),
+					getDb(),
+				]);
+				const ref = doc(db, "users", user.uid, "cart", "items");
+				setDoc(ref, { items: cartItems });
+			})();
 		} else {
 			localStorage.setItem("tt_cart", JSON.stringify(cartItems));
 		}

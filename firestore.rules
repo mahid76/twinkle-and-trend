@@ -1,0 +1,40 @@
+rules_version = '2';
+
+// ─────────────────────────────────────────────────────────────────
+// Deploy this with: firebase deploy --only firestore:rules
+// (needs firebase.json pointing to this file — see firebase.json)
+//
+// WHY THIS FILE MATTERS:
+// CartContext / WishlistContext write directly to
+// users/{uid}/cart/items and users/{uid}/wishlist/{productId}
+// from the client. Without rules like these, Firestore's default
+// (or an overly loose custom rule) can let ANY authenticated user
+// read or overwrite ANY OTHER user's cart/wishlist — since nothing
+// in the client code itself enforces that boundary, only rules can.
+// ─────────────────────────────────────────────────────────────────
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /users/{userId} {
+      // A user can only read/write their own profile doc (if any).
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      match /cart/{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      match /wishlist/{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // Deny everything else by default — safest posture for any
+    // collection not explicitly allowed above (e.g. future
+    // "orders" or "products" collections should get their own
+    // explicit rules, never inherit this open-by-default).
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
