@@ -19,8 +19,10 @@ const Register = () => {
 		setError("");
 		if (password !== confirmPassword)
 			return setError("Password দুটো মিলছে না!");
-		if (password.length < 6)
-			return setError("Password কমপক্ষে ৬ character হতে হবে!");
+		if (password.length < 8)
+			return setError("Password কমপক্ষে ৮ character হতে হবে!");
+		if (!/[a-zA-Z]/.test(password) || !/[0-9]/.test(password))
+			return setError("Password এ কমপক্ষে একটি letter ও একটি number থাকতে হবে!");
 		setLoading(true);
 		try {
 			await register(email, password, name);
