@@ -13,7 +13,6 @@
 // → works with signInWithPopup, email/password, everything
 
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
 import {
 	initializeAuth,
 	indexedDBLocalPersistence,
@@ -30,7 +29,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
 
 // ✅ initializeAuth + indexedDBLocalPersistence = no iframe, no cross-origin roundtrip
 export const auth = initializeAuth(app, {
@@ -38,3 +36,19 @@ export const auth = initializeAuth(app, {
 });
 
 export const googleProvider = new GoogleAuthProvider();
+
+// ✅ PERF FIX: Firestore (firebase-firestore chunk, ~53KB gzip) is now
+// LAZY — it used to load eagerly for every single visitor via the old
+// `getFirestore(app)` call above, even guests who never touch
+// cart/wishlist sync. Now it only downloads the first time a
+// signed-in user actually needs it (see CartContext/WishlistContext,
+// which call getDb() only inside `if (user) { ... }`).
+let _dbPromise = null;
+export const getDb = () => {
+	if (!_dbPromise) {
+		_dbPromise = import("firebase/firestore").then(({ getFirestore }) =>
+			getFirestore(app),
+		);
+	}
+	return _dbPromise;
+};
