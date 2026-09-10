@@ -64,14 +64,14 @@ const routes = [
         path: "/wishlist",
         element: <ErrorBoundary><Suspense fallback={<PageLoader />}><Wishlist /></Suspense></ErrorBoundary>,
       },
-      {
-        path: "/login",
-        element: <ErrorBoundary><Suspense fallback={<PageLoader />}><Login /></Suspense></ErrorBoundary>,
-      },
-      {
-        path: "/register",
-        element: <ErrorBoundary><Suspense fallback={<PageLoader />}><Register /></Suspense></ErrorBoundary>,
-      },
+      // {
+      //   path: "/login",
+      //   element: <ErrorBoundary><Suspense fallback={<PageLoader />}><Login /></Suspense></ErrorBoundary>,
+      // },
+      // {
+      //   path: "/register",
+      //   element: <ErrorBoundary><Suspense fallback={<PageLoader />}><Register /></Suspense></ErrorBoundary>,
+      // },
     ],
   },
 ];

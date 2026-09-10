@@ -1,9 +1,8 @@
 // src/pages/Products/Products.jsx
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Container from "../../components/layout/Container";
 import { categories as navCategories } from "../../components/Navbar/Categories";
-import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
 import { getDiscountPercentage, products } from "../../data/products";
@@ -32,8 +31,6 @@ const Products = () => {
 	const itemsPerPage = 12;
 	const { addToCart } = useCart();
 	const { toggleWishlist, isInWishlist } = useWishlist();
-	const { user } = useAuth();
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		const timer = setTimeout(() => setLoading(false), 600);
@@ -104,10 +101,6 @@ const Products = () => {
 
 	const handleWishlist = (e, product) => {
 		e.preventDefault();
-		if (!user) {
-			navigate("/login");
-			return;
-		}
 		toggleWishlist(product);
 	};
 

@@ -1,8 +1,7 @@
 // src/pages/Offers/OffersPage.jsx
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Container from "../../components/layout/Container";
-import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
 import { getDiscountPercentage, products } from "../../data/products";
@@ -16,8 +15,6 @@ const OffersPage = () => {
 	const itemsPerPage = 12;
 	const { addToCart } = useCart();
 	const { toggleWishlist, isInWishlist } = useWishlist();
-	const { user } = useAuth();
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		const offers = products.filter(
@@ -52,10 +49,6 @@ const OffersPage = () => {
 
 	const handleWishlist = (e, product) => {
 		e.preventDefault();
-		if (!user) {
-			navigate("/login");
-			return;
-		}
 		toggleWishlist(product);
 	};
 

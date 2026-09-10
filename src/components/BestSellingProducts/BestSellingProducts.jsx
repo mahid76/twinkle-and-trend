@@ -5,8 +5,7 @@
 // ✅ Mobile: 2 cards per view
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
 import { getBestSellers } from "../../data/products";
@@ -37,8 +36,6 @@ const BestSellingProducts = () => {
 
 	const { addToCart } = useCart();
 	const { toggleWishlist, isInWishlist } = useWishlist();
-	const { user } = useAuth();
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		const mqs = [
@@ -110,10 +107,6 @@ const BestSellingProducts = () => {
 
 	const handleWishlist = (e, product) => {
 		e.preventDefault();
-		if (!user) {
-			navigate("/login");
-			return;
-		}
 		toggleWishlist(product);
 	};
 
