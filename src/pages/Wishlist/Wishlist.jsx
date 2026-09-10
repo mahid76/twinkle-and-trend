@@ -1,7 +1,6 @@
 // src/pages/Wishlist/Wishlist.jsx
 import { Link } from "react-router-dom";
 import Container from "../../components/layout/Container";
-import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
 import { clImg, clSrcSet } from "../../utils/cloudinaryImage";
@@ -9,41 +8,6 @@ import { clImg, clSrcSet } from "../../utils/cloudinaryImage";
 const Wishlist = () => {
 	const { wishlistItems, removeFromWishlist } = useWishlist();
 	const { addToCart } = useCart();
-	const { user, authLoading } = useAuth();
-
-	// ✅ auth load হওয়ার আগে redirect/login message দেখাবে না
-	if (authLoading) {
-		return (
-			<div
-				className="flex items-center justify-center min-h-[60vh]"
-				role="status"
-			>
-				<div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#C2185B]" />
-			</div>
-		);
-	}
-
-	if (!user) {
-		return (
-			<Container>
-				<div className="py-16 text-center">
-					<div className="text-6xl mb-4">🤍</div>
-					<h2 className="text-2xl font-bold text-gray-800 mb-2">
-						Wishlist দেখতে Login করুন
-					</h2>
-					<p className="text-gray-500 mb-6">
-						পছন্দের products save করতে account লাগবে।
-					</p>
-					<Link
-						to="/login"
-						className="bg-[#C2185B] text-white px-6 py-3 rounded-xl hover:bg-[#A01645] transition-colors inline-block font-semibold"
-					>
-						Login করুন
-					</Link>
-				</div>
-			</Container>
-		);
-	}
 
 	if (wishlistItems.length === 0) {
 		return (
