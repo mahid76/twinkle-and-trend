@@ -1,12 +1,10 @@
 // src/components/ProductsHome/ProductsHome.jsx
 import { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import Container from "../layout/Container";
 import ProductCard from "../ui/ProductCard";
 import { products } from "../../data/products";
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
-import { useAuth } from "../../context/AuthContext";
 
 export const CATEGORY_LABELS = {
   catBag:              "Cat Bag",
@@ -21,8 +19,6 @@ const ProductsHome = () => {
   const [addedMap, setAddedMap]         = useState({});
   const { addToCart }                   = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
-  const { user }                        = useAuth();
-  const navigate                        = useNavigate();
 
   const visibleProducts = products.slice(0, visibleCount);
 
@@ -33,9 +29,8 @@ const ProductsHome = () => {
   }, [addToCart]);
 
   const handleWishlist = useCallback((product) => {
-    if (!user) { navigate("/login"); return; }
     toggleWishlist(product);
-  }, [user, navigate, toggleWishlist]);
+  }, [toggleWishlist]);
 
   return (
     <Container>

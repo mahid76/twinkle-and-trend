@@ -1,13 +1,7 @@
 // src/pages/ProductDetail/ProductDetail.jsx
 import { useEffect, useRef, useState } from "react";
-import {
-	Link,
-	useNavigate,
-	useParams,
-	useSearchParams,
-} from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import Container from "../../components/layout/Container";
-import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
 import { getDiscountPercentage, getProductById } from "../../data/products";
@@ -305,7 +299,6 @@ const VariantSwatch = ({ variant, isSelected, onClick }) => {
 const ProductDetail = () => {
 	const { id } = useParams();
 	const [searchParams] = useSearchParams();
-	const navigate = useNavigate();
 
 	// ✅ FIX: loading state সরানো হয়েছে
 	// getProductById → synchronous (local data) → কোনো async নেই
@@ -323,7 +316,6 @@ const ProductDetail = () => {
 
 	const { addToCart } = useCart();
 	const { toggleWishlist, isInWishlist } = useWishlist();
-	const { user } = useAuth();
 
 	// ✅ Synchronous lookup — no async, no loading state
 	useEffect(() => {
@@ -428,10 +420,6 @@ const ProductDetail = () => {
 			return n >= 1 && n <= activeStock ? n : p;
 		});
 	const handleWishlist = () => {
-		if (!user) {
-			navigate("/login");
-			return;
-		}
 		toggleWishlist(product);
 	};
 
