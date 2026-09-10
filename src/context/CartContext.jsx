@@ -1,105 +1,30 @@
-import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { getDb } from "../config/firebase";
-import { useAuth } from "./AuthContext";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const CartContext = createContext();
 
-// ✅ PERF FIX: "firebase/firestore" is imported dynamically (not at
-// module top level) so guests never download that ~53KB gzip chunk —
-// it's fetched only inside the `if (user)` branches below, i.e. only
-// for signed-in users who actually need cart sync.
 export const CartProvider = ({ children }) => {
-	const { user, authLoading } = useAuth();
 	const [cartItems, setCartItems] = useState([]);
-	const [cartLoaded, setCartLoaded] = useState(false);
-	const isSyncing = useRef(false);
-	const unsubscribeRef = useRef(null);
 
 	useEffect(() => {
-		if (authLoading) return;
-		setCartLoaded(false);
-		isSyncing.current = true;
-		let cancelled = false;
-
-		if (user) {
-			(async () => {
-				const [{ doc, onSnapshot, setDoc }, db] = await Promise.all([
-					import("firebase/firestore"),
-					getDb(),
-				]);
-				if (cancelled) return;
-
-				const ref = doc(db, "users", user.uid, "cart", "items");
-				const unsubscribe = onSnapshot(ref, (snap) => {
-					if (snap.exists()) {
-						setCartItems(snap.data().items || []);
-					} else {
-						try {
-							const local = localStorage.getItem("tt_cart");
-							if (local) {
-								const parsed = JSON.parse(local);
-								setCartItems(parsed);
-								setDoc(ref, { items: parsed });
-								localStorage.removeItem("tt_cart");
-							} else {
-								setCartItems([]);
-							}
-						} catch {
-							setCartItems([]);
-						}
-					}
-					isSyncing.current = false;
-					setCartLoaded(true);
-				});
-				unsubscribeRef.current = unsubscribe;
-			})();
-		} else {
-			try {
-				const saved = localStorage.getItem("tt_cart");
-				setCartItems(saved ? JSON.parse(saved) : []);
-			} catch {
-				setCartItems([]);
-			}
-			isSyncing.current = false;
-			setCartLoaded(true);
+		try {
+			const saved = localStorage.getItem("tt_cart");
+			setCartItems(saved ? JSON.parse(saved) : []);
+		} catch {
+			setCartItems([]);
 		}
-
-		return () => {
-			cancelled = true;
-			unsubscribeRef.current?.();
-			unsubscribeRef.current = null;
-		};
-	}, [user, authLoading]);
+	}, []);
 
 	useEffect(() => {
-		if (!cartLoaded) return;
-		if (isSyncing.current) return;
-		if (user) {
-			(async () => {
-				const [{ doc, setDoc }, db] = await Promise.all([
-					import("firebase/firestore"),
-					getDb(),
-				]);
-				const ref = doc(db, "users", user.uid, "cart", "items");
-				setDoc(ref, { items: cartItems });
-			})();
-		} else {
-			localStorage.setItem("tt_cart", JSON.stringify(cartItems));
-		}
-	}, [cartItems, user, cartLoaded]);
+		localStorage.setItem("tt_cart", JSON.stringify(cartItems));
+	}, [cartItems]);
 
-	// ✅ size parameter যোগ হয়েছে
-	// cartId এ size.label যোগ হয় → same product different size = আলাদা cart item
 	const addToCart = (product, variant = null, quantity = 1, size = null) => {
-		// cartId এ size include করা হচ্ছে
 		const colorPart = variant?.color ? `-${variant.color}` : "";
 		const sizePart = size?.label ? `-${size.label}` : "";
 		const cartId = `${product.id}${colorPart}${sizePart}`;
 
 		setCartItems((prev) => {
 			const existing = prev.find((item) => item.cartId === cartId);
-
-			// ✅ Size এর stock ব্যবহার করো, না থাকলে variant/product stock
 			const maxStock = size?.stock ?? variant?.stock ?? product.stock;
 
 			if (existing) {
@@ -113,7 +38,6 @@ export const CartProvider = ({ children }) => {
 				);
 			}
 
-			// ✅ Base price (variant বা product)
 			const basePrice =
 				variant?.offerPrice && variant.offerPrice < variant.price
 					? variant.offerPrice
@@ -129,14 +53,11 @@ export const CartProvider = ({ children }) => {
 						? product.price
 						: null;
 
-			// ✅ Size এর extraPrice যোগ হবে
 			const extraPrice = size?.extraPrice || 0;
 			const price = basePrice + extraPrice;
 			const originalPrice = baseOriginalPrice
 				? baseOriginalPrice + extraPrice
 				: null;
-
-			// ✅ displayName — variant.name থাকলে সেটা, না হলে product.name
 			const displayName = variant?.name || product.name;
 
 			return [
@@ -148,7 +69,7 @@ export const CartProvider = ({ children }) => {
 					image: variant?.images?.[0] ?? product.image,
 					color: variant?.color ?? null,
 					colorHex: variant?.colorHex ?? null,
-					size: size?.label ?? null, // ✅ size label store
+					size: size?.label ?? null,
 					price,
 					originalPrice,
 					stock: maxStock,
